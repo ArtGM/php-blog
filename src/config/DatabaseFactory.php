@@ -1,5 +1,5 @@
 <?php
-require '../../vendor/autoload.php';
+// namespace Blog\src\config;
 require('config.php');
 
 class DatabaseFactory

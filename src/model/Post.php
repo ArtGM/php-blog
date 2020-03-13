@@ -1,4 +1,5 @@
 <?php
+// namespace Blog\src\model;
 
 class Post
 {

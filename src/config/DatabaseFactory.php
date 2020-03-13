@@ -1,6 +1,6 @@
 <?php
-// namespace Blog\src\config;
-require('config.php');
+namespace Blog\src\config;
+use PDO;
 
 class DatabaseFactory
 {

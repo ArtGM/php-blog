@@ -1,5 +1,6 @@
 <?php
-// namespace Blog\src\model;
+
+namespace Blog\src\model;
 
 class Post
 {
@@ -7,8 +8,11 @@ class Post
     private $title;
     private $content;
     private $status;
-    private $created_at;
-    private $updated_at;
+    private $createdAt;
+    private $updatedAt;
+    private $postType;
+    private $userId;
+    private $userRolesId;
 
     /**
      * Post constructor.
@@ -27,8 +31,8 @@ class Post
     private function hydrate(array $data)
     {
         foreach ($data as $attr => $val) {
-            $setMethod = 'set'.ucfirst($attr);
-            if (is_callable($setMethod)) {
+            $setMethod = 'set' . ucfirst($attr);
+            if (is_callable($setMethod, true)) {
                 $this->$setMethod($val);
             }
         }
@@ -103,15 +107,15 @@ class Post
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
-     * @param mixed $created_at
+     * @param mixed $createdAt
      */
-    public function setCreatedAt($created_at): void
+    public function setCreated_at($createdAt): void
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -119,14 +123,63 @@ class Post
      */
     public function getUpdatedAt()
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
-     * @param mixed $updated_at
+     * @param mixed $updatedAt
      */
-    public function setUpdatedAt($updated_at): void
+    public function setUpdated_at($updatedAt): void
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPostType()
+    {
+        return $this->postType;
+    }
+
+    /**
+     * @param mixed $postType
+     */
+    public function setPost_type($postType): void
+    {
+        $this->postType = $postType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param mixed $userId
+     */
+    public function setUser_id($userId): void
+    {
+        $this->userId = $userId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserRolesId()
+    {
+        return $this->userRolesId;
+    }
+
+    /**
+     * @param mixed $userRolesId
+     */
+    public function setUser_roles_id($userRolesId): void
+    {
+        $this->userRolesId = $userRolesId;
+    }
+
 }

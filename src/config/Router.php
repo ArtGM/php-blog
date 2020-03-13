@@ -1,14 +1,14 @@
 <?php
-// namespace Blog\src\config;
-
+namespace Blog\src\config;
+use Blog\src\controller\FrontController;
+use Blog\src\controller\PostController;
+use Blog\src\controller\AdminController;
 class Router
 {
 
     public function run()
     {
         $route = $_SERVER['REQUEST_URI'] ?? 404;
-
-        var_dump($route);
         switch ($route) {
             case '/blog':
                 $post = new PostController();

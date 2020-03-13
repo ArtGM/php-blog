@@ -1,14 +1,11 @@
 <?php
-
+require '../src/config/config.php';
 require '../vendor/autoload.php';
-require '../src/config/Router.php';
-require '../src/controller/FrontController.php';
-require '../src/controller/AdminController.php';
-require '../src/controller/PostController.php';
-require '../src/model/Post.php';
+use Blog\src\config\Router;
+use Twig\Environment;
 
 $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__). '/src/view');
-$twig = new \Twig\Environment($loader, [
+$twig = new Environment($loader, [
     'cache' => 'false',
 ]);
 

@@ -1,6 +1,6 @@
 <?php
 
-// namespace Blog\src\controller;
+namespace Blog\src\controller;
 
 class FrontController
 {

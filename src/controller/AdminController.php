@@ -1,5 +1,5 @@
 <?php
-
+namespace Blog\src\controller;
 
 class AdminController
 {

@@ -1,6 +1,19 @@
 {
+  "name": "ArtMG/PHP-Blog",
+  "authors": [
+    {
+      "name": "ArtMG",
+      "email": "dev@arthurmorisson.fr"
+    }
+  ],
     "require": {
         "twig/twig": "^3.0",
       "ext-pdo": "*"
-    }
+    },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0"
+  },
+  "autoload": {
+    "psr-4": {"Blog\\src\\": "src/"}
+  }
 }

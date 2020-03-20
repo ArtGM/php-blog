@@ -12,7 +12,7 @@ class Router
         switch ($route) {
             case '/blog':
                 $post = new PostController();
-                $post->getPosts();
+                $post->displayPosts();
                 break;
             case '/admin':
                 $admin = new AdminController();

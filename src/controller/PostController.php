@@ -2,19 +2,22 @@
 
 
 namespace Blog\src\controller;
-use Blog\src\config\DatabaseFactory;
-use PDO;
-use Blog\src\model\Post;
 
-class PostController
+use Blog\src\model\Post;
+use PDO;
+
+class PostController extends Controller
 {
     public function getPosts()
     {
-        $db = new DatabaseFactory();
-        $fetch_posts = $db->dbConnect()->prepare('SELECT * FROM post');
+        $fetch_posts = $this->db->prepare('SELECT * FROM post');
         $fetch_posts->execute();
-        $posts = $fetch_posts->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($posts as $post) {
+        return $fetch_posts->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function displayPosts()
+    {
+        foreach ($this->getPosts() as $post) {
             $instance = new Post($post);
             echo '<h2>' . $instance->getTitle() . '</h2>';
             echo '<time>'. $instance->getCreatedAt() .'</time>';

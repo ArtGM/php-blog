@@ -3,14 +3,26 @@
 namespace Blog\src\controller;
 
 use Blog\src\config\DatabaseFactory;
+use Blog\src\model\Post;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 
 abstract class Controller
 {
-    protected $database;
+    protected $db;
+    protected $post;
+    protected $loader;
 
     public function __construct()
     {
-        $database = new DatabaseFactory();
-        return $this;
+        $db = new DatabaseFactory();
+        $this->db = $db->dbConnect();
+        $this->post = new Post();
+        $this->loader = new ArrayLoader();
     }
+
+    function makeSlug($post) {
+        $slug = new Slug();
+    }
+
 }

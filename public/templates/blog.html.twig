@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-   <h1>List des articles</h1>
-{{ dump(array) }}
+   <h1>Liste des articles</h1>
+ {% for post in posts %}
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+
+{% endfor %}
 {% endblock %}

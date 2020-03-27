@@ -16,7 +16,7 @@ class PostController extends Controller
     public function displayPosts()
     {
         $posts = $this->getPosts();
-        var_dump($posts);
-        echo $this->twig->render('blog.html.twig', $posts);
+
+        echo $this->twig->render('blog.html.twig', ['posts' => $posts]);
     }
 }

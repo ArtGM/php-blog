@@ -2,8 +2,6 @@
 
 
 namespace Blog\src\controller;
-
-use Blog\src\model\Post;
 use PDO;
 
 class PostController extends Controller
@@ -12,16 +10,13 @@ class PostController extends Controller
     {
         $fetch_posts = $this->db->prepare('SELECT * FROM post');
         $fetch_posts->execute();
-        return $fetch_posts->fetchAll(PDO::FETCH_ASSOC);
+        return $fetch_posts->fetchAll(PDO::FETCH_CLASS, 'Blog\src\model\Post');
     }
 
     public function displayPosts()
     {
-        foreach ($this->getPosts() as $post) {
-            $instance = new Post($post);
-            echo '<h2>' . $instance->getTitle() . '</h2>';
-            echo '<time>'. $instance->getCreatedAt() .'</time>';
-            echo '<p>' . $instance->getContent() .'</p>';
-        }
+        $posts = $this->getPosts();
+        var_dump($posts);
+        echo $this->twig->render('blog.html.twig', $posts);
     }
 }

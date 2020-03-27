@@ -2,10 +2,10 @@
 
 namespace Blog\src\controller;
 
-class FrontController
+class FrontController extends Controller
 {
     public function homePage()
     {
-        echo 'Hello World';
+        echo $this->twig->render('base.html.twig');
     }
 }

@@ -2,6 +2,7 @@
 
 
 namespace Blog\src\controller;
+use Blog\src\tools\Slug;
 use PDO;
 
 class PostController extends Controller
@@ -19,4 +20,5 @@ class PostController extends Controller
 
         echo $this->twig->render('blog.html.twig', ['posts' => $posts]);
     }
+
 }

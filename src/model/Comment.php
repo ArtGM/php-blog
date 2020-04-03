@@ -3,6 +3,8 @@
 
 namespace Blog\src\model;
 
-class PostManager
+
+class Comment
 {
+
 }

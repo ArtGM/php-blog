@@ -1,26 +1,36 @@
 <?php
 namespace Blog\src\config;
+
 use Blog\src\controller\FrontController;
 use Blog\src\controller\PostController;
 use Blog\src\controller\AdminController;
+
 class Router
 {
-
     public function run()
     {
-        $route = $_SERVER['REQUEST_URI'] ?? 404;
-        switch ($route) {
-            case '/blog':
+        $request = $_SERVER['PHP_SELF'] ?? 404;
+        $url = explode('/', $request);
+        $route = array_slice($url, array_key_last($url));
+        var_dump($route);
+        switch ($route[0]) {
+            case 'index.php':
+                $home = new FrontController();
+                $home->homePage();
+                break;
+            case 'blog':
                 $post = new PostController();
                 $post->displayPosts();
                 break;
-            case '/admin':
+            case 'admin':
                 $admin = new AdminController();
                 $admin->runDashboard();
                 break;
-            default:
-                $home = new FrontController();
-                $home->homePage();
+            case (preg_match('/^[0-9]{1,3}-[a-zA-Z]*/', $route[0]) ? true : false):
+                $post = new PostController();
+                preg_match('/^[0-9]{1,3}/', $route[0], $id);
+                $post_id = $id[0];
+                $post->displaySinglePost($post_id);
         }
     }
 }

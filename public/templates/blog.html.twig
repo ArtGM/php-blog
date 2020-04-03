@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-   <h1>List des articles</h1>
-{{ dump(array) }}
+    <h1>Liste des articles</h1>
+    <ul>
+        {% for post in posts %}
+            <li><a href="/{{ post.id }}-{{ post.Slug() }}"><h2>{{ post.title }}</h2></a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}

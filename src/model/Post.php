@@ -2,6 +2,8 @@
 
 namespace Blog\src\model;
 
+use Blog\src\tools\Slug;
+
 class Post
 {
     private $id;
@@ -13,6 +15,8 @@ class Post
     private $postType;
     private $userId;
     private $userRolesId;
+
+    public $slug;
 
     /**
      * Post constructor.
@@ -36,6 +40,12 @@ class Post
                 $this->$setMethod($val);
             }
         }
+    }
+
+    public function getSlug()
+    {
+        $slugify = new Slug();
+        return $slugify->generate($this->title);
     }
 
     /**
@@ -181,5 +191,4 @@ class Post
     {
         $this->userRolesId = $userRolesId;
     }
-
 }

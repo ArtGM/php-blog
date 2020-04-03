@@ -7,6 +7,10 @@ use PDO;
 
 class PostController extends Controller
 {
+    /**
+     * @param null $id
+     * @return array
+     */
     public function getPosts($id = null)
     {
         if (is_null($id)) {
@@ -14,17 +18,27 @@ class PostController extends Controller
         } else {
             $fetch_posts = $this->db->prepare("SELECT * FROM post WHERE id = '".$id."'");
         }
-        var_dump($fetch_posts);
         $fetch_posts->execute();
         return $fetch_posts->fetchAll(PDO::FETCH_CLASS, 'Blog\src\model\Post');
     }
 
+    /**
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     public function displayPosts()
     {
         $posts = $this->getPosts();
         echo $this->twig->render('blog.html.twig', ['posts' => $posts]);
     }
 
+    /**
+     * @param $id
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     public function displaySinglePost($id)
     {
         $single = $this->getPosts($id);

@@ -3,6 +3,7 @@
 namespace Blog\src\controller;
 use Blog\src\config\DatabaseFactory;
 use Twig\Extension\DebugExtension;
+use PDO;
 
 abstract class Controller
 {

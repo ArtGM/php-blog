@@ -1,6 +1,11 @@
-{% extends 'single.html.twig' %}
-<ul>
 {% block comment %}
-<p>{{ comment.author }}</p>
-{% endblock %}
+    <h2>Commentaires :</h2>
+<ul>
+    {% for comment in comments  %}
+    <li>
+        <p>{{ comment.content }}</p>
+        <p>User ID: <strong>{{ comment.user_id }}</strong></p>
+    </li>
+    {% endfor %}
 </ul>
+{% endblock %}

@@ -2,7 +2,7 @@
 
 
 namespace Blog\src\controller;
-
+use Blog\src\model\User;
 use PDO;
 
 class CommentController extends Controller
@@ -27,6 +27,11 @@ class CommentController extends Controller
     public function displayPostComments($id)
     {
         $comments = $this->getPostComment($id);
+        var_dump($comments);
+        foreach ($comments as $comment) {
+            $user = new User(['id' => $comment->user_id]);
+        var_dump($user);
+        }
         echo $this->twig->render('comment.html.twig', ['comments' => $comments]);
     }
 }

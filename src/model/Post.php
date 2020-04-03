@@ -4,9 +4,8 @@ namespace Blog\src\model;
 
 use Blog\src\tools\Slug;
 
-class Post
+class Post extends Model
 {
-    private $id;
     private $title;
     private $content;
     private $status;
@@ -17,30 +16,6 @@ class Post
     private $userRolesId;
 
     public $slug;
-
-    /**
-     * Post constructor.
-     * @param array $data
-     */
-    public function __construct($data = [])
-    {
-        if (!empty($data)) {
-            $this->hydrate($data);
-        }
-    }
-
-    /**
-     * @param array $data
-     */
-    private function hydrate(array $data)
-    {
-        foreach ($data as $attr => $val) {
-            $setMethod = 'set' . ucfirst($attr);
-            if (is_callable($setMethod, true)) {
-                $this->$setMethod($val);
-            }
-        }
-    }
 
     public function getSlug()
     {

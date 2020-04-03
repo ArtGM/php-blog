@@ -13,8 +13,8 @@ class CommentController extends Controller
      */
     public function getPostComment($id)
     {
-        $fetch_comments = $this->db->prepare("SELECT * FROM post_comment WHERE comment_status_id = 2 AND post_id ='".$id."'");
-        $fetch_comments->execute();
+        $fetch_comments = $this->db->prepare("SELECT * FROM post_comment WHERE comment_status_id = 2 AND post_id =?");
+        $fetch_comments->execute([$id]);
         return $fetch_comments->fetchAll(PDO::FETCH_CLASS, 'Blog\src\model\Comment');
     }
 

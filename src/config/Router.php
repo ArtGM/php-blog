@@ -30,6 +30,7 @@ class Router
                 $post = new PostController();
                 preg_match('/^[0-9]{1,3}/', $route[0], $id);
                 $post_id = $id[0];
+                var_dump($post_id);
                 $post->displaySinglePost($post_id);
         }
     }

@@ -2,7 +2,7 @@
 
 
 namespace Blog\src\controller;
-use Blog\src\tools\Slug;
+
 use PDO;
 
 class PostController extends Controller
@@ -17,8 +17,14 @@ class PostController extends Controller
     public function displayPosts()
     {
         $posts = $this->getPosts();
-
         echo $this->twig->render('blog.html.twig', ['posts' => $posts]);
     }
 
+    public function displaySinglePost($id)
+    {
+        $fetch_posts = $this->db->prepare("SELECT * FROM post WHERE id = '".$id."'");
+        $fetch_posts->execute();
+        $single = $fetch_posts->fetchAll(PDO::FETCH_CLASS, 'Blog\src\model\Post');
+        echo $this->twig->render('single.html.twig', ['single' => $single[0]]);
+    }
 }

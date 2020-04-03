@@ -16,6 +16,8 @@ class Post
     private $userId;
     private $userRolesId;
 
+    public $slug;
+
     /**
      * Post constructor.
      * @param array $data
@@ -40,7 +42,7 @@ class Post
         }
     }
 
-    public function makeSlug()
+    public function getSlug()
     {
         $slugify = new Slug();
         return $slugify->generate($this->title);

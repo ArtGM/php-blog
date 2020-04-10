@@ -7,7 +7,7 @@ class Comment extends Model
 {
 
     private $content;
-    private $createdTime;
+    private $createTime;
     private $commentStatusId;
     private $userId;
     private $postId;
@@ -31,17 +31,17 @@ class Comment extends Model
     /**
      * @return mixed
      */
-    public function getCreatedTime()
+    public function getCreateTime()
     {
-        return $this->createdTime;
+        return $this->createTime;
     }
 
     /**
-     * @param mixed $createdTime
+     * @param mixed $createTime
      */
-    public function setCreatedTime($createdTime): void
+    public function setCreate_time($createTime): void
     {
-        $this->createdTime = $createdTime;
+        $this->createTime = $createTime;
     }
 
     /**
@@ -55,7 +55,7 @@ class Comment extends Model
     /**
      * @param mixed $commentStatusId
      */
-    public function setCommentStatusId($commentStatusId): void
+    public function setComment_status_id($commentStatusId): void
     {
         $this->commentStatusId = $commentStatusId;
     }
@@ -71,7 +71,7 @@ class Comment extends Model
     /**
      * @param mixed $userId
      */
-    public function setUserId($userId): void
+    public function setUser_id($userId): void
     {
         $this->userId = $userId;
     }
@@ -87,7 +87,7 @@ class Comment extends Model
     /**
      * @param mixed $postId
      */
-    public function setPostId($postId): void
+    public function setPost_id($postId): void
     {
         $this->postId = $postId;
     }

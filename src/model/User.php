@@ -23,7 +23,7 @@ class User extends Model
     /**
      * @param mixed $firstName
      */
-    public function setFirstName($firstName): void
+    public function setFirst_name($firstName): void
     {
         $this->firstName = $firstName;
     }
@@ -39,7 +39,7 @@ class User extends Model
     /**
      * @param mixed $lastName
      */
-    public function setLastName($lastName): void
+    public function setLast_name($lastName): void
     {
         $this->lastName = $lastName;
     }
@@ -87,7 +87,7 @@ class User extends Model
     /**
      * @param mixed $roleId
      */
-    public function setRoleId($roleId): void
+    public function setRole_id($roleId): void
     {
         $this->roleId = $roleId;
     }
@@ -103,7 +103,7 @@ class User extends Model
     /**
      * @param mixed $imageId
      */
-    public function setImageId($imageId): void
+    public function setImage_id($imageId): void
     {
         $this->imageId = $imageId;
     }

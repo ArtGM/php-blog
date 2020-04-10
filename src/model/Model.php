@@ -18,7 +18,7 @@ abstract class Model
     /**
      * @param array $data
      */
-    private function hydrate(array $data)
+    public function hydrate($data = [])
     {
         foreach ($data as $attr => $val) {
             $setMethod = 'set' . ucfirst($attr);

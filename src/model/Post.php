@@ -17,6 +17,18 @@ class Post extends Model
 
     public $slug;
 
+    protected function hydrate($data)
+    {
+        parent::hydrate($data);
+        $this->setTitle($data['title']);
+        $this->setContent($data['content']);
+        $this->setStatus($data['status']);
+        $this->setCreated_at($data['created_at']);
+        $this->setUpdated_at($data['updated_at']);
+        $this->setUser_id($data['user_id']);
+        $this->setUser_roles_id($data['user_roles_id']);
+    }
+
     public function getSlug()
     {
         $slugify = new Slug();

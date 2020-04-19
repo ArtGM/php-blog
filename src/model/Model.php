@@ -8,7 +8,7 @@ abstract class Model
      * Post constructor.
      * @param array $data
      */
-    public function __construct($data = [])
+    public function __construct($data)
     {
         if (!empty($data)) {
             $this->hydrate($data);
@@ -18,14 +18,15 @@ abstract class Model
     /**
      * @param array $data
      */
-    public function hydrate($data = [])
+    protected function hydrate($data)
     {
-        foreach ($data as $attr => $val) {
+        /*foreach ($data as $attr => $val) {
             $setMethod = 'set' . ucfirst($attr);
             if (is_callable($setMethod, true)) {
                 $this->$setMethod($val);
             }
-        }
+        }*/
+        $this->setId($data['id']);
     }
 
     /**

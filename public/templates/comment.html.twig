@@ -3,8 +3,9 @@
 <ul>
     {% for comment in comments  %}
     <li>
+        <time>le {{ comment.createTime }}</time>
         <p>{{ comment.content }}</p>
-        <p>User ID: <strong>{{ comment.user_id }}</strong></p>
+        <p>Pseudo: <strong>{{ comment.userName }}</strong></p>
     </li>
     {% endfor %}
 </ul>

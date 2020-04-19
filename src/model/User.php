@@ -87,7 +87,7 @@ class User extends Model
     /**
      * @param mixed $roleId
      */
-    public function setRole_id($roleId): void
+    public function setRoles_id($roleId): void
     {
         $this->roleId = $roleId;
     }

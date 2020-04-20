@@ -3,4 +3,6 @@
 {% block content %}
     <h1>{{ single.title }}</h1>
     <p>{{ single.content }}</p>
+    {% block comment %}{% endblock %}
+    {% block comment_form %}{% endblock %}
 {% endblock %}

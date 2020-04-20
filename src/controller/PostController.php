@@ -3,28 +3,37 @@
 
 namespace Blog\src\controller;
 
-use PDO;
+
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class PostController extends Controller
 {
-    public function getPosts()
-    {
-        $fetch_posts = $this->db->prepare('SELECT * FROM post');
-        $fetch_posts->execute();
-        return $fetch_posts->fetchAll(PDO::FETCH_CLASS, 'Blog\src\model\Post');
-    }
 
+
+    /**
+     * Display all posts
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     public function displayPosts()
     {
-        $posts = $this->getPosts();
+        $posts = $this->post->getPosts();
         echo $this->twig->render('blog.html.twig', ['posts' => $posts]);
     }
 
+    /**
+     * Display a single post by id
+     * @param $id
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     public function displaySinglePost($id)
     {
-        $fetch_posts = $this->db->prepare("SELECT * FROM post WHERE id = '".$id."'");
-        $fetch_posts->execute();
-        $single = $fetch_posts->fetchAll(PDO::FETCH_CLASS, 'Blog\src\model\Post');
+        $single[] = $this->post->getPosts($id);
         echo $this->twig->render('single.html.twig', ['single' => $single[0]]);
     }
 }

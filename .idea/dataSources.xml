@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" single-connection="true" uuid="f95b3dc3-e7a1-4bf4-b8de-86343693aa16">
+    <data-source source="LOCAL" name="phpblog@localhost" uuid="6a3c178f-7e85-4f63-a1d6-d5530ddf3aa5">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/phpblog</jdbc-url>
       <driver-properties>
         <property name="serverTimezone" value="Europe/Paris" />
       </driver-properties>

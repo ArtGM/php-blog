@@ -4,9 +4,8 @@ namespace Blog\src\model;
 
 use Blog\src\tools\Slug;
 
-class Post
+class Post extends Model
 {
-    private $id;
     private $title;
     private $content;
     private $status;
@@ -18,50 +17,22 @@ class Post
 
     public $slug;
 
-    /**
-     * Post constructor.
-     * @param array $data
-     */
-    public function __construct($data = [])
+    protected function hydrate($data)
     {
-        if (!empty($data)) {
-            $this->hydrate($data);
-        }
-    }
-
-    /**
-     * @param array $data
-     */
-    private function hydrate(array $data)
-    {
-        foreach ($data as $attr => $val) {
-            $setMethod = 'set' . ucfirst($attr);
-            if (is_callable($setMethod, true)) {
-                $this->$setMethod($val);
-            }
-        }
+        parent::hydrate($data);
+        $this->setTitle($data['title']);
+        $this->setContent($data['content']);
+        $this->setStatus($data['status']);
+        $this->setCreated_at($data['created_at']);
+        $this->setUpdated_at($data['updated_at']);
+        $this->setUser_id($data['user_id']);
+        $this->setUser_roles_id($data['user_roles_id']);
     }
 
     public function getSlug()
     {
         $slugify = new Slug();
         return $slugify->generate($this->title);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
     }
 
     /**

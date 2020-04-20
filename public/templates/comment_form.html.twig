@@ -1,0 +1,9 @@
+{% block comment_form %}
+    <h2>Ajouter un commentaire:</h2>
+<form action="/confirm" method="post">
+    <label for="comment-content">Message</label><textarea name="message" id="comment-content" cols="30" rows="10"></textarea>
+    <input type="submit" value="Envoyer">
+    <input type="hidden" name="user_id" value="3">
+    <input type="hidden" name="post_id" value="{{ post.id }}">
+</form>
+{% endblock %}

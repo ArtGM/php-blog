@@ -22,4 +22,14 @@ class CommentManager extends Manager
         }
         return $all_comments;
     }
+
+    public function insertNewComment($newComment)
+    {
+        var_dump(array_values($newComment));
+        $newArray = extract(array_values($newComment));
+        var_dump($newArray);
+        $insert = $this->db->prepare("INSERT INTO post_comment (content, create_time, comment_status_id, user_id, post_id) VALUES (?, NOW(), 1, ?, ?)");
+        $insert->execute(array_values($newComment));
+    }
+
 }

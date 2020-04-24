@@ -21,6 +21,8 @@ class PostController extends Controller
     public function displayPosts()
     {
         $posts = $this->post->getPosts();
+        var_dump($posts);
+
         echo $this->twig->render('blog.html.twig', ['posts' => $posts]);
     }
 
@@ -33,7 +35,10 @@ class PostController extends Controller
      */
     public function displaySinglePost($id)
     {
+        $comment = new CommentController();
         $single[] = $this->post->getPosts($id);
         echo $this->twig->render('single.html.twig', ['single' => $single[0]]);
+        $comment->displayPostComments($id);
+        $comment->displayCommentForm($id);
     }
 }

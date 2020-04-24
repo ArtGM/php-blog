@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block dashboard %}
+    <ul>
+        <li><a href="/admin/gestion-articles">Gestion des Articles</a></li>
+        <li><a href="/admin/gestion-commentaires">Gestion des Commentaires</a></li>
+        <li><a href="/admin/gestion-utilisateur">Gestion des utilisateurs</a></li>
+    </ul>
+    {% block manage_post %}{% endblock %}
+{% endblock %}

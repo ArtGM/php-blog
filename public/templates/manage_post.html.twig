@@ -1,0 +1,13 @@
+{% block manage_post %}
+    <h4>Gestion des articles <a href="/admin/ajouter">
+            <button>Ajouter un article</button>
+        </a></h4>
+    <ul>
+        {% for post in list_posts %}
+            <li>{{ post.title }}
+                <button>Modifier</button>
+                <button>supprimer</button>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

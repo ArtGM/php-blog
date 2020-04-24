@@ -10,12 +10,16 @@
 </head>
 <body>
 <a href="/"><h1>HEADER</h1></a>
-<ul>
-    <li><a href="/blog">Blog</a></li>
-</ul>
-<ul>
-    <li><a href="/admin">Admin</a></li>
-</ul>
+{% block navigation %}
+    <ul>
+        <li><a href="/blog">Blog</a></li>
+    </ul>
+    <ul>
+        <li><a href="/admin">Admin</a></li>
+    </ul>
+{% endblock %}
+{% block dashboard %}{% endblock %}
+
 {% block content %}{% endblock %}
 <h1>footer</h1>
 </body>

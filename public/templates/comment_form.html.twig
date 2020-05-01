@@ -1,9 +1,36 @@
 {% block comment_form %}
     <h2>Ajouter un commentaire:</h2>
-<form action="/confirm" method="post">
-    <label for="comment-content">Message</label><textarea name="message" id="comment-content" cols="30" rows="10"></textarea>
-    <input type="submit" value="Envoyer">
-    <input type="hidden" name="user_id" value="3">
-    <input type="hidden" name="post_id" value="{{ post.id }}">
-</form>
+    <form id="comment-form">
+        <label for="comment-content">Message</label><textarea name="message" id="comment-content" cols="30"
+                                                              rows="10"></textarea>
+        <input type="submit" id="submit-comment" value="Envoyer">
+        <input id="user-id" type="hidden" name="user_id" value="3"> <!-- TODO: set ID of connected user  -->
+        <input id="post-id" type="hidden" name="post_id" value="{{ post.id }}">
+    </form>
+    <script>
+        window.addEventListener('load', function () {
+            function sendNewComment() {
+
+                const httpRequest = new XMLHttpRequest()
+                const commentForm = new FormData(form)
+
+                httpRequest.addEventListener('load', function (ev) {
+                    alert("Commentaire envoyé :)")
+                })
+                httpRequest.addEventListener("error", function (ev) {
+                    alert('Un problème est survenu :(')
+                })
+
+                httpRequest.open('POST', '/confirm')
+                httpRequest.send(commentForm)
+            }
+
+            const form = document.getElementById('comment-form')
+            form.onsubmit = function (ev) {
+                ev.preventDefault()
+                sendNewComment()
+            }
+        })
+
+    </script>
 {% endblock %}

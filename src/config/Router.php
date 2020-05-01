@@ -9,9 +9,7 @@ use Blog\src\controller\UserController;
 
 class Router
 {
-    // TODO: improve router matching
-    private $url;
-    private $routes = [];
+    // TODO: Test admin url
     private $admin;
     private $post;
     private $comment;
@@ -20,7 +18,6 @@ class Router
 
     public function __construct()
     {
-        //$this->url = $url;
         $this->admin = new AdminController();
         $this->post = new PostController();
         $this->comment = new CommentController();
@@ -28,44 +25,41 @@ class Router
         $this->home = new FrontController();
     }
 
-    public function get($path, $fn)
-    {
-        $route = new Route($path, $fn);
-        $this->routes['GET'][] = $route;
-    }
 
-    public function run()
+    /**
+     * @param $path
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function run($path)
     {
-        $request = $_SERVER['PHP_SELF'] ?? 404;
-        var_dump($request);
-        $url = explode('/', $request);
-        $route = array_slice($url, array_key_last($url));
-        //var_dump($_POST);
-        switch ($route[0]) {
-            case 'index.php':
+        $route = new Route($path);
+        switch ($route) {
+            case $route->match('/'):
                 $this->home->homePage();
                 break;
-            case 'blog':
+            case $route->match('/blog'):
                 $this->post->displayPosts();
                 break;
-            case 'admin':
+            case $route->match('/admin'):
                 $this->admin->runDashboard();
                 break;
-            case 'gestion-articles':
+            case $route->match('/admin/posts'):
                 $this->admin->listAllPost();
                 break;
-            case 'ajouter':
+            case $route->match('/admin/ajouter'):
                 $this->admin->addNewPostForm();
                 break;
-            case (preg_match('/^[0-9]{1,3}-[a-zA-Z]*/', $route[0]) ? true : false):
-                preg_match('/^[0-9]{1,3}/', $route[0], $id);
-                $post_id = $id[0];
+            case $route->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/:id-:slug'):
+                $post_id = $route->getRouteIdParam();
                 $this->post->displaySinglePost($post_id);
                 break;
             case 'confirm':
                 $this->comment->addComment($_POST);
                 break;
-
+            default:
+                header("HTTP/1.0 404 Not Found");
         }
     }
 }

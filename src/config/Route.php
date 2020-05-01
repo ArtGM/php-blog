@@ -6,42 +6,66 @@ namespace Blog\src\config;
 class Route
 {
     private $path;
-    private $fn;
-    private $matches = [];
     private $params = [];
+
     /**
      * Route constructor.
      * @param $path
-     * @param $fn
      */
-    public function __construct($path, $fn)
+    public function __construct($path)
     {
         $this->path = trim($path, '/');
-        $this->fn = $fn;
     }
 
     /**
+     * ADD PARAMETERS TO CHECK URL
+     * @param $param
+     * @param $regex
+     * @return $this
+     */
+    public function with($param, $regex)
+    {
+        $this->params[$param] = str_replace('(', '(?:', $regex);
+        return $this;
+    }
+
+    /**
+     * Test matching url
      * @param $url
      * @return bool
      */
     public function match($url)
     {
         $url = trim($url, '/');
-        $path = preg_replace('#:([\w]+)#', '([^/]+)', $this->path);
-        $regex = '#^$path$#i';
-        if (!preg_match($regex, $url, $matches)) {
+
+        $path = preg_replace_callback('/:([\w]+)/', [$this, 'matchingParams'], $url);
+        $last = explode('/', $path);
+        $regex = '/^' . end($last) . '$/i';
+        if (!preg_match($regex, $this->path)) {
             return false;
         }
-        array_shift($matches);
-        $this->matches = $matches;
         return true;
     }
 
     /**
-     * @return mixed
+     * Return the good regex to test
+     * @param $match
+     * @return mixed|string
      */
-    public function call()
+    private function matchingParams($match)
     {
-        return call_user_func($this->fn, $this->matches);
+        if (isset($this->params[$match[1]])) {
+            return $this->params[$match[1]];
+        }
+        return '([^/]+)';
+    }
+
+    /**
+     * return the id parameters
+     * @return false|string
+     */
+    public function getRouteIdParam()
+    {
+        return strstr($this->path, '-', true);
     }
 }

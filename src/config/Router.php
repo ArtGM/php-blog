@@ -9,7 +9,7 @@ use Blog\src\controller\UserController;
 
 class Router
 {
-    // TODO: Test admin url
+
     private $admin;
     private $post;
     private $comment;
@@ -45,17 +45,18 @@ class Router
             case $route->match('/admin'):
                 $this->admin->runDashboard();
                 break;
-            case $route->match('/admin/posts'):
+            case $route->with('admin', 'admin')->match('/:admin/gestion-articles'):
                 $this->admin->listAllPost();
                 break;
-            case $route->match('/admin/ajouter'):
+            case $route->with('admin', 'admin')->match('/admin/ajouter'):
                 $this->admin->addNewPostForm();
                 break;
             case $route->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/:id-:slug'):
                 $post_id = $route->getRouteIdParam();
                 $this->post->displaySinglePost($post_id);
                 break;
-            case 'confirm':
+            case $route->match('/newcomment'):
+                var_dump($_POST);
                 $this->comment->addComment($_POST);
                 break;
             default:

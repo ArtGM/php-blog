@@ -39,8 +39,14 @@ class Route
         $url = trim($url, '/');
 
         $path = preg_replace_callback('/:([\w]+)/', [$this, 'matchingParams'], $url);
-        $last = explode('/', $path);
-        $regex = '/^' . end($last) . '$/i';
+
+        $hash_path = explode('/', $path);
+
+        if (in_array('admin', $hash_path)) {
+            $path = preg_replace('/\//', '\/', $path);
+        }
+
+        $regex = '/^' . $path . '$/i';
         if (!preg_match($regex, $this->path)) {
             return false;
         }

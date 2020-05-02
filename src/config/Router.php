@@ -1,47 +1,66 @@
 <?php
 namespace Blog\src\config;
 
+use Blog\src\controller\AdminController;
 use Blog\src\controller\CommentController;
 use Blog\src\controller\FrontController;
 use Blog\src\controller\PostController;
-use Blog\src\controller\AdminController;
+use Blog\src\controller\UserController;
 
 class Router
 {
-    public function run()
-    {
-        $request = $_SERVER['PHP_SELF'] ?? 404;
-        var_dump($request);
-        $url = explode('/', $request);
-        $route = array_slice($url, array_key_last($url));
-        //var_dump($_POST);
-        switch ($route[0]) {
-            case 'index.php':
-                $home = new FrontController();
-                $home->homePage();
-                break;
-            case 'blog':
-                $post = new PostController();
-                $post->displayPosts();
-                break;
-            case 'admin':
-                $admin = new AdminController();
-                $admin->runDashboard();
-                break;
-            case (preg_match('/^[0-9]{1,3}-[a-zA-Z]*/', $route[0]) ? true : false):
-                $post = new PostController();
-                $comment = new CommentController();
-                preg_match('/^[0-9]{1,3}/', $route[0], $id);
-                $post_id = $id[0];
-                $post->displaySinglePost($post_id);
-                $comment->displayPostComments($post_id);
-                $comment->displayCommentForm($post_id);
-                break;
-            case 'confirm':
-                $comment = new CommentController();
-                $comment->addComment($_POST);
-                break;
 
+    private $admin;
+    private $post;
+    private $comment;
+    private $user;
+    private $home;
+
+    public function __construct()
+    {
+        $this->admin = new AdminController();
+        $this->post = new PostController();
+        $this->comment = new CommentController();
+        $this->user = new UserController();
+        $this->home = new FrontController();
+    }
+
+
+    /**
+     * @param $path
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function run($path)
+    {
+        $route = new Route($path);
+        switch ($route) {
+            case $route->match('/'):
+                $this->home->homePage();
+                break;
+            case $route->match('/blog'):
+                $this->post->displayPosts();
+                break;
+            case $route->match('/admin'):
+                $this->admin->runDashboard();
+                break;
+            case $route->with('admin', 'admin')->match('/:admin/gestion-articles'):
+                $this->admin->listAllPost();
+                break;
+            case $route->with('admin', 'admin')->match('/admin/ajouter'):
+                $this->admin->addNewPostForm();
+                break;
+            case $route->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/:id-:slug'):
+                $post_id = $route->getRouteIdParam();
+                $this->post->displaySinglePost($post_id);
+                break;
+            case $route->match('/newcomment'):
+                var_dump($_POST);
+                $this->comment->addComment($_POST);
+                break;
+            default:
+                header("HTTP/1.0 404 Not Found");
         }
     }
 }

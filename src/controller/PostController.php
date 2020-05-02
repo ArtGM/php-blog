@@ -21,6 +21,7 @@ class PostController extends Controller
     public function displayPosts()
     {
         $posts = $this->post->getPosts();
+
         echo $this->twig->render('blog.html.twig', ['posts' => $posts]);
     }
 
@@ -33,7 +34,14 @@ class PostController extends Controller
      */
     public function displaySinglePost($id)
     {
+        $comment = new CommentController();
         $single[] = $this->post->getPosts($id);
+        if (is_null($single[0]->getId())) {
+            header("HTTP/1.0 404 Not Found");
+            exit;
+        }
         echo $this->twig->render('single.html.twig', ['single' => $single[0]]);
+        $comment->displayPostComments($id);
+        $comment->displayCommentForm($id);
     }
 }

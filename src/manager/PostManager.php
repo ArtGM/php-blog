@@ -29,4 +29,6 @@ class PostManager extends Manager
             return new Post($fetch_posts->fetch($this->fetch_style));
         }
     }
+
+    //TODO: Create separate method to fetch post for admin
 }

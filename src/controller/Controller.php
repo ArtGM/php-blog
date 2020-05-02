@@ -1,13 +1,13 @@
 <?php
 
 namespace Blog\src\controller;
+
+use Blog\src\manager\CommentManager;
+use Blog\src\manager\PostManager;
+use Blog\src\manager\UserManager;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
-use Blog\src\manager\PostManager;
-use Blog\src\manager\CommentManager;
-use Blog\src\manager\UserManager;
 use Twig\Loader\FilesystemLoader;
-
 
 abstract class Controller
 {
@@ -25,6 +25,7 @@ abstract class Controller
         $this->twig = $this->twig();
         $this->twig->addExtension(new DebugExtension());
     }
+
     public function twig()
     {
         $loader = new FilesystemLoader('../public/templates/');
@@ -32,5 +33,10 @@ abstract class Controller
             // 'cache' => '/path/to/compilation_cache',
             'debug' => true,
         ]);
+    }
+
+    public function render($template, array $data = [])
+    {
+        echo $this->twig->render($template, $data);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Blog\src\config;
 
 use Blog\src\controller\AdminController;
@@ -16,6 +17,9 @@ class Router
     private $user;
     private $home;
 
+    /**
+     * Router constructor.
+     */
     public function __construct()
     {
         $this->admin = new AdminController();
@@ -58,6 +62,10 @@ class Router
             case $route->match('/newcomment'):
                 var_dump($_POST);
                 $this->comment->addComment($_POST);
+                break;
+            case $route->match('/newpost'):
+                var_dump($_POST);
+                $this->post->addNewPost($_POST);
                 break;
             default:
                 header("HTTP/1.0 404 Not Found");

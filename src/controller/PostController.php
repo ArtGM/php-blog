@@ -3,7 +3,6 @@
 
 namespace Blog\src\controller;
 
-
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -43,5 +42,12 @@ class PostController extends Controller
         echo $this->twig->render('single.html.twig', ['single' => $single[0]]);
         $comment->displayPostComments($id);
         $comment->displayCommentForm($id);
+    }
+
+    public function addNewPost($newPost)
+    {
+        if (!empty($newPost)) {
+            $this->post->insertNewPost($newPost);
+        }
     }
 }

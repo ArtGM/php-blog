@@ -30,5 +30,11 @@ class PostManager extends Manager
         }
     }
 
+    public function insertNewPost($newPost)
+    {
+        $insert = $this->db->prepare("INSERT INTO post (title, content, status, created_at, updated_at, post_type, user_id, user_roles_id) VALUES (?, ?, ?, NOW(), NOW(), 1, ?, ?)");
+        $insert->execute(array_values($newPost));
+
+    }
     //TODO: Create separate method to fetch post for admin
 }

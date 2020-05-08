@@ -10,7 +10,7 @@ class AdminController extends Controller
 
     public function listAllPost()
     {
-        $list_posts = $this->post->getPosts();
+        $list_posts = $this->post->getPosts(null, true);
         $this->render('manage_post.html.twig', ['list_posts' => $list_posts]);
     }
 

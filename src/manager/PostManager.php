@@ -7,12 +7,15 @@ class PostManager extends Manager
 {
     /**
      * @param null $id
+     * @param bool $is_admin
      * @return array|Post|string
      */
-    public function getPosts($id = null)
+    public function getPosts($id = null, $is_admin = false)
     {
+        $query = $is_admin ? 'SELECT * FROM post' : 'SELECT * FROM post WHERE status = 1';
+
         if (is_null($id)) {
-            $fetch_posts = $this->db->query('SELECT * FROM post WHERE status = 1');
+            $fetch_posts = $this->db->query($query);
             $array_all_posts = $fetch_posts->fetchAll($this->fetch_style);
             foreach ($array_all_posts as $post) {
                 $new_post = new Post($post);

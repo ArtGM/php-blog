@@ -1,5 +1,5 @@
 const Ajax = {
-    'add': function (data) {
+    add: function (data) {
         const httpRequest = new XMLHttpRequest()
         const formData = new FormData(data.form)
 
@@ -12,6 +12,9 @@ const Ajax = {
 
         httpRequest.open(data.method, data.url)
         httpRequest.send(formData)
+    },
+    delete: function () {
+        alert('TODO: Create delete function')
     }
 }
 

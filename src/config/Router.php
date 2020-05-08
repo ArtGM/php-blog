@@ -49,7 +49,7 @@ class Router
             case $route->match('/admin'):
                 $this->admin->runDashboard();
                 break;
-            case $route->with('admin', 'admin')->match('/:admin/gestion-articles'):
+            case $route->with('admin', 'admin')->match('/admin/gestion-articles'):
                 $this->admin->listAllPost();
                 break;
             case $route->with('admin', 'admin')->match('/admin/ajouter'):

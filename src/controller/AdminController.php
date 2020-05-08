@@ -14,8 +14,8 @@ class AdminController extends Controller
         $this->render('manage_post.html.twig', ['list_posts' => $list_posts]);
     }
 
-    public function addNewPostForm()
+    public function displayPostForm()
     {
-        $this->render('new_post.html.twig');
+        $this->render('post_form.html.twig');
     }
 }

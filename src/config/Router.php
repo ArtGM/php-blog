@@ -53,7 +53,7 @@ class Router
                 $this->admin->listAllPost();
                 break;
             case $route->with('admin', 'admin')->match('/admin/ajouter'):
-                $this->admin->addNewPostForm();
+                $this->admin->displayPostForm();
                 break;
             case $route->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/:id-:slug'):
                 $post_id = $route->getRouteIdParam();

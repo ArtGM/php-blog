@@ -12,7 +12,7 @@ class PostManager extends Manager
     public function getPosts($id = null)
     {
         if (is_null($id)) {
-            $fetch_posts = $this->db->query('SELECT * FROM post');
+            $fetch_posts = $this->db->query('SELECT * FROM post WHERE status = 1');
             $array_all_posts = $fetch_posts->fetchAll($this->fetch_style);
             foreach ($array_all_posts as $post) {
                 $new_post = new Post($post);

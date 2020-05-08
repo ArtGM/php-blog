@@ -1,6 +1,7 @@
-{% block comment_form %}
+{% extends 'base.html.twig' %}
+{% block post_form %}
     <h2>Nouvel Article</h2>
-    <form id="comment-form">
+    <form id="post-form">
         <div>
             <p></p><label for="post-title">Titre</label>
             <input type="text" id="post-title" name="post_title">
@@ -22,37 +23,5 @@
         <input id="user-id" type="hidden" name="user_id" value="3"> <!-- TODO: set ID of connected user  -->
         <input id="user-role" type="hidden" name="user_role" value="1">
     </form>
-    <script>
-        // TODO: Refactor Ajax function with add new comment and create external script file
-        window.onload = () => {
-            function addNewPost(data) {
-                const httpRequest = new XMLHttpRequest()
-                const formData = new FormData(data.form)
 
-                httpRequest.onerror = ev => {
-                    alert(data.fail)
-                }
-                httpRequest.onload = ev => {
-                    alert(data.success)
-                }
-
-                httpRequest.open(data.method, data.url)
-                httpRequest.send(formData)
-            }
-
-            const setting = {
-                form: document.getElementById('comment-form'),
-                fail: "un problème et survenu",
-                success: "Succés",
-                method: 'POST',
-                url: '/newpost'
-            }
-            console.log(setting)
-            setting.form.onsubmit = function (ev) {
-                ev.preventDefault()
-                addNewPost(setting)
-            }
-        }
-
-    </script>
 {% endblock %}

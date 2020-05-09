@@ -2,8 +2,17 @@ import Ajax from './ajax'
 // TODO: separate frontend and backend file
 window.onload = () => {
 
+    const doAction = function (data, callback) {
+        if (data.form) {
+            data.form.onsubmit = ev => {
+                ev.preventDefault()
+                callback(data)
+            }
+        }
+    }
+
     const newPost = {
-        form: document.getElementById('post-form'),
+        form: document.getElementById('create-post-form'),
         fail: "un problème et survenu",
         success: "Succés",
         method: 'POST',
@@ -18,17 +27,16 @@ window.onload = () => {
         url: '/newcomment'
     }
 
-    if (newComment.form) {
-        newComment.form.onsubmit = ev => {
-            ev.preventDefault()
-            Ajax.create(newComment)
-        }
+    const updatePost = {
+        form: document.getElementById('update-post-form'),
+        fail: "un problème et survenu :(",
+        success: "Article Mis à jour",
+        method: 'POST',
+        url: '/updatepost'
     }
 
-    if (newPost.form) {
-        newPost.form.onsubmit = ev => {
-            ev.preventDefault()
-            Ajax.create(newPost)
-        }
-    }
+    doAction(newPost, Ajax.create)
+    doAction(newComment, Ajax.create)
+    doAction(updatePost, Ajax.update)
+
 }

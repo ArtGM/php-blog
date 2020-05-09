@@ -18,4 +18,10 @@ class AdminController extends Controller
     {
         $this->render('post_form.html.twig');
     }
+
+    public function modifyPost($id)
+    {
+        $post_data = $this->post->getPosts($id, true);
+        $this->render('post_form.html.twig', ['post' => $post_data]);
+    }
 }

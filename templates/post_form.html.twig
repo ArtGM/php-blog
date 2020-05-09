@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block post_form %}
 
-    <form id="post-form">
+    <form id="{% if post is empty %}create{% else %}update{% endif %}-post-form">
         <div>
             <p></p><label for="post-title">Titre</label>
             <input type="text" id="post-title" name="post_title" value="{{ post.title }}">
@@ -20,8 +20,12 @@
             <label for="draft">Enregistrer comme Brouillon</label>
         </div>
         <input type="submit" id="submit-post" value="Enregistrer">
-        <input id="user-id" type="hidden" name="user_id" value="3"> <!-- TODO: set ID of connected user  -->
-        <input id="user-role" type="hidden" name="user_role" value="1">
+        {% if post is empty %}
+            <input id="user-id" type="hidden" name="user_id" value="3"> <!-- TODO: set the logged-in user id  -->
+            <input id="user-role" type="hidden" name="user_role" value="1">
+        {% else %}
+            <input id="post-id" type="hidden" name="id" value="{{ post.id }}">
+        {% endif %}
     </form>
 
 {% endblock %}

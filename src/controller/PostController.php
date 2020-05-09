@@ -35,7 +35,8 @@ class PostController extends Controller
     {
         $comment = new CommentController();
         $single[] = $this->post->getPosts($id);
-        if (is_null($single[0]->getId())) {
+
+        if (is_null($single[0]->getId())) { // return error 404 if post don't exist
             header("HTTP/1.0 404 Not Found");
             exit;
         }
@@ -48,6 +49,13 @@ class PostController extends Controller
     {
         if (!empty($newPost)) {
             $this->post->insertNewPost($newPost);
+        }
+    }
+
+    public function updatePost($update)
+    {
+        if (!empty($update)) {
+            $this->post->updatePost($update);
         }
     }
 }

@@ -61,16 +61,16 @@ class Router
                 break;
             case $route->with('admin', 'admin')->with('edit', 'edit')->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/admin/edit/:id-:slug'):
                 $post_id = $route->getRouteIdParam();
-                var_dump($post_id);
                 $this->admin->modifyPost($post_id);
                 break;
             case $route->match('/newcomment'):
-                var_dump($_POST);
                 $this->comment->addComment($_POST);
                 break;
             case $route->match('/newpost'):
-                var_dump($_POST);
                 $this->post->addNewPost($_POST);
+                break;
+            case $route->match('/updatepost'):
+                $this->post->updatePost($_POST);
                 break;
             default:
                 header("HTTP/1.0 404 Not Found");

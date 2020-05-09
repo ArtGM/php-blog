@@ -39,5 +39,13 @@ class PostManager extends Manager
         $insert->execute(array_values($newPost));
 
     }
-    //TODO: Create separate method to fetch post for admin
+
+    public function updatePost($update)
+    {
+        var_dump($update);
+        $insert = $this->db->prepare("UPDATE post SET title = ?, content = ?, status = ?, updated_at = NOW() WHERE id = ?");
+        $insert->execute(array_values($update));
+
+    }
+
 }

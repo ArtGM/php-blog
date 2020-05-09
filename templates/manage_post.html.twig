@@ -7,7 +7,9 @@
     <ul>
         {% for post in list_posts %}
             <li>{{ post.title }}
-                <button>Modifier</button>
+                <a href="/admin/edit/{{ post.id }}-{{ post.Slug() }}">
+                    <button>Modifier</button>
+                </a>
                 <button>supprimer</button>
             </li>
         {% endfor %}

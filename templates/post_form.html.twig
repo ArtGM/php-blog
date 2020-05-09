@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 {% block post_form %}
-    <h2>Nouvel Article</h2>
+
     <form id="post-form">
         <div>
             <p></p><label for="post-title">Titre</label>
-            <input type="text" id="post-title" name="post_title">
+            <input type="text" id="post-title" name="post_title" value="{{ post.title }}">
         </div>
         <div>
             <p><label for="content">Message</label></p>
-            <textarea name="content" id="content" cols="30" rows="10"></textarea>
+            <textarea name="content" id="content" cols="30" rows="10">{{ post.content }}</textarea>
         </div>
         <div>
-            <input type="radio" id="online" name="status" value="1">
+            <input type="radio" id="online" name="status" value="1" {% if post.status == 1 %}checked{% endif %}>
             <label for="online">Publier</label>
         </div>
 
         <div>
-            <input type="radio" id="draft" name="status" value="0" checked>
+            <input type="radio" id="draft" name="status" value="0" {% if post.status == 0 %}checked{% endif %}>
             <label for="draft">Enregistrer comme Brouillon</label>
         </div>
-        <input type="submit" id="submit-comment" value="Enregistrer">
+        <input type="submit" id="submit-post" value="Enregistrer">
         <input id="user-id" type="hidden" name="user_id" value="3"> <!-- TODO: set ID of connected user  -->
         <input id="user-role" type="hidden" name="user_role" value="1">
     </form>

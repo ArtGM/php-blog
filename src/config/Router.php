@@ -59,6 +59,11 @@ class Router
                 $post_id = $route->getRouteIdParam();
                 $this->post->displaySinglePost($post_id);
                 break;
+            case $route->with('admin', 'admin')->with('edit', 'edit')->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/admin/edit/:id-:slug'):
+                $post_id = $route->getRouteIdParam();
+                var_dump($post_id);
+                $this->admin->modifyPost($post_id);
+                break;
             case $route->match('/newcomment'):
                 var_dump($_POST);
                 $this->comment->addComment($_POST);

@@ -15,7 +15,7 @@ class Slug
         $string = preg_replace('#ð|ò|ó|ô|õ|ö#', 'o', $string);
         $string = preg_replace('#ù|ú|û|ü#', 'u', $string);
         $string = preg_replace('#ý|ÿ#', 'y', $string);
-        $string = preg_replace('#|_|:|,|\'|"#', '', $string);
+        $string = preg_replace('#|_|:|\.|,|\'|"#', '', $string);
         return $string;
     }
 }

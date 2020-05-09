@@ -72,6 +72,7 @@ class Route
      */
     public function getRouteIdParam()
     {
-        return strstr($this->path, '-', true);
+        preg_match_all('!\d+!', $this->path, $id);
+        return implode('', $id[0]);
     }
 }

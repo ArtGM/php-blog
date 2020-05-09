@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block post_form %}
+
+    <form id="{% if post is empty %}create{% else %}update{% endif %}-post-form">
+        <div>
+            <p></p><label for="post-title">Titre</label>
+            <input type="text" id="post-title" name="post_title" value="{{ post.title }}">
+        </div>
+        <div>
+            <p><label for="content">Message</label></p>
+            <textarea name="content" id="content" cols="30" rows="10">{{ post.content }}</textarea>
+        </div>
+        <div>
+            <input type="radio" id="online" name="status" value="1" {% if post.status == 1 %}checked{% endif %}>
+            <label for="online">Publier</label>
+        </div>
+
+        <div>
+            <input type="radio" id="draft" name="status" value="0" {% if post.status == 0 %}checked{% endif %}>
+            <label for="draft">Enregistrer comme Brouillon</label>
+        </div>
+        <input type="submit" id="submit-post" value="Enregistrer">
+        {% if post is empty %}
+            <input id="user-id" type="hidden" name="user_id" value="3"> <!-- TODO: set the logged-in user id  -->
+            <input id="user-role" type="hidden" name="user_role" value="1">
+        {% else %}
+            <input id="post-id" type="hidden" name="id" value="{{ post.id }}">
+        {% endif %}
+    </form>
+
+{% endblock %}

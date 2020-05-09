@@ -28,7 +28,7 @@ abstract class Controller
 
     public function twig()
     {
-        $loader = new FilesystemLoader('../public/templates/');
+        $loader = new FilesystemLoader('../templates/');
         return new Environment($loader, [
             // 'cache' => '/path/to/compilation_cache',
             'debug' => true,

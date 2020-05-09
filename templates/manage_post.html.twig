@@ -1,3 +1,5 @@
+{% extends 'base.html.twig' %}
+
 {% block manage_post %}
     <h4>Gestion des articles <a href="/admin/ajouter">
             <button>Ajouter un article</button>
@@ -5,7 +7,9 @@
     <ul>
         {% for post in list_posts %}
             <li>{{ post.title }}
-                <button>Modifier</button>
+                <a href="/admin/edit/{{ post.id }}-{{ post.Slug() }}">
+                    <button>Modifier</button>
+                </a>
                 <button>supprimer</button>
             </li>
         {% endfor %}

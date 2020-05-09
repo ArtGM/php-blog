@@ -10,12 +10,18 @@ class AdminController extends Controller
 
     public function listAllPost()
     {
-        $list_posts = $this->post->getPosts();
+        $list_posts = $this->post->getPosts(null, true);
         $this->render('manage_post.html.twig', ['list_posts' => $list_posts]);
     }
 
-    public function addNewPostForm()
+    public function displayPostForm()
     {
-        $this->render('new_post.html.twig');
+        $this->render('post_form.html.twig');
+    }
+
+    public function modifyPost($id)
+    {
+        $post_data = $this->post->getPosts($id, true);
+        $this->render('post_form.html.twig', ['post' => $post_data]);
     }
 }

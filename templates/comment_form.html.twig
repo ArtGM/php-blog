@@ -1,0 +1,10 @@
+{% block comment_form %}
+    <h2>Ajouter un commentaire:</h2>
+    <form id="comment-form">
+        <label for="comment-content">Message</label><textarea name="message" id="comment-content" cols="30"
+                                                              rows="10"></textarea>
+        <input type="submit" id="submit-comment" value="Envoyer">
+        <input id="user-id" type="hidden" name="user_id" value="3"> <!-- TODO: set ID of connected user  -->
+        <input id="post-id" type="hidden" name="post_id" value="{{ post.id }}">
+    </form>
+{% endblock %}

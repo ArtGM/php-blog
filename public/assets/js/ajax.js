@@ -1,13 +1,14 @@
 const Ajax = {
-    add: function (data) {
+    create: function (data) {
         const httpRequest = new XMLHttpRequest()
         const formData = new FormData(data.form)
 
-        httpRequest.onerror = ev => {
+        httpRequest.onerror = () => {
             alert(data.fail)
         }
-        httpRequest.onload = ev => {
+        httpRequest.onload = () => {
             alert(data.success)
+            data.form.reset()
         }
 
         httpRequest.open(data.method, data.url)

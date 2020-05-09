@@ -21,14 +21,14 @@ window.onload = () => {
     if (newComment.form) {
         newComment.form.onsubmit = ev => {
             ev.preventDefault()
-            Ajax.add(newComment)
+            Ajax.create(newComment)
         }
     }
 
     if (newPost.form) {
         newPost.form.onsubmit = ev => {
             ev.preventDefault()
-            Ajax.add(newPost)
+            Ajax.create(newPost)
         }
     }
 }

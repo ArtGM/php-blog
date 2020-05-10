@@ -68,13 +68,13 @@ class Router
                 $this->admin->modifyPost($post_id);
                 break;
             case $route->match('/newcomment'):
-                $this->comment->addComment($_POST);
+                $this->comment->addComment(filter_input_array(INPUT_POST));
                 break;
             case $route->match('/newpost'):
-                $this->post->addNewPost($_POST);
+                $this->post->addNewPost(filter_input_array(INPUT_POST));
                 break;
             case $route->match('/updatepost'):
-                $this->post->updatePost($_POST);
+                $this->post->updatePost(filter_input_array(INPUT_POST));
                 break;
             default:
                 header("HTTP/1.0 404 Not Found");

@@ -58,4 +58,10 @@ class PostController extends Controller
             $this->post->updatePost($update);
         }
     }
+
+    public function deletePost($id)
+    {
+        $this->post->deletePost($id);
+        header("location:/admin/gestion-articles");
+    }
 }

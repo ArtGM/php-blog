@@ -10,7 +10,9 @@
                 <a href="/admin/edit/{{ post.id }}-{{ post.Slug() }}">
                     <button>Modifier</button>
                 </a>
-                <button>supprimer</button>
+                <a class="delete-button" href="/admin/delete/{{ post.id }}">
+                    <button>supprimer</button>
+                </a>
             </li>
         {% endfor %}
     </ul>

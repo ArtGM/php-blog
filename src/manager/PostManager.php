@@ -1,6 +1,7 @@
 <?php
 
 namespace Blog\src\manager;
+
 use Blog\src\model\Post;
 
 class PostManager extends Manager
@@ -23,29 +24,31 @@ class PostManager extends Manager
             }
             if (!empty($all_posts)) {
                 return $all_posts;
-            } else {
-                echo 'Aucun article';
             }
-        } else {
-            $fetch_posts = $this->db->prepare("SELECT * FROM post WHERE id = ?");
-            $fetch_posts->execute([$id]);
-            return new Post($fetch_posts->fetch($this->fetch_style));
+            echo 'Aucun article';
         }
+        $fetch_posts = $this->db->prepare("SELECT * FROM post WHERE id = ?");
+        $fetch_posts->execute([$id]);
+        return new Post($fetch_posts->fetch($this->fetch_style));
     }
 
     public function insertNewPost($newPost)
     {
         $insert = $this->db->prepare("INSERT INTO post (title, content, status, created_at, updated_at, post_type, user_id, user_roles_id) VALUES (?, ?, ?, NOW(), NOW(), 1, ?, ?)");
         $insert->execute(array_values($newPost));
-
     }
 
     public function updatePost($update)
     {
-        var_dump($update);
         $insert = $this->db->prepare("UPDATE post SET title = ?, content = ?, status = ?, updated_at = NOW() WHERE id = ?");
         $insert->execute(array_values($update));
-
     }
 
+    public function deletePost(int $id)
+    {
+        $removePostComment = $this->db->prepare('DELETE FROM post_comment WHERE post_id = ?');
+        $removePostComment->execute([$id]);
+        $remove = $this->db->prepare('DELETE FROM post WHERE id = ?');
+        $remove->execute([$id]);
+    }
 }

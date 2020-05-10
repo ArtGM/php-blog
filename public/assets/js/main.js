@@ -39,4 +39,10 @@ window.onload = () => {
     doAction(newComment, Ajax.create)
     doAction(updatePost, Ajax.update)
 
+    const deleteButton = Array.from(document.getElementsByClassName('delete-button'))
+
+    deleteButton.map(e => {
+        e.onclick = () => confirm('Voulez-vous supprimer ce post ainsi que tout ses commentaires? cette opération est irréversible')
+    })
+
 }

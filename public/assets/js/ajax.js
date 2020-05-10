@@ -23,8 +23,9 @@ const Ajax = {
         }
         httpRequest.onload = () => {
             alert(data.success)
-        }
 
+            location.reload();
+        }
         httpRequest.open(data.method, data.url)
         httpRequest.send(formData)
     },

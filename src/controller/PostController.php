@@ -26,23 +26,23 @@ class PostController extends Controller
 
     /**
      * Display a single post by id
-     * @param $id
+     * @param $post_id
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function displaySinglePost($id)
+    public function displaySinglePost($post_id)
     {
         $comment = new CommentController();
-        $single[] = $this->post->getPosts($id);
+        $single[] = $this->post->getPosts($post_id);
 
         if (is_null($single[0]->getId())) { // return error 404 if post don't exist
             header("HTTP/1.0 404 Not Found");
             exit;
         }
         echo $this->twig->render('single.html.twig', ['single' => $single[0]]);
-        $comment->displayPostComments($id);
-        $comment->displayCommentForm($id);
+        $comment->displayPostComments($post_id);
+        $comment->displayCommentForm($post_id);
     }
 
     public function addNewPost($newPost)
@@ -59,9 +59,9 @@ class PostController extends Controller
         }
     }
 
-    public function deletePost($id)
+    public function deletePost($post_id)
     {
-        $this->post->deletePost($id);
+        $this->post->deletePost($post_id);
         header("location:/admin/gestion-articles");
     }
 }

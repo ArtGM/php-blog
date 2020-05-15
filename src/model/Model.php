@@ -20,12 +20,6 @@ abstract class Model
      */
     protected function hydrate($data)
     {
-        /*foreach ($data as $attr => $val) {
-            $setMethod = 'set' . ucfirst($attr);
-            if (is_callable($setMethod, true)) {
-                $this->$setMethod($val);
-            }
-        }*/
         $this->setId($data['id']);
     }
 

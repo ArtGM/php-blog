@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block manage_post %}
+    <h4>Gestion des commentaires</h4>
+    <table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Commentaire</th>
+        <th>Auteur</th>
+        <th>Date</th>
+        <th>Article</th>
+        <th>Statut</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for comment in list_comments %}
+        {{ dump(comment) }}
+        <tr>
+            <td>{{ comment.id }}</td>
+            <td>{{ comment.content }}</td>
+            <td>{{ comment.first_name }} {{ comment.last_name }}</td>
+            <td>{{ comment.create_time }}</td>
+            <td>{{ comment.title }}</td>
+            <td>{% if comment.comment_status_id == 1 %}En Attente {% else %} Publié {% endif %}</td>
+            <td>
+                <button class="btn-confirm" data-id="{{ comment.id }}">Approuver</button>
+                <button class="btn-delete" data-id="{{ comment.id }}">Supprimer</button>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+{% endblock %}

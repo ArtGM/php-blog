@@ -50,7 +50,10 @@ class Router
                 $this->admin->runDashboard();
                 break;
             case $route->with('admin', 'admin')->match('/admin/gestion-articles'):
-                $this->admin->listAllPost();
+                $this->admin->listAllPosts();
+                break;
+            case $route->with('admin', 'admin')->match('/admin/gestion-commentaires'):
+                $this->admin->listAllComments();
                 break;
             case $route->with('admin', 'admin')->match('/admin/ajouter'):
                 $this->admin->displayPostForm();

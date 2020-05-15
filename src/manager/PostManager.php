@@ -32,18 +32,27 @@ class PostManager extends Manager
         return new Post($fetch_posts->fetch($this->fetch_style));
     }
 
+    /**
+     * @param $newPost
+     */
     public function insertNewPost($newPost)
     {
         $insert = $this->db->prepare("INSERT INTO post (title, content, status, created_at, updated_at, post_type, user_id, user_roles_id) VALUES (?, ?, ?, NOW(), NOW(), 1, ?, ?)");
         $insert->execute(array_values($newPost));
     }
 
+    /**
+     * @param $update
+     */
     public function updatePost($update)
     {
         $insert = $this->db->prepare("UPDATE post SET title = ?, content = ?, status = ?, updated_at = NOW() WHERE id = ?");
         $insert->execute(array_values($update));
     }
 
+    /**
+     * @param int $id
+     */
     public function deletePost(int $id)
     {
         $removePostComment = $this->db->prepare('DELETE FROM post_comment WHERE post_id = ?');

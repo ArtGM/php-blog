@@ -9,16 +9,16 @@ class CommentController extends Controller
 
 
     /**
-     * @param $id
+     * @param $post_id
      * @throws LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function displayPostComments($id)
+    public function displayPostComments($post_id)
     {
-        $comments = $this->comment->getPostComment($id);
+        $comments = $this->comment->getPostComment($post_id);
         if (!empty($comments)) {
-            echo $this->twig->render('comment.html.twig', ['comments' => $comments ]);
+            echo $this->twig->render('comment.html.twig', ['comments' => $comments]);
         }
     }
 

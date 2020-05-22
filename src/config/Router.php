@@ -20,7 +20,7 @@ class Router
     public function __construct()
     {
         $this->admin = new AdminController();
-rebase        $this->home = new FrontController();
+        $this->home = new FrontController();
     }
 
 

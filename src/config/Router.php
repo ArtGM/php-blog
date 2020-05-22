@@ -12,9 +12,6 @@ class Router
 {
 
     private $admin;
-    private $post;
-    private $comment;
-    private $user;
     private $home;
 
     /**
@@ -23,10 +20,7 @@ class Router
     public function __construct()
     {
         $this->admin = new AdminController();
-        $this->post = new PostController();
-        $this->comment = new CommentController();
-        $this->user = new UserController();
-        $this->home = new FrontController();
+rebase        $this->home = new FrontController();
     }
 
 
@@ -44,7 +38,7 @@ class Router
                 $this->home->homePage();
                 break;
             case $route->match('/blog'):
-                $this->post->displayPosts();
+                $this->home->displayPosts();
                 break;
             case $route->match('/admin'):
                 $this->admin->runDashboard();
@@ -60,24 +54,24 @@ class Router
                 break;
             case $route->with('admin', 'admin')->with('delete', 'delete')->with('id', '[0-9]+')->match('/admin/delete/:id'):
                 $post_id = $route->getRouteIdParam();
-                $this->post->deletePost($post_id);
+                $this->admin->deletePost($post_id);
                 break;
             case $route->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/:id-:slug'):
                 $post_id = $route->getRouteIdParam();
-                $this->post->displaySinglePost($post_id);
+                $this->home->displaySinglePost($post_id);
                 break;
             case $route->with('admin', 'admin')->with('edit', 'edit')->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/admin/edit/:id-:slug'):
                 $post_id = $route->getRouteIdParam();
                 $this->admin->modifyPost($post_id);
                 break;
             case $route->match('/newcomment'):
-                $this->comment->addComment(filter_input_array(INPUT_POST));
+                $this->home->addComment(filter_input_array(INPUT_POST));
                 break;
             case $route->match('/newpost'):
-                $this->post->addNewPost(filter_input_array(INPUT_POST));
+                $this->admin->addNewPost(filter_input_array(INPUT_POST));
                 break;
             case $route->match('/updatepost'):
-                $this->post->updatePost(filter_input_array(INPUT_POST));
+                $this->admin->updatePost(filter_input_array(INPUT_POST));
                 break;
             default:
                 header("HTTP/1.0 404 Not Found");

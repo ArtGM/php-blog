@@ -11,6 +11,23 @@ class Comment extends Model
     private $commentStatusId;
     private $userName;
     private $postId;
+    private $postTitleComment;
+
+    /**
+     * @return mixed
+     */
+    public function getPostTitleComment()
+    {
+        return $this->postTitleComment;
+    }
+
+    /**
+     * @param mixed $postTitleComment
+     */
+    public function setPostTitleComment($postTitleComment): void
+    {
+        $this->postTitleComment = $postTitleComment;
+    }
 
     /**
      * @return mixed

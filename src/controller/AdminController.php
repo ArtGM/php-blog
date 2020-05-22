@@ -30,4 +30,24 @@ class AdminController extends Controller
         $list_comments = $this->comment->getAllComments();
         $this->render('manage_comments.html.twig', ['list_comments' => $list_comments]);
     }
+
+    public function addNewPost($newPost)
+    {
+        if (!empty($newPost)) {
+            $this->post->insertNewPost($newPost);
+        }
+    }
+
+    public function updatePost($update)
+    {
+        if (!empty($update)) {
+            $this->post->updatePost($update);
+        }
+    }
+
+    public function deletePost($post_id)
+    {
+        $this->post->deletePost($post_id);
+        header("location:/admin/gestion-articles");
+    }
 }

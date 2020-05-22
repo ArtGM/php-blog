@@ -1,12 +1,14 @@
 {% block comment %}
-    <h2>Commentaires :</h2>
-<ul>
-    {% for comment in comments  %}
-    <li>
-        <time>le {{ comment.createTime }}</time>
-        <p>{{ comment.content }}</p>
-        <p>Pseudo: <strong>{{ comment.userName }}</strong></p>
-    </li>
-    {% endfor %}
-</ul>
+    <div class="container">
+        <h2>Commentaires :</h2>
+        <ul class="list-group">
+            {% for comment in comments %}
+                <li class="list-group-item">
+                    <time>le {{ comment.createTime }}</time>
+                    <p>{{ comment.content }}</p>
+                    <p>Pseudo: <strong>{{ comment.userName }}</strong></p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

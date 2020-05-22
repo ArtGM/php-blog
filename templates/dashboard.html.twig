@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block dashboard %}
-    <ul>
-        <li><a href="/admin/gestion-articles">Gestion des Articles</a></li>
-        <li><a href="/admin/gestion-commentaires">Gestion des Commentaires</a></li>
-        <li><a href="/admin/gestion-utilisateur">Gestion des utilisateurs</a></li>
-    </ul>
-    {% block manage_post %}{% endblock %}
-    {% block post_form %}{% endblock %}
+    <nav class="navbar">
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" href="/admin/gestion-articles">Gestion des Articles</a></li>
+            <li class="nav-item"><a class="nav-link" href="/admin/gestion-commentaires">Gestion des Commentaires</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="/admin/gestion-utilisateur">Gestion des utilisateurs</a></li>
+        </ul>
+    </nav>
 {% endblock %}

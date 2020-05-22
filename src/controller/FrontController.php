@@ -34,7 +34,6 @@ class FrontController extends Controller
      */
     public function displaySinglePost($post_id)
     {
-        $comment = new CommentController();
         $single[] = $this->post->getPosts($post_id);
 
         if (is_null($single[0]->getId())) { // return error 404 if post don't exist
@@ -42,8 +41,8 @@ class FrontController extends Controller
             exit;
         }
         echo $this->twig->render('single.html.twig', ['single' => $single[0]]);
-        $comment->displayPostComments($post_id);
-        $comment->displayCommentForm($post_id);
+        $this->displayPostComments($post_id);
+        $this->displayCommentForm($post_id);
     }
 
     /**

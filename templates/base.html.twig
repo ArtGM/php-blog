@@ -5,36 +5,15 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
-<main class="container">
-    <header class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/"><h1>HEADER</h1></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu"
-                aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        {% block navigation %}
-            <nav class="collapse navbar-collapse" id="mainMenu">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
-                </ul>
-            </nav>
-
-        {% endblock %}
-    </header>
-    {% block dashboard %}{% endblock %}
-    {% block manage_post %}{% endblock %}
-    {% block post_form %}{% endblock %}
-    {% block content %}{% endblock %}
-    {% block comment %}{% endblock %}
-    {% block comment_form %}{% endblock %}
-
-</main>
+{{ include('_header.html.twig') }}
+{% block content %}{% endblock %}
+{{ include('_footer.html.twig') }}
 <script type="module" src="http://php-blog.local.art/public/assets/js/main.js"></script>
 </body>
 </html>

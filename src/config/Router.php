@@ -7,12 +7,15 @@ use Blog\src\controller\CommentController;
 use Blog\src\controller\FrontController;
 use Blog\src\controller\PostController;
 use Blog\src\controller\UserController;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class Router
 {
 
     private $admin;
-    private $home;
+    private $front;
 
     /**
      * Router constructor.
@@ -20,25 +23,25 @@ class Router
     public function __construct()
     {
         $this->admin = new AdminController();
-        $this->home = new FrontController();
+        $this->front = new FrontController();
     }
 
 
     /**
      * @param $path
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
-    public function run($path)
+    public function run($path, $data)
     {
         $route = new Route($path);
         switch ($route) {
             case $route->match('/'):
-                $this->home->homePage();
+                $this->front->homePage();
                 break;
             case $route->match('/blog'):
-                $this->home->displayPosts();
+                $this->front->displayPosts();
                 break;
             case $route->match('/admin'):
                 $this->admin->runDashboard();
@@ -56,16 +59,24 @@ class Router
                 $post_id = $route->getRouteIdParam();
                 $this->admin->deletePost($post_id);
                 break;
+            case $route->with('admin', 'admin')->with('approvecomment', 'approvecomment')->with('id', '[0-9]+')->match('/admin/approvecomment/:id'):
+                $comment_id = $route->getRouteIdParam();
+                $this->admin->approveComment($comment_id);
+                break;
+            case $route->with('admin', 'admin')->with('deletecomment', 'deletecomment')->with('id', '[0-9]+')->match('/admin/deletecomment/:id'):
+                $comment_id = $route->getRouteIdParam();
+                $this->admin->deleteComment($comment_id);
+                break;
             case $route->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/:id-:slug'):
                 $post_id = $route->getRouteIdParam();
-                $this->home->displaySinglePost($post_id);
+                $this->front->displaySinglePost($post_id);
                 break;
             case $route->with('admin', 'admin')->with('edit', 'edit')->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/admin/edit/:id-:slug'):
                 $post_id = $route->getRouteIdParam();
                 $this->admin->modifyPost($post_id);
                 break;
             case $route->match('/newcomment'):
-                $this->home->addComment(filter_input_array(INPUT_POST));
+                $this->front->addComment(filter_input_array(INPUT_POST));
                 break;
             case $route->match('/newpost'):
                 $this->admin->addNewPost(filter_input_array(INPUT_POST));

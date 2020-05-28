@@ -20,13 +20,14 @@
         <tr>
             <td scope="row">{{ comment.id }}</td>
             <td>{{ comment.content }}</td>
-            <td>{{ comment.first_name }} {{ comment.last_name }}</td>
-            <td>{{ comment.create_time }}</td>
-            <td>{{ comment.title }}</td>
+            <td>{{ comment.userName }}</td>
+            <td>{{ comment.createTime }}</td>
+            <td>{{ comment.postTitleComment }}</td>
             <td>{% if comment.comment_status_id == 1 %}En Attente {% else %} Publié {% endif %}</td>
             <td>
-                <button class="btn btn-success" data-id="{{ comment.id }}">Approuver</button>
-                <button class="btn btn-danger" data-id="{{ comment.id }}">Supprimer</button>
+                <a class="btn btn-success approve-comment" href="/admin/approvecomment/{{ comment.id }}"
+                   {% if comment.comment_status_id == 2 %}disabled="disabled"{% endif %}>Approuver</a>
+                <a class="btn btn-danger delete-comment" href="/admin/deletecomment/{{ comment.id }}">Supprimer</a>
             </td>
         </tr>
     {% endfor %}

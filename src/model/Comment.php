@@ -126,6 +126,9 @@ class Comment extends Model
         $this->setUser_id($data['user_id']);
         $this->setPost_id($data['post_id']);
         $this->setUserName($data['first_name']);
+        if (isset($data['title'])) {
+            $this->setPostTitleComment($data['title']);
+        }
     }
 
     /**

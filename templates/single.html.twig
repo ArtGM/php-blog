@@ -1,6 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>{{ single.title }}</h1>
-    <p>{{ single.content }}</p>
+    <main class="container">
+        <article>
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.content }}</p>
+        </article>
+        <div>
+            <h2>Commentaires :</h2>
+            <ul class="list-group">
+                {% for comment in comments %}
+                    <li class="list-group-item">
+                        <time>le {{ comment.createTime }}</time>
+                        <p>{{ comment.content }}</p>
+                        <p>Pseudo: <strong>{{ comment.userName }}</strong></p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <p>Ajouter un commentaire:</p>
+            <form id="comment-form">
+                <div class="form-group">
+                    <label for="comment-content">Message</label><textarea class="form-control" name="message"
+                                                                          id="comment-content" cols="30"
+                                                                          rows="10"></textarea>
+                </div>
+
+                <input class="btn btn-success" type="submit" id="submit-comment" value="Envoyer">
+                <input id="user-id" type="hidden" name="user_id" value="3"> <!-- TODO: set ID of connected user  -->
+                <input id="post-id" type="hidden" name="post_id" value="{{ post.id }}">
+            </form>
+        </div>
+    </main>
 {% endblock %}

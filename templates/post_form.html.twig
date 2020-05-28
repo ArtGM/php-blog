@@ -1,6 +1,5 @@
 {% extends 'dashboard.html.twig' %}
 {% block post_form %}
-
     <form id="{% if post is empty %}create{% else %}update{% endif %}-post-form">
         <div class="form-group">
             <label for="post-title">Titre</label>
@@ -33,5 +32,4 @@
             <input id="post-id" type="hidden" name="id" value="{{ post.id }}">
         {% endif %}
     </form>
-
 {% endblock %}

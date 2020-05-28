@@ -3,6 +3,7 @@ namespace Blog\src\controller;
 
 class AdminController extends Controller
 {
+
     public function runDashboard()
     {
         $this->render('dashboard.html.twig');
@@ -49,5 +50,17 @@ class AdminController extends Controller
     {
         $this->post->deletePost($post_id);
         header("location:/admin/gestion-articles");
+    }
+
+    public function deleteComment(string $comment_id)
+    {
+        $this->comment->deleteComment($comment_id);
+        header("location:/admin/gestion-commentaires");
+    }
+
+    public function approveComment(string $comment_id)
+    {
+        $this->comment->changeCommentStatus($comment_id);
+        header("location:/admin/gestion-commentaires");
     }
 }

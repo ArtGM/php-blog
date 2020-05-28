@@ -10,7 +10,12 @@ class FrontController extends Controller
 {
     public function homePage()
     {
-        echo $this->twig->render('base.html.twig');
+        try {
+            echo $this->twig->render('base.html.twig');
+        } catch (LoaderError $e) {
+        } catch (RuntimeError $e) {
+        } catch (SyntaxError $e) {
+        }
     }
 
     /**
@@ -35,40 +40,13 @@ class FrontController extends Controller
     public function displaySinglePost($post_id)
     {
         $single[] = $this->post->getPosts($post_id);
+        $comments = $this->comment->getComment($post_id);
 
         if (is_null($single[0]->getId())) { // return error 404 if post don't exist
             header("HTTP/1.0 404 Not Found");
             exit;
         }
-        echo $this->twig->render('single.html.twig', ['single' => $single[0]]);
-        $this->displayPostComments($post_id);
-        $this->displayCommentForm($post_id);
-    }
-
-    /**
-     * @param $post_id
-     * @throws LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function displayPostComments($post_id)
-    {
-        $comments = $this->comment->getComment($post_id);
-        if (!empty($comments)) {
-            echo $this->twig->render('comment.html.twig', ['comments' => $comments]);
-        }
-    }
-
-    /**
-     * @param $post_id
-     * @throws LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    public function displayCommentForm($post_id)
-    {
-        $post['id'] = $post_id; // TODO: transform args to array for passing extra data (ex: User_id)
-        echo $this->twig->render('comment_form.html.twig', ['post' => $post]);
+        echo $this->twig->render('single.html.twig', ['post' => $single[0], 'comments' => $comments]);
     }
 
     /**

@@ -47,4 +47,17 @@ class CommentManager extends Manager
         return $all_comments;
     }
 
+    public function deleteComment(string $comment_id)
+    {
+        $removeComment = $this->db->prepare('DELETE FROM post_comment WHERE id = ?');
+        $removeComment->execute([$comment_id]);
+    }
+
+    public function changeCommentStatus(string $comment_id)
+    {
+        $status = $this->db->prepare('UPDATE post_comment SET comment_status_id = 2');
+        $status->execute();
+    }
+
+
 }

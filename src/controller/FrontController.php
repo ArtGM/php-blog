@@ -44,7 +44,7 @@ class FrontController extends Controller
 
         if (is_null($single[0]->getId())) { // return error 404 if post don't exist
             header("HTTP/1.0 404 Not Found");
-            exit;
+            echo $this->twig->render('404.html.twig');
         }
         echo $this->twig->render('single.html.twig', ['post' => $single[0], 'comments' => $comments]);
     }

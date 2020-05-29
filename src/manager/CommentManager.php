@@ -15,7 +15,7 @@ class CommentManager extends Manager
         if (is_null($id)) {
             $query = "SELECT post_comment.id, post_comment.content, post_comment.create_time, user.first_name, user.last_name, post.title, post_comment.comment_status_id FROM post_comment INNER JOIN post ON post_comment.post_id = post.id INNER JOIN user ON post_comment.user_id = user.id";
         } else {
-            $query = "SELECT * FROM post_comment INNER JOIN user ON post_comment.user_id = user.id WHERE comment_status_id = 2 AND post_id = ? ";
+            $query = "SELECT * FROM post_comment INNER JOIN user ON post_comment.user_id = user.id WHERE comment_status_id = 1 AND post_id = ? ";
         }
         $all_comments = [];
         $fetch_comments = $this->db->prepare($query);
@@ -30,7 +30,7 @@ class CommentManager extends Manager
 
     public function insertNewComment($newComment)
     {
-        $insert = $this->db->prepare("INSERT INTO post_comment (content, create_time, comment_status_id, user_id, post_id) VALUES (?, NOW(), 1, ?, ?)");
+        $insert = $this->db->prepare("INSERT INTO post_comment (content, create_time, comment_status_id, user_id, post_id) VALUES (?, NOW(), 0, ?, ?)");
         $insert->execute(array_values($newComment));
     }
 
@@ -53,10 +53,10 @@ class CommentManager extends Manager
         $removeComment->execute([$comment_id]);
     }
 
-    public function changeCommentStatus(string $comment_id)
+    public function changeCommentStatus($comment_id)
     {
-        $status = $this->db->prepare('UPDATE post_comment SET comment_status_id = 2');
-        $status->execute();
+        $status = $this->db->prepare('UPDATE post_comment SET comment_status_id = 1 WHERE id= ?');
+        $status->execute([$comment_id]);
     }
 
 

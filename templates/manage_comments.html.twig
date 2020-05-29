@@ -16,17 +16,18 @@
     </thead>
     <tbody>
     {% for comment in list_comments %}
-
+        {{ dump(comment) }}
         <tr>
             <td scope="row">{{ comment.id }}</td>
             <td>{{ comment.content }}</td>
             <td>{{ comment.userName }}</td>
             <td>{{ comment.createTime }}</td>
             <td>{{ comment.postTitleComment }}</td>
-            <td>{% if comment.comment_status_id == 1 %}En Attente {% else %} Publié {% endif %}</td>
+            <td>{% if comment.commentStatusId == 0 %}En Attente {% else %} Publié {% endif %}</td>
             <td>
-                <a class="btn btn-success approve-comment" href="/admin/approvecomment/{{ comment.id }}"
-                   {% if comment.comment_status_id == 2 %}disabled="disabled"{% endif %}>Approuver</a>
+                <a class="btn btn-success approve-comment {% if comment.commentStatusId == 1 %}disabled{% endif %}"
+                   href="/admin/approvecomment/{{ comment.id }}"
+                >Approuver</a>
                 <a class="btn btn-danger delete-comment" href="/admin/deletecomment/{{ comment.id }}">Supprimer</a>
             </td>
         </tr>

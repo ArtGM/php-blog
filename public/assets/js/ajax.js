@@ -26,6 +26,16 @@ const Ajax = {
         }
         httpRequest.open(data.method, data.url)
         httpRequest.send(formData)
+    },
+    validate: function (fieldValue) {
+        httpRequest.open('post', '/usernameexist', false)
+        httpRequest.send('username=' + fieldValue)
+        console.log(httpRequest)
+        httpRequest.onload = () => {
+            document.getElementById('validate-user').innerHTML = httpRequest.responseText
+        }
+
+
     }
 }
 

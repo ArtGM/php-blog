@@ -11,6 +11,11 @@ window.onload = () => {
         }
     }
 
+    const validateField = function (value) {
+        Ajax.validate(value)
+    }
+
+
     const newPost = {
         form: document.getElementById('create-post-form'),
         fail: "un problème et survenu",
@@ -35,13 +40,32 @@ window.onload = () => {
         url: '/updatepost'
     }
 
+    const register = {
+        form: document.getElementById('register'),
+        fail: 'erreur',
+        success: 'Compte créé !',
+        method: 'POST',
+        url: '/register'
+    }
+
     doAction(newPost, Ajax.create)
     doAction(newComment, Ajax.create)
     doAction(updatePost, Ajax.update)
+    doAction(register, Ajax.create)
 
     const deleteButton = Array.from(document.getElementsByClassName('delete-button'))
     const approveComment = Array.from(document.getElementsByClassName('approve-comment'))
     const deleteComment = Array.from(document.getElementsByClassName('delete-comment'))
+    const userNameField = document.getElementById('username')
+
+    console.log(userNameField)
+
+    function test(e) {
+        validateField(e.target.value)
+    }
+
+    userNameField.addEventListener('change', test)
+
     deleteButton.map(e => {
         e.onclick = () => confirm('Voulez-vous supprimer ce post ainsi que tout ses commentaires? cette opération est irréversible')
     })

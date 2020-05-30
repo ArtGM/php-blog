@@ -16,7 +16,6 @@
     </thead>
     <tbody>
     {% for comment in list_comments %}
-        {{ dump(comment) }}
         <tr>
             <td scope="row">{{ comment.id }}</td>
             <td>{{ comment.content }}</td>

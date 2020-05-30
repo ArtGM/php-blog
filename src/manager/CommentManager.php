@@ -13,7 +13,7 @@ class CommentManager extends Manager
     public function getComment($id = null)
     {
         if (is_null($id)) {
-            $query = "SELECT post_comment.id, post_comment.content, post_comment.create_time, user.first_name, user.last_name, post.title, post_comment.comment_status_id FROM post_comment INNER JOIN post ON post_comment.post_id = post.id INNER JOIN user ON post_comment.user_id = user.id";
+            $query = "SELECT post_comment.id, post_comment.content, post_comment.create_time, user.username, post.title, post_comment.comment_status_id FROM post_comment INNER JOIN post ON post_comment.post_id = post.id INNER JOIN user ON post_comment.user_id = user.id";
         } else {
             $query = "SELECT * FROM post_comment INNER JOIN user ON post_comment.user_id = user.id WHERE comment_status_id = 1 AND post_id = ? ";
         }
@@ -37,7 +37,7 @@ class CommentManager extends Manager
     public function getAllComments()
     {
         $all_comments = [];
-        $fetch_all_comments = $this->db->prepare("SELECT post_comment.id, post_comment.content, post_comment.create_time, user.first_name, user.last_name, post.title, post_comment.comment_status_id, post_comment.post_id, post_comment.user_id FROM post_comment INNER JOIN post ON post_comment.post_id = post.id INNER JOIN user ON post_comment.user_id = user.id");
+        $fetch_all_comments = $this->db->prepare("SELECT post_comment.id, post_comment.content, post_comment.create_time, user.username, post.title, post_comment.comment_status_id, post_comment.post_id, post_comment.user_id FROM post_comment INNER JOIN post ON post_comment.post_id = post.id INNER JOIN user ON post_comment.user_id = user.id");
         $fetch_all_comments->execute();
         $array_all_comments = $fetch_all_comments->fetchAll($this->fetch_style);
         foreach ($array_all_comments as $comment_data) {

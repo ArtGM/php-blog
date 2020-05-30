@@ -58,4 +58,39 @@ class FrontController extends Controller
             $this->comment->insertNewComment($newComment);
         }
     }
+
+    /**
+     * @param $newUser
+     */
+    public function registerNewUser($newUser)
+    {
+        if (!empty($newUser)) {
+            if ($this->userNameIsUniq($newUser['username']) || $this->emailIsUniq($newUser['email'])) {
+                $password = $newUser['password'];
+                $hashPass = password_hash($password, PASSWORD_DEFAULT);
+                $newUser['password'] = $hashPass;
+                $this->user->createNewUser($newUser);
+                return 'Compte créé !';
+            }
+        }
+    }
+
+
+    /**
+     * @param $username
+     * @return bool
+     */
+    public function userNameIsUniq($username)
+    {
+        return $this->user->checkUserName($username);
+    }
+
+    /**
+     * @param $email
+     * @return bool
+     */
+    public function emailIsUniq($email)
+    {
+        return $this->user->checkEmail($email);
+    }
 }

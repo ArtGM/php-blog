@@ -84,6 +84,12 @@ class Router
             case $route->match('/updatepost'):
                 $this->admin->updatePost(filter_input_array(INPUT_POST));
                 break;
+            case $route->match('/register'):
+                $this->front->registerNewUser(filter_input_array(INPUT_POST));
+                break;
+            case $route->match('/usernameexist'):
+                $this->front->userNameNotExist(filter_input_array(INPUT_POST));
+                break;
             default:
                 header("HTTP/1.0 404 Not Found");
         }

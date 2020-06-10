@@ -1,7 +1,12 @@
-import Ajax from './ajax'
+import Ajax from "./ajax";
 // TODO: separate frontend and backend file
 window.onload = () => {
 
+    /**
+     * Do action with form data
+     * @param data form object
+     * @param callback Ajax function
+     */
     const doAction = function (data, callback) {
         if (data.form) {
             data.form.onsubmit = ev => {
@@ -10,11 +15,6 @@ window.onload = () => {
             }
         }
     }
-
-    const validateField = function (value) {
-        Ajax.validate(value)
-    }
-
 
     const newPost = {
         form: document.getElementById('create-post-form'),
@@ -42,29 +42,37 @@ window.onload = () => {
 
     const register = {
         form: document.getElementById('register'),
-        fail: 'erreur',
-        success: 'Compte créé !',
         method: 'POST',
         url: '/register'
+    }
+    const login = {
+        form: document.getElementById('login'),
+        method: 'POST',
+        url: '/login'
     }
 
     doAction(newPost, Ajax.create)
     doAction(newComment, Ajax.create)
     doAction(updatePost, Ajax.update)
-    doAction(register, Ajax.create)
+    doAction(register, Ajax.register)
+    doAction(login, Ajax.login)
 
     const deleteButton = Array.from(document.getElementsByClassName('delete-button'))
     const approveComment = Array.from(document.getElementsByClassName('approve-comment'))
     const deleteComment = Array.from(document.getElementsByClassName('delete-comment'))
     const userNameField = document.getElementById('username')
 
-    console.log(userNameField)
 
-    function test(e) {
+    // TODO : validation on type
+    /*
+    const check = (e) => {
         validateField(e.target.value)
     }
+    const validateField = (value) => {
+        Ajax.validate(value)
+    }
 
-    userNameField.addEventListener('change', test)
+    userNameField.addEventListener('change', check) */
 
     deleteButton.map(e => {
         e.onclick = () => confirm('Voulez-vous supprimer ce post ainsi que tout ses commentaires? cette opération est irréversible')

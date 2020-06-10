@@ -1,0 +1,13 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block manage_post %}
+    <div class="row my-3">
+
+        <h4 class="col-4">Gestion des utilisateurs </h4>
+    </div>
+    <ul class="list-group">
+        {% for user in users %}
+            <li class="list-group-item">{{ user.username }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

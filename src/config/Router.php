@@ -52,6 +52,9 @@ class Router
             case $route->with('admin', 'admin')->match('/admin/gestion-commentaires'):
                 $this->admin->listAllComments();
                 break;
+            case $route->with('admin', 'admin')->match('/admin/gestion-utilisateur'):
+                $this->admin->displayUsersList();
+                break;
             case $route->with('admin', 'admin')->match('/admin/ajouter'):
                 $this->admin->displayPostForm();
                 break;
@@ -87,8 +90,11 @@ class Router
             case $route->match('/register'):
                 $this->front->registerNewUser(filter_input_array(INPUT_POST));
                 break;
+            case $route->match('/login'):
+                $this->front->login(filter_input_array(INPUT_POST));
+                break;
             case $route->match('/usernameexist'):
-                $this->front->userNameNotExist(filter_input_array(INPUT_POST));
+                $this->front->userNameIsUniq(filter_input_array(INPUT_POST));
                 break;
             default:
                 header("HTTP/1.0 404 Not Found");

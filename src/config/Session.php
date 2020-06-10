@@ -17,6 +17,9 @@ class Session
     {
     }
 
+    /**
+     * @return Session
+     */
     public static function getInstance()
     {
         if (!isset(self::$instance)) {
@@ -28,6 +31,9 @@ class Session
         return self::$instance;
     }
 
+    /**
+     * @return bool
+     */
     private function startSession()
     {
         if ($this->session == self::SESSION_NOT_STARTED) {

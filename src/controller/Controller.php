@@ -2,6 +2,7 @@
 
 namespace Blog\src\controller;
 
+use Blog\src\config\Session;
 use Blog\src\manager\CommentManager;
 use Blog\src\manager\PostManager;
 use Blog\src\manager\UserManager;
@@ -16,6 +17,7 @@ abstract class Controller
     protected $twig;
     protected $comment;
     protected $user;
+    protected $session;
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ abstract class Controller
         $this->user = new UserManager();
         $this->twig = $this->twig();
         $this->twig->addExtension(new DebugExtension());
+        $this->session = new Session();
     }
 
     public function twig()

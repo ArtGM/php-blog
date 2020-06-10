@@ -3,7 +3,6 @@ namespace Blog\src\controller;
 
 class AdminController extends Controller
 {
-
     public function runDashboard()
     {
         $this->render('dashboard.html.twig');
@@ -62,5 +61,11 @@ class AdminController extends Controller
     {
         $this->comment->changeCommentStatus($comment_id);
         header("location:/admin/gestion-commentaires");
+    }
+
+    public function displayUsersList()
+    {
+        $userList = $this->user->getAllUsers();
+        $this->render('userlist.html.twig', ['users' => $userList]);
     }
 }

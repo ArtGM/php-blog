@@ -14,6 +14,13 @@ class UserManager extends Manager
         return new User($fetch_user->fetch($this->fetch_style));
     }
 
+    private function getUserId($username)
+    {
+        $fetch_user = $this->db->prepare("SELECT id FROM user WHERE username = ?");
+        $fetch_user->execute([$username]);
+        return $fetch_user->fetchColumn();
+    }
+
     public function createNewUser($newUser)
     {
         $insert = $this->db->prepare("INSERT INTO user (username, email, password, roles_id) VALUES (?, ?, ?, 2)");
@@ -24,8 +31,9 @@ class UserManager extends Manager
     {
         $fetch_user = $this->db->prepare("SELECT COUNT(username) FROM user WHERE username = ?");
         $fetch_user->execute(array_values([$username]));
-        $uniqUserName = $fetch_user->fetchColumn();
-        return ($uniqUserName > 0 ? false : true);
+        $isExist = $fetch_user->fetchColumn();
+
+        return ($isExist > 0 ? true : false);
     }
 
     public function checkEmail($email)
@@ -34,5 +42,35 @@ class UserManager extends Manager
         $fetch_mail->execute(array_values([$email]));
         $uniqEmail = $fetch_mail->fetchColumn();
         return ($uniqEmail > 0 ? false : true);
+    }
+
+    private function checkPassword($username)
+    {
+        $fetch_password = $this->db->prepare("SELECT password FROM user WHERE username = ?");
+        $fetch_password->execute([$username]);
+        return $fetch_password->fetchColumn();
+    }
+
+    public function getAllUsers()
+    {
+        $allUsersList = [];
+        $fetch_user = $this->db->prepare("SELECT * FROM user");
+        $fetch_user->execute();
+        $allUsers = $fetch_user->fetchAll($this->fetch_style);
+        foreach ($allUsers as $user) {
+            $allUsersList[] = new User($user);
+        }
+        return $allUsersList;
+    }
+
+    public function login($username, $password)
+    {
+        $isPasswordValid = password_verify($password, $this->checkPassword($username));
+        $usernameExist = $this->checkUserName($username);
+        return [
+            "id" => $this->getUserId($username),
+            "usernameExist" => $usernameExist,
+            "isPasswordValid" => $isPasswordValid
+        ];
     }
 }

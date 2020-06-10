@@ -11,9 +11,9 @@
     <title>Document</title>
 </head>
 <body>
-{{ include('_header.html.twig') }}
+{{ include('partials/_header.html.twig') }}
 {% block content %}{% endblock %}
-{{ include('_footer.html.twig') }}
-<script type="module" src="http://php-blog.local.art/public/assets/js/main.js"></script>
+{{ include('partials/_footer.html.twig') }}
+<script src="http://php-blog.local.art/public/dist/main.js"></script>
 </body>
 </html>

@@ -2,6 +2,11 @@ import Ajax from "./ajax";
 // TODO: separate frontend and backend file
 window.onload = () => {
 
+    const deleteButton = Array.from(document.getElementsByClassName('delete-button'))
+    const approveComment = Array.from(document.getElementsByClassName('approve-comment'))
+    const deleteComment = Array.from(document.getElementsByClassName('delete-comment'))
+    const userNameField = document.getElementById('username')
+    const logoutButton = document.getElementById('logout')
     /**
      * Do action with form data
      * @param data form object
@@ -51,17 +56,16 @@ window.onload = () => {
         url: '/login'
     }
 
+
     doAction(newPost, Ajax.create)
     doAction(newComment, Ajax.create)
     doAction(updatePost, Ajax.update)
     doAction(register, Ajax.register)
     doAction(login, Ajax.login)
-
-    const deleteButton = Array.from(document.getElementsByClassName('delete-button'))
-    const approveComment = Array.from(document.getElementsByClassName('approve-comment'))
-    const deleteComment = Array.from(document.getElementsByClassName('delete-comment'))
-    const userNameField = document.getElementById('username')
-
+    logoutButton.onclick = (e) => {
+        console.log(e)
+        Ajax.logout()
+    }
 
     // TODO : validation on type
     /*

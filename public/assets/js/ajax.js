@@ -6,7 +6,7 @@ const notifications = document.getElementById('notifications')
 const notif = $('#notif')
 
 const Ajax = {
-    create: function (data) {
+    create(data) {
         const formData = new FormData(data.form)
 
         httpRequest.onerror = () => {
@@ -20,7 +20,7 @@ const Ajax = {
         httpRequest.open(data.method, data.url)
         httpRequest.send(formData)
     },
-    update: function (data) {
+    update(data) {
         const formData = new FormData(data.form)
 
         httpRequest.onerror = () => {
@@ -33,7 +33,7 @@ const Ajax = {
         httpRequest.open(data.method, data.url)
         httpRequest.send(formData)
     },
-    validate: function (fieldValue) {
+    validate(fieldValue) {
         httpRequest.open('GET', '/usernameexist')
         httpRequest.send(null)
         console.log(httpRequest)
@@ -43,7 +43,7 @@ const Ajax = {
             }
         }
     },
-    register: function (data) {
+    register(data) {
         const formData = new FormData(data.form)
         const registerModal = $('#registerModal')
         httpRequest.onerror = () => {
@@ -61,7 +61,7 @@ const Ajax = {
         httpRequest.open(data.method, data.url)
         httpRequest.send(formData)
     },
-    login: function (data) {
+    login(data) {
         const formData = new FormData(data.form)
         const loginModal = $('#loginModal')
         httpRequest.onload = () => {
@@ -70,11 +70,14 @@ const Ajax = {
                 loginModal.modal('toggle')
                 notif.modal('show')
             }
-            data.form.reset()
         }
         httpRequest.open(data.method, data.url)
         httpRequest.send(formData)
 
+    },
+    logout() {
+        httpRequest.open('GET', '/logout')
+        httpRequest.send(null)
     }
 }
 

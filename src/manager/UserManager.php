@@ -14,11 +14,11 @@ class UserManager extends Manager
         return new User($fetch_user->fetch($this->fetch_style));
     }
 
-    private function getUserId($username)
+    public function getUserByName($username)
     {
-        $fetch_user = $this->db->prepare("SELECT id FROM user WHERE username = ?");
+        $fetch_user = $this->db->prepare("SELECT * FROM user WHERE username = ?");
         $fetch_user->execute([$username]);
-        return $fetch_user->fetchColumn();
+        return new User($fetch_user->fetch($this->fetch_style));
     }
 
     public function createNewUser($newUser)
@@ -68,7 +68,6 @@ class UserManager extends Manager
         $isPasswordValid = password_verify($password, $this->checkPassword($username));
         $usernameExist = $this->checkUserName($username);
         return [
-            "id" => $this->getUserId($username),
             "usernameExist" => $usernameExist,
             "isPasswordValid" => $isPasswordValid
         ];

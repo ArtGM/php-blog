@@ -62,4 +62,22 @@ class Session
     {
         $_SESSION[$name] = $value;
     }
+
+    /**
+     *    Destroys the current session.
+     *
+     * @return    bool    TRUE is session has been deleted, else FALSE.
+     **/
+
+    public function destroy()
+    {
+        if ($this->session == self::SESSION_STARTED) {
+            $this->session = !session_destroy();
+            unset($_SESSION);
+
+            return !$this->session;
+        }
+
+        return false;
+    }
 }

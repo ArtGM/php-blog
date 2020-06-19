@@ -3,10 +3,7 @@
 namespace Blog\src\config;
 
 use Blog\src\controller\AdminController;
-use Blog\src\controller\CommentController;
 use Blog\src\controller\FrontController;
-use Blog\src\controller\PostController;
-use Blog\src\controller\UserController;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -16,6 +13,7 @@ class Router
 
     private $admin;
     private $front;
+    private $session;
 
     /**
      * Router constructor.
@@ -24,6 +22,7 @@ class Router
     {
         $this->admin = new AdminController();
         $this->front = new FrontController();
+        $this->session = Session::getInstance();
     }
 
 
@@ -33,7 +32,7 @@ class Router
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function run($path, $data)
+    public function run($path)
     {
         $route = new Route($path);
         switch ($route) {
@@ -79,6 +78,7 @@ class Router
                 $this->admin->modifyPost($post_id);
                 break;
             case $route->match('/newcomment'):
+                // TODO: Add Filter argument on filter_input_array() to validate input
                 $this->front->addComment(filter_input_array(INPUT_POST));
                 break;
             case $route->match('/newpost'):
@@ -95,6 +95,9 @@ class Router
                 break;
             case $route->match('/usernameexist'):
                 $this->front->userNameIsUniq(filter_input_array(INPUT_POST));
+                break;
+            case $route->match('/logout'):
+                $this->session->destroy();
                 break;
             default:
                 header("HTTP/1.0 404 Not Found");

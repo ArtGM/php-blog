@@ -10,7 +10,7 @@ $data = $session::getInstance();
 $router = new Router();
 
 try {
-    $router->run($_SERVER['REQUEST_URI'], $data);
+    $router->run($_SERVER['REQUEST_URI']);
 } catch (\Twig\Error\LoaderError $e) {
 } catch (\Twig\Error\RuntimeError $e) {
 } catch (\Twig\Error\SyntaxError $e) {

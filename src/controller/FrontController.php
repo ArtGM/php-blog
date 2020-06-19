@@ -10,6 +10,8 @@ class FrontController extends Controller
 {
     public function homePage()
     {
+
+
         try {
             echo $this->twig->render('base.html.twig');
         } catch (LoaderError $e) {
@@ -41,12 +43,18 @@ class FrontController extends Controller
     {
         $single[] = $this->post->getPosts($post_id);
         $comments = $this->comment->getComment($post_id);
+        $userConnected = [
+            'id' => $this->session->getSession('id'),
+            'username' => $this->session->getSession('username'),
+            'role' => $this->session->getSession('role'),
+            'connected' => $this->session->getSession('connected')
+        ];
 
         if (is_null($single[0]->getId())) { // return error 404 if post don't exist
             header("HTTP/1.0 404 Not Found");
             echo $this->twig->render('404.html.twig');
         }
-        echo $this->twig->render('single.html.twig', ['post' => $single[0], 'comments' => $comments]);
+        echo $this->twig->render('single.html.twig', ['post' => $single[0], 'comments' => $comments, 'user' => $userConnected]);
     }
 
     /**
@@ -102,13 +110,20 @@ class FrontController extends Controller
         return $this->user->checkEmail($email);
     }
 
+    /**
+     * @param $loginInfo array
+     */
     public function login($loginInfo)
     {
         if (!empty(array_filter($loginInfo))) {
             $result = $this->user->login($loginInfo['login-username'], $loginInfo['login-password']);
             if ($result['usernameExist'] && $result['isPasswordValid']) {
-                $this->session->setSession('id', $result['id']);
-                $this->session->setSession('username', $loginInfo['login-username']);
+
+                $user = $this->user->getUserByName($loginInfo['login-username']);
+
+                $this->session->setSession('id', $user->getId());
+                $this->session->setSession('username', $user->getUsername());
+                $this->session->setSession('role', $user->getRoleId());
                 $this->session->setSession('connected', true);
                 echo "<div class=\"alert alert-success\">Heureux de vous revoir " . $loginInfo['login-username'] . " !</div>";
                 return;

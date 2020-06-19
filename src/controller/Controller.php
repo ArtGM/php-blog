@@ -26,7 +26,8 @@ abstract class Controller
         $this->user = new UserManager();
         $this->twig = $this->twig();
         $this->twig->addExtension(new DebugExtension());
-        $this->session = new Session();
+        $this->session = Session::getInstance();
+        $this->twig->addGlobal('session', $this->session);
     }
 
     public function twig()

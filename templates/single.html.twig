@@ -19,18 +19,25 @@
             </ul>
         </div>
         <div>
-            <p>Ajouter un commentaire:</p>
-            <form id="comment-form">
-                <div class="form-group">
-                    <label for="comment-content">Message</label><textarea class="form-control" name="message"
-                                                                          id="comment-content" cols="30"
-                                                                          rows="10"></textarea>
-                </div>
+            {% if user.connected %}
+                <p>Ajouter un commentaire:</p>
+                <p class="alert alert-info">Vous postez en tant que {{ user.username }}</p>
 
-                <input class="btn btn-success" type="submit" id="submit-comment" value="Envoyer">
-                <input id="user-id" type="hidden" name="user_id" value="3"> <!-- TODO: set ID of connected user  -->
-                <input id="post-id" type="hidden" name="post_id" value="{{ post.id }}">
-            </form>
+                <form id="comment-form">
+                    <div class="form-group">
+                        <label for="comment-content">Message</label><textarea class="form-control" name="message"
+                                                                              id="comment-content" cols="30"
+                                                                              rows="10"></textarea>
+                    </div>
+
+                    <input class="btn btn-success" type="submit" id="submit-comment" value="Envoyer">
+                    <input id="user-id" type="hidden" name="user_id" value="{{ user.id }}">
+                    <!-- TODO: set ID of connected user  -->
+                    <input id="post-id" type="hidden" name="post_id" value="{{ post.id }}">
+                </form>
+            {% else %}
+                <p class="alert alert-info">Vous devez être connecté pour poster un commentaire</p>
+            {% endif %}
         </div>
     </main>
 {% endblock %}

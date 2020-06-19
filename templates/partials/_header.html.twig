@@ -6,17 +6,29 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainMenu">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
-                <li class="nav-item">
-                    <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#loginModal">Connexion
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#registerModal">S'inscrire
-                    </button>
-                </li>
+            <ul class="navbar-nav w-100 align-items-center">
+                {% if session.getSession('connected') %}
+                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                    <li class="nav-item ml-auto">
+                        <p>Bonjour, {{ session.getSession('username') }}</p>
+                        <button class="btn btn-sm btn-danger" id="logout">Deconnexion</button>
+                        {% if session.getSession('role') == 1 %}
+                            <a class="btn btn-sm btn-primary" href="/admin">Admin</a>
+                        {% endif %}
+                    </li>
+
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                    <li class="nav-item">
+                        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#loginModal">Connexion
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#registerModal">
+                            S'inscrire
+                        </button>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </nav>

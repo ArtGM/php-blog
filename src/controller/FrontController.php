@@ -22,6 +22,7 @@ class FrontController extends Controller
 
     /**
      * Display all posts
+     * Display all posts
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError

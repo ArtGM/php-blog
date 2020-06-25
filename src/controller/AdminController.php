@@ -5,12 +5,19 @@ class AdminController extends Controller
 {
     private function checkAdmin()
     {
+        $this->checkLoggedIn();
         if ($this->session->getSession('role') !== '1') {
             header('Location:../');
         }
         return true;
     }
-
+    private function checkLoggedIn()
+    {
+        if ($this->session->getSession('connected')) {
+            return true;
+        }
+        header('location:../');
+    }
 
     public function runDashboard()
     {
@@ -97,6 +104,18 @@ class AdminController extends Controller
         if ($this->checkAdmin()) {
             $userList = $this->user->getAllUsers();
             $this->render('userlist.html.twig', ['users' => $userList]);
+        }
+    }
+
+    public function editUserProfile($user_id)
+    {
+        if ($this->checkLoggedIn()) {
+            if ($this->checkAdmin()) {
+                $user_data = $this->user->getUserById($user_id);
+            } else {
+                $user_data = $this->session->getSession('id');
+            }
+            $this->render('profile.html.twig', ['user' => $user_data]);
         }
     }
 }

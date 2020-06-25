@@ -77,12 +77,28 @@ class Router
                 $post_id = $route->getRouteIdParam();
                 $this->admin->modifyPost($post_id);
                 break;
+            case $route->with('admin', 'admin')->with('profile', 'profile')->with('id', '[0-9]+')->with('name', '[a-z0-9-]+')->match('/admin/profile/:id-:name'):
+                $user_id = $route->getRouteIdParam();
+                $this->admin->editUserProfile($user_id);
+                break;
             case $route->match('/newcomment'):
                 // TODO: Add Filter argument on filter_input_array() to validate input
-                $this->front->addComment(filter_input_array(INPUT_POST));
+                $validateFilter = [
+                    'message'=> FILTER_SANITIZE_ENCODED,
+                    'user_id' => FILTER_VALIDATE_INT,
+                    'post_id' => FILTER_VALIDATE_INT
+                ];
+                $this->front->addComment(filter_input_array(INPUT_POST, $validateFilter));
                 break;
             case $route->match('/newpost'):
-                $this->admin->addNewPost(filter_input_array(INPUT_POST));
+                $validateFilter = [
+                    'post_title'=> FILTER_SANITIZE_ENCODED,
+                    'content' => FILTER_VALIDATE_INT,
+                    'status' => FILTER_VALIDATE_BOOLEAN,
+                    'user_id' => FILTER_VALIDATE_INT,
+                    'user_role' => FILTER_VALIDATE_INT
+                ];
+                $this->admin->addNewPost(filter_input_array(INPUT_POST, $validateFilter));
                 break;
             case $route->match('/updatepost'):
                 $this->admin->updatePost(filter_input_array(INPUT_POST));

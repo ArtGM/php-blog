@@ -63,7 +63,6 @@ window.onload = () => {
     doAction(register, Ajax.register)
     doAction(login, Ajax.login)
     logoutButton.onclick = (e) => {
-        console.log(e)
         Ajax.logout()
     }
 

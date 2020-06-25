@@ -69,6 +69,7 @@ const Ajax = {
                 notifications.innerHTML = httpRequest.response
                 loginModal.modal('toggle')
                 notif.modal('show')
+                document.location.reload(true)
             }
         }
         httpRequest.open(data.method, data.url)
@@ -78,6 +79,9 @@ const Ajax = {
     logout() {
         httpRequest.open('GET', '/logout')
         httpRequest.send(null)
+        httpRequest.onload = () => {
+            document.location.reload()
+        }
     }
 }
 

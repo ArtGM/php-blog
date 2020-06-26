@@ -6,6 +6,7 @@ use Blog\src\config\Session;
 use Blog\src\manager\CommentManager;
 use Blog\src\manager\PostManager;
 use Blog\src\manager\UserManager;
+use Blog\src\validate\Validation;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
@@ -18,6 +19,7 @@ abstract class Controller
     protected $comment;
     protected $user;
     protected $session;
+    protected $validation;
 
     public function __construct()
     {
@@ -28,6 +30,7 @@ abstract class Controller
         $this->twig->addExtension(new DebugExtension());
         $this->session = Session::getInstance();
         $this->twig->addGlobal('session', $this->session);
+        $this->validation = new Validation();
     }
 
     public function twig()

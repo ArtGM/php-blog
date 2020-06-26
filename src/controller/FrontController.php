@@ -73,23 +73,26 @@ class FrontController extends Controller
      */
     public function registerNewUser($newUser)
     {
-        if (!empty(array_filter($newUser))) {
+        $errors = $this->validation->validate($newUser, 'register');
+        if (!$errors) {
             if (!$this->emailIsUniq($newUser['user-email'])) {
-                echo '<div class="alert alert-danger" role="alert">cet email est déjà pris</div>';
-                return;
+                $email = ['exist' => 'cet email est déjà pris.'];
+                $this->render('register.html.twig', ['email' => $email]);
             } elseif (!$this->userNameIsUniq($newUser['username'])) {
-                echo '<div class="alert alert-danger" role="alert">le pseudo existe déjà</div>';
-                return;
+                $pseudo = ['exist' => 'ce pseudo est déjà pris.'];
+                $this->render('register.html.twig', ['pseudo' => $pseudo]);
+            } else {
+                $password = $newUser['password'];
+                $hashPass = password_hash($password, PASSWORD_DEFAULT);
+                $newUser['password'] = $hashPass;
+                $this->user->createNewUser($newUser);
+                $this->session->setSession('confirm', 'Compte Créé !');
+                $this->render('confirm.html.twig');
             }
-            $password = $newUser['password'];
-            $hashPass = password_hash($password, PASSWORD_DEFAULT);
-            $newUser['password'] = $hashPass;
-            $this->user->createNewUser($newUser);
-            echo '<div class="alert alert-success" role="alert">Compte créé !</div>';
-            return;
+        } else {
+            $this->render('register.html.twig', ['user' => $newUser, 'errors' => $errors]);
         }
-        echo '<div class="alert alert-warning" role="alert">Merci de remplir tout les champs</div>';
-        return;
+
     }
 
 
@@ -134,5 +137,10 @@ class FrontController extends Controller
         }
         echo "<div class=\"alert alert-warning\">Veuillez remplir tout les champs.</div>";
         return;
+    }
+
+    public function displayRegisterForm()
+    {
+        $this->render('register.html.twig');
     }
 }

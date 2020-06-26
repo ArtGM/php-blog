@@ -21,14 +21,6 @@ window.onload = () => {
         }
     }
 
-    const newPost = {
-        form: document.getElementById('create-post-form'),
-        fail: "un problème et survenu",
-        success: "Succés",
-        method: 'POST',
-        url: '/newpost'
-    }
-
     const newComment = {
         form: document.getElementById('comment-form'),
         fail: "un problème et survenu :(",
@@ -37,19 +29,6 @@ window.onload = () => {
         url: '/newcomment'
     }
 
-    const updatePost = {
-        form: document.getElementById('update-post-form'),
-        fail: "un problème et survenu :(",
-        success: "Article Mis à jour",
-        method: 'POST',
-        url: '/updatepost'
-    }
-
-    const register = {
-        form: document.getElementById('register'),
-        method: 'POST',
-        url: '/register'
-    }
     const login = {
         form: document.getElementById('login'),
         method: 'POST',
@@ -57,10 +36,7 @@ window.onload = () => {
     }
 
 
-    doAction(newPost, Ajax.create)
     doAction(newComment, Ajax.create)
-    doAction(updatePost, Ajax.update)
-    doAction(register, Ajax.register)
     doAction(login, Ajax.login)
     logoutButton.onclick = (e) => {
         Ajax.logout()

@@ -1,12 +1,14 @@
 const webpack = require('webpack')
 const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+
 
 module.exports = {
+    mode: 'development',
     entry: {
         main: './assets/js/main.js'
     },
+    devtool: 'inline-source-map',
     module: {
         rules: [
             {

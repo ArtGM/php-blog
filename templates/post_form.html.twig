@@ -1,13 +1,26 @@
 {% extends 'dashboard.html.twig' %}
 {% block post_form %}
-    <form id="{% if post is empty %}create{% else %}update{% endif %}-post-form">
+    <form id="{% if post.id is empty %}create{% else %}update{% endif %}-post-form"
+          action="{% if post.id is empty %}/newpost{% else %}/updatepost{% endif %}" method="post">
         <div class="form-group">
             <label for="post-title">Titre</label>
-            <input class="form-control" type="text" id="post-title" name="post_title" value="{{ post.title }}">
+            <input class="form-control" type="text" id="post-title" name="title" value="{{ post.title }}">
+
+            {% if errors.title %}
+                <div class="alert alert-danger">
+                    {{ errors.title }}
+                </div>
+            {% endif %}
         </div>
         <div class="form-group">
             <label for="content">Message</label>
             <textarea class="form-control" name="content" id="content" cols="30" rows="10">{{ post.content }}</textarea>
+
+            {% if errors.content %}
+                <div class="alert alert-danger">
+                    {{ errors.content }}
+                </div>
+            {% endif %}
         </div>
         <fieldset class="form-group">
             <div class="form-check">
@@ -25,7 +38,7 @@
 
 
         <input class="btn btn-success" type="submit" id="submit-post" value="Enregistrer">
-        {% if post is empty %}
+        {% if post.id is empty %}
             <input id="user-id" type="hidden" name="user_id" value="3"> <!-- TODO: set the logged-in user id  -->
             <input id="user-role" type="hidden" name="user_role" value="1">
         {% else %}

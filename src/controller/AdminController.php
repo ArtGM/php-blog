@@ -60,8 +60,13 @@ class AdminController extends Controller
     public function addNewPost($newPost)
     {
         if ($this->checkAdmin()) {
-            if (!empty($newPost)) {
+            $errors = $this->validation->validate($newPost, 'post');
+            if (!$errors) {
                 $this->post->insertNewPost($newPost);
+                $this->session->setSession('confirm', 'Le nouvel article a bien été ajouté');
+                $this->render('confirm.html.twig',);
+            } else {
+                $this->render('post_form.html.twig', ['post' => $newPost, 'errors' => $errors]);
             }
         }
     }
@@ -69,8 +74,13 @@ class AdminController extends Controller
     public function updatePost($update)
     {
         if ($this->checkAdmin()) {
-            if (!empty($update)) {
+            $errors = $this->validation->validate($update, 'post');
+            if (!$errors) {
                 $this->post->updatePost($update);
+                $this->session->setSession('confirm', 'l\'article à été mis à jour.');
+                $this->render('confirm.html.twig');
+            } else {
+                $this->render('post_form.html.twig', ['post' => $update, 'errors' => $errors]);
             }
         }
     }

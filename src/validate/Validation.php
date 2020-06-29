@@ -13,6 +13,9 @@ class Validation
         } elseif ($name === 'register') {
             $registerValidation = new ValidateRegister();
             return $registerValidation->check($data);
+        } elseif ($name === 'login') {
+            $loginValidation = new ValidateLogin();
+            return $loginValidation->check($data);
         }
     }
 }

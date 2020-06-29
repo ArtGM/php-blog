@@ -36,7 +36,6 @@ window.onload = () => {
 
 
     doAction(newComment, Ajax.create)
-    doAction(login, Ajax.login)
     if (logoutButton !== null) {
         logoutButton.onclick = () => Ajax.logout()
     }

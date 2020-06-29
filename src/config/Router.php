@@ -45,6 +45,9 @@ class Router
             case $route->match('/creer-compte'):
                 $this->front->displayRegisterForm();
                 break;
+            case $route->match('/connexion'):
+                $this->front->displayLoginForm();
+                break;
             case $route->match('/admin'):
                 $this->admin->runDashboard();
                 break;

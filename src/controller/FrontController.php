@@ -10,8 +10,6 @@ class FrontController extends Controller
 {
     public function homePage()
     {
-
-
         try {
             echo $this->twig->render('base.html.twig');
         } catch (LoaderError $e) {
@@ -93,7 +91,6 @@ class FrontController extends Controller
         } else {
             $this->render('register.html.twig', ['user' => $newUser, 'errors' => $errors]);
         }
-
     }
 
 
@@ -120,28 +117,33 @@ class FrontController extends Controller
      */
     public function login($loginInfo)
     {
-        if (!empty(array_filter($loginInfo))) {
-            $result = $this->user->login($loginInfo['login-username'], $loginInfo['login-password']);
+        $errors = $this->validation->validate($loginInfo, 'login');
+        if (!$errors) {
+            $result = $this->user->login($loginInfo['username'], $loginInfo['password']);
             if ($result['usernameExist'] && $result['isPasswordValid']) {
-
-                $user = $this->user->getUserByName($loginInfo['login-username']);
+                $user = $this->user->getUserByName($loginInfo['username']);
 
                 $this->session->setSession('id', $user->getId());
                 $this->session->setSession('username', $user->getUsername());
                 $this->session->setSession('role', $user->getRoleId());
                 $this->session->setSession('connected', true);
-                echo "<div class=\"alert alert-success\">Heureux de vous revoir " . $loginInfo['login-username'] . " !</div>";
-                return;
+                $this->session->setSession('confirm', 'Bonjour ' . $this->session->getSession('username'));
+                $this->render('confirm.html.twig');
+            } else {
+                echo "<div class=\"alert alert-danger\"> Erreur de connexion !</div>";
             }
-            echo "<div class=\"alert alert-danger\"> Erreur de connexion !</div>";
-            return;
+        } else {
+            $this->render('login.html.twig', ['user' => $loginInfo, 'errors' => $errors]);
         }
-        echo "<div class=\"alert alert-warning\">Veuillez remplir tout les champs.</div>";
-        return;
     }
 
     public function displayRegisterForm()
     {
         $this->render('register.html.twig');
+    }
+
+    public function displayLoginForm()
+    {
+        $this->render('login.html.twig');
     }
 }

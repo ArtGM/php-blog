@@ -5,7 +5,6 @@ window.onload = () => {
     const deleteButton = Array.from(document.getElementsByClassName('delete-button'))
     const approveComment = Array.from(document.getElementsByClassName('approve-comment'))
     const deleteComment = Array.from(document.getElementsByClassName('delete-comment'))
-    const userNameField = document.getElementById('username')
     const logoutButton = document.getElementById('logout')
     /**
      * Do action with form data
@@ -38,20 +37,9 @@ window.onload = () => {
 
     doAction(newComment, Ajax.create)
     doAction(login, Ajax.login)
-    logoutButton.onclick = (e) => {
-        Ajax.logout()
+    if (logoutButton !== null) {
+        logoutButton.onclick = () => Ajax.logout()
     }
-
-    // TODO : validation on type
-    /*
-    const check = (e) => {
-        validateField(e.target.value)
-    }
-    const validateField = (value) => {
-        Ajax.validate(value)
-    }
-
-    userNameField.addEventListener('change', check) */
 
     deleteButton.map(e => {
         e.onclick = () => confirm('Voulez-vous supprimer ce post ainsi que tout ses commentaires? cette opération est irréversible')

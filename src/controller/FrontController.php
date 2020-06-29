@@ -74,8 +74,9 @@ class FrontController extends Controller
     public function registerNewUser($newUser)
     {
         $errors = $this->validation->validate($newUser, 'register');
+        var_dump($newUser);
         if (!$errors) {
-            if (!$this->emailIsUniq($newUser['user-email'])) {
+            if (!$this->emailIsUniq($newUser['user_email'])) {
                 $email = ['exist' => 'cet email est déjà pris.'];
                 $this->render('register.html.twig', ['email' => $email]);
             } elseif (!$this->userNameIsUniq($newUser['username'])) {

@@ -26,7 +26,7 @@ class ValidateRegister extends Validation
         if ($name === 'username') {
             $error = $this->checkName($name, $value);
             $this->addError($name, $error);
-        } elseif ($name === 'user-email') {
+        } elseif ($name === 'user_email') {
             $error = $this->checkEmail($name, $value);
             $this->addError($name, $error);
         } elseif ($name === 'password') {
@@ -70,7 +70,7 @@ class ValidateRegister extends Validation
     private function checkPass(string $name, $value)
     {
         if ($this->constraint->notBlank($name, $value)) {
-            return $this->constraint->notBlank('Email', $value);
+            return $this->constraint->notBlank('Mot de Passe', $value);
         }
         if ($this->constraint->minLength($name, $value, 8)) {
             return $this->constraint->minLength('Mot de Passe', $value, 8);

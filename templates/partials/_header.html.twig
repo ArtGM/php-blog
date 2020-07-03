@@ -11,7 +11,7 @@
                     <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
                     <li class="nav-item ml-auto">
                         <p>Bonjour, {{ session.getSession('username') }}</p>
-                        <button class="btn btn-sm btn-danger" id="logout">Deconnexion</button>
+                        <a class="btn btn-sm btn-danger" href="/logout">Deconnexion</a>
                         {% if session.getSession('role') == 1 %}
                             <a class="btn btn-sm btn-primary" href="/admin">Admin</a>
                         {% endif %}

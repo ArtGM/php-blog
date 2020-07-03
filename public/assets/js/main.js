@@ -1,44 +1,10 @@
-import Ajax from "./ajax";
+
 // TODO: separate frontend and backend file
 window.onload = () => {
 
     const deleteButton = Array.from(document.getElementsByClassName('delete-button'))
     const approveComment = Array.from(document.getElementsByClassName('approve-comment'))
     const deleteComment = Array.from(document.getElementsByClassName('delete-comment'))
-    const logoutButton = document.getElementById('logout')
-    /**
-     * Do action with form data
-     * @param data form object
-     * @param callback Ajax function
-     */
-    const doAction = function (data, callback) {
-        if (data.form) {
-            data.form.onsubmit = ev => {
-                ev.preventDefault()
-                callback(data)
-            }
-        }
-    }
-
-    const newComment = {
-        form: document.getElementById('comment-form'),
-        fail: "un problème et survenu :(",
-        success: "Commentaire envoyé, en attente de modération :)",
-        method: 'POST',
-        url: '/newcomment'
-    }
-
-    const login = {
-        form: document.getElementById('login'),
-        method: 'POST',
-        url: '/login'
-    }
-
-
-    doAction(newComment, Ajax.create)
-    if (logoutButton !== null) {
-        logoutButton.onclick = () => Ajax.logout()
-    }
 
     deleteButton.map(e => {
         e.onclick = () => confirm('Voulez-vous supprimer ce post ainsi que tout ses commentaires? cette opération est irréversible')

@@ -3,25 +3,10 @@
 
 namespace Blog\src\validate;
 
-class ValidateLogin
+class ValidateLogin extends Validation
 {
-    private $errors = [];
-    private $constraint;
 
-    public function __construct()
-    {
-        $this->constraint = new Constraint();
-    }
-
-    public function check($post)
-    {
-        foreach ($post as $key => $value) {
-            $this->checkField($key, $value);
-        }
-        return $this->errors;
-    }
-
-    private function checkField($name, $value)
+    protected function checkField($name, $value)
     {
         if ($name === 'username') {
             $error = $this->checkUsername($name, $value);
@@ -45,14 +30,6 @@ class ValidateLogin
         }
     }
 
-    private function addError($name, $error)
-    {
-        if ($error) {
-            $this->errors += [
-                $name => $error
-            ];
-        }
-    }
 
     private function checkPassword($name, $value)
     {

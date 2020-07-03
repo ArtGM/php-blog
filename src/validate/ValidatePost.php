@@ -6,23 +6,8 @@ use Blog\src\config\Parameter;
 
 class ValidatePost extends Validation
 {
-    private $errors = [];
-    private $constraint;
 
-    public function __construct()
-    {
-        $this->constraint = new Constraint();
-    }
-
-    public function check($post)
-    {
-        foreach ($post as $key => $value) {
-            $this->checkField($key, $value);
-        }
-        return $this->errors;
-    }
-
-    private function checkField($name, $value)
+    protected function checkField($name, $value)
     {
         if ($name === 'title') {
             $error = $this->checkTitle($name, $value);
@@ -43,15 +28,6 @@ class ValidatePost extends Validation
         }
         if ($this->constraint->maxLength($name, $value, 255)) {
             return $this->constraint->maxLength('titre', $value, 255);
-        }
-    }
-
-    private function addError($name, $error)
-    {
-        if ($error) {
-            $this->errors += [
-                $name => $error
-            ];
         }
     }
 

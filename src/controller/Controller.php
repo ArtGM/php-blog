@@ -8,6 +8,9 @@ use Blog\src\manager\PostManager;
 use Blog\src\manager\UserManager;
 use Blog\src\validate\Validation;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 
@@ -44,6 +47,11 @@ abstract class Controller
 
     public function render($template, array $data = [])
     {
-        echo $this->twig->render($template, $data);
+        try {
+            echo $this->twig->render($template, $data);
+        } catch (LoaderError $e) {
+        } catch (RuntimeError $e) {
+        } catch (SyntaxError $e) {
+        }
     }
 }

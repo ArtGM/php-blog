@@ -107,6 +107,7 @@ class Router
                 break;
             case $route->match('/logout'):
                 $this->session->destroy();
+                header("Location:" . $_SERVER['HTTP_REFERER']);
                 break;
             default:
                 header("HTTP/1.0 404 Not Found");

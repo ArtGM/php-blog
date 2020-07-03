@@ -10,35 +10,27 @@ class FrontController extends Controller
 {
     public function homePage()
     {
-        try {
-            echo $this->twig->render('base.html.twig');
-        } catch (LoaderError $e) {
-        } catch (RuntimeError $e) {
-        } catch (SyntaxError $e) {
-        }
+        $this->render('base.html.twig');
     }
 
     /**
      * Display all posts
-     * Display all posts
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
      */
     public function displayPosts()
     {
         $posts = $this->post->getPosts();
-        echo $this->twig->render('blog.html.twig', ['posts' => $posts]);
+        $this->render('blog.html.twig', ['posts' => $posts]);
     }
 
     /**
      * Display a single post by id
      * @param $post_id
+     * @param array $errors
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function displaySinglePost($post_id)
+    public function displaySinglePost($post_id, $errors = [])
     {
         $single[] = $this->post->getPosts($post_id);
         $comments = $this->comment->getComment($post_id);
@@ -53,16 +45,25 @@ class FrontController extends Controller
             header("HTTP/1.0 404 Not Found");
             echo $this->twig->render('404.html.twig');
         }
-        echo $this->twig->render('single.html.twig', ['post' => $single[0], 'comments' => $comments, 'user' => $userConnected]);
+        $this->render('single.html.twig', ['post' => $single[0], 'comments' => $comments, 'user' => $userConnected, 'errors' => $errors]);
     }
 
     /**
      * @param array $newComment
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function addComment($newComment)
     {
-        if (!empty($newComment)) {
+        $errors = $this->validation->validate($newComment, 'comment');
+        if (!$errors) {
             $this->comment->insertNewComment($newComment);
+            $this->session->setSession('confirm', 'Commentaire enregistré, en attente de validation!');
+            $this->render('confirm.html.twig');
+        } else {
+            $post_id = $newComment['post_id'];
+            $this->displaySinglePost($post_id, $errors);
         }
     }
 
@@ -72,7 +73,6 @@ class FrontController extends Controller
     public function registerNewUser($newUser)
     {
         $errors = $this->validation->validate($newUser, 'register');
-        var_dump($newUser);
         if (!$errors) {
             if (!$this->emailIsUniq($newUser['user_email'])) {
                 $email = ['exist' => 'cet email est déjà pris.'];
@@ -137,11 +137,17 @@ class FrontController extends Controller
         }
     }
 
+    /**
+     *
+     */
     public function displayRegisterForm()
     {
         $this->render('register.html.twig');
     }
 
+    /**
+     *
+     */
     public function displayLoginForm()
     {
         $this->render('login.html.twig');

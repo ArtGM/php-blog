@@ -5,23 +5,8 @@ namespace Blog\src\validate;
 
 class ValidateRegister extends Validation
 {
-    private $errors = [];
-    private $constraint;
 
-    public function __construct()
-    {
-        $this->constraint = new Constraint();
-    }
-
-    public function check($user)
-    {
-        foreach ($user as $key => $value) {
-            $this->checkField($key, $value);
-        }
-        return $this->errors;
-    }
-
-    private function checkField($name, $value)
+    protected function checkField($name, $value)
     {
         if ($name === 'username') {
             $error = $this->checkName($name, $value);
@@ -48,14 +33,6 @@ class ValidateRegister extends Validation
         }
     }
 
-    private function addError($name, $error)
-    {
-        if ($error) {
-            $this->errors += [
-                $name => $error
-            ];
-        }
-    }
 
     private function checkEmail($name, $value)
     {

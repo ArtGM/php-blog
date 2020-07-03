@@ -3,31 +3,129 @@ namespace Blog\src\controller;
 
 class AdminController extends Controller
 {
+    private function checkAdmin()
+    {
+        $this->checkLoggedIn();
+        if ($this->session->getSession('role') !== '1') {
+            header('Location:../');
+        }
+        return true;
+    }
+    private function checkLoggedIn()
+    {
+        if ($this->session->getSession('connected')) {
+            return true;
+        }
+        header('location:../');
+    }
+
     public function runDashboard()
     {
-        $this->render('dashboard.html.twig');
+        if ($this->checkAdmin()) {
+            $this->render('dashboard.html.twig');
+        }
     }
 
     public function listAllPosts()
     {
-        $list_posts = $this->post->getPosts(null, true);
-        $this->render('manage_posts.html.twig', ['list_posts' => $list_posts]);
+        if ($this->checkAdmin()) {
+            $list_posts = $this->post->getPosts(null, true);
+            $this->render('manage_posts.html.twig', ['list_posts' => $list_posts]);
+        }
     }
 
     public function displayPostForm()
     {
-        $this->render('post_form.html.twig');
+        if ($this->checkAdmin()) {
+            $this->render('post_form.html.twig');
+        }
     }
 
     public function modifyPost($post_id)
     {
-        $post_data = $this->post->getPosts($post_id, true);
-        $this->render('post_form.html.twig', ['post' => $post_data]);
+        if ($this->checkAdmin()) {
+            $post_data = $this->post->getPosts($post_id, true);
+            $this->render('post_form.html.twig', ['post' => $post_data]);
+        }
     }
 
     public function listAllComments()
     {
-        $list_comments = $this->comment->getAllComments();
-        $this->render('manage_comments.html.twig', ['list_comments' => $list_comments]);
+        if ($this->checkAdmin()) {
+            $list_comments = $this->comment->getAllComments();
+            $this->render('manage_comments.html.twig', ['list_comments' => $list_comments]);
+        }
+    }
+
+    public function addNewPost($newPost)
+    {
+        if ($this->checkAdmin()) {
+            $errors = $this->validation->validate($newPost, 'post');
+            if (!$errors) {
+                $this->post->insertNewPost($newPost);
+                $this->session->setSession('confirm', 'Le nouvel article a bien été ajouté');
+                $this->render('confirm.html.twig',);
+            } else {
+                $this->render('post_form.html.twig', ['post' => $newPost, 'errors' => $errors]);
+            }
+        }
+    }
+
+    public function updatePost($update)
+    {
+        if ($this->checkAdmin()) {
+            $errors = $this->validation->validate($update, 'post');
+            if (!$errors) {
+                $this->post->updatePost($update);
+                $this->session->setSession('confirm', 'l\'article à été mis à jour.');
+                $this->render('confirm.html.twig');
+            } else {
+                $this->render('post_form.html.twig', ['post' => $update, 'errors' => $errors]);
+            }
+        }
+    }
+
+    public function deletePost($post_id)
+    {
+        if ($this->checkAdmin()) {
+            $this->post->deletePost($post_id);
+            header("location:/admin/gestion-articles");
+        }
+    }
+
+    public function deleteComment(string $comment_id)
+    {
+        if ($this->checkAdmin()) {
+            $this->comment->deleteComment($comment_id);
+            header("location:/admin/gestion-commentaires");
+        }
+    }
+
+    public function approveComment(string $comment_id)
+    {
+        if ($this->checkAdmin()) {
+            $this->comment->changeCommentStatus($comment_id);
+            header("location:/admin/gestion-commentaires");
+        }
+    }
+
+    public function displayUsersList()
+    {
+        if ($this->checkAdmin()) {
+            $userList = $this->user->getAllUsers();
+            $this->render('userlist.html.twig', ['users' => $userList]);
+        }
+    }
+
+    public function editUserProfile($user_id)
+    {
+        if ($this->checkLoggedIn()) {
+            if ($this->checkAdmin()) {
+                $user_data = $this->user->getUserById($user_id);
+            } else {
+                $user_data = $this->session->getSession('id');
+            }
+            $this->render('profile.html.twig', ['user' => $user_data]);
+        }
     }
 }

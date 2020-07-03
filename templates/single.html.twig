@@ -1,8 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>{{ single.title }}</h1>
-    <p>{{ single.content }}</p>
-    {% block comment %}{% endblock %}
-    {% block comment_form %}{% endblock %}
+    <main class="container">
+        <article>
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.content }}</p>
+        </article>
+        <div>
+            <h2>Commentaires :</h2>
+            <ul class="list-group">
+                {% for comment in comments %}
+                    <li class="list-group-item">
+                        <time>le {{ comment.createTime }}</time>
+                        <p>{{ comment.content }}</p>
+                        <p>Pseudo: <strong>{{ comment.userName }}</strong></p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            {% if user.connected %}
+                <p>Ajouter un commentaire:</p>
+                <p class="alert alert-info">Vous postez en tant que {{ user.username }}</p>
+
+                <form id="comment-form" method="post" action="/newcomment">
+                    <div class="form-group">
+                        <label for="message">Message</label><textarea class="form-control" name="message"
+                                                                      id="message" cols="30"
+                                                                      rows="10"></textarea>
+                    </div>
+                    {% if errors.message %}
+                        <div class="alert alert-danger">
+                            {{ errors.message }}
+                        </div>
+                    {% endif %}
+
+                    <input class="btn btn-success" type="submit" id="submit-comment" value="Envoyer">
+                    <input id="user-id" type="hidden" name="user_id" value="{{ user.id }}">
+                    <!-- TODO: set ID of connected user  -->
+                    <input id="post-id" type="hidden" name="post_id" value="{{ post.id }}">
+                </form>
+            {% else %}
+                <p class="alert alert-info">Vous devez être connecté pour poster un commentaire</p>
+            {% endif %}
+        </div>
+    </main>
 {% endblock %}

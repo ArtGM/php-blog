@@ -1,0 +1,17 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block manage_post %}
+    <div class="row my-3">
+
+        <h4 class="col-4">Gestion des utilisateurs </h4>
+    </div>
+    <ul class="list-group">
+        {% for user in users %}
+            <li class="list-group-item">{{ user.username }}
+                <a type="button" class="btn btn-primary btn-sm" href="/admin/profile/{{ user.id }}-{{ user.username |lower }}">
+                    Editer le profil
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

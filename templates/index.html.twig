@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <main class="container">
+        {% block dashboard %}{% endblock %}
+        {% block manage_posts %}{% endblock %}
+        {% block confirm %}{% endblock %}
+        {% block manage_comments %}{% endblock %}
+        {% block post_form %}{% endblock %}
+        {% block user_profile %}{% endblock %}
+        {% block comment %}{% endblock %}
+        {% block comment_form %}{% endblock %}
+    </main>
+{% endblock %}

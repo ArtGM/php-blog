@@ -1,12 +1,4 @@
-/*! ./ajax */
-
-/*! exports provided: default */
-
-/*! no exports provided */
-
-/*!***************************!*\
-  !*** ./assets/js/ajax.js ***!
-  \***************************/
+/*! no static exports found */
 
 /*!***************************!*\
   !*** ./assets/js/main.js ***!

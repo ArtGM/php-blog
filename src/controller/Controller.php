@@ -2,10 +2,15 @@
 
 namespace Blog\src\controller;
 
+use Blog\src\config\Session;
 use Blog\src\manager\CommentManager;
 use Blog\src\manager\PostManager;
 use Blog\src\manager\UserManager;
+use Blog\src\validate\Validation;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 
@@ -16,6 +21,8 @@ abstract class Controller
     protected $twig;
     protected $comment;
     protected $user;
+    protected $session;
+    protected $validation;
 
     public function __construct()
     {
@@ -24,6 +31,9 @@ abstract class Controller
         $this->user = new UserManager();
         $this->twig = $this->twig();
         $this->twig->addExtension(new DebugExtension());
+        $this->session = Session::getInstance();
+        $this->twig->addGlobal('session', $this->session);
+        $this->validation = new Validation();
     }
 
     public function twig()
@@ -37,6 +47,11 @@ abstract class Controller
 
     public function render($template, array $data = [])
     {
-        echo $this->twig->render($template, $data);
+        try {
+            echo $this->twig->render($template, $data);
+        } catch (LoaderError $e) {
+        } catch (RuntimeError $e) {
+        } catch (SyntaxError $e) {
+        }
     }
 }

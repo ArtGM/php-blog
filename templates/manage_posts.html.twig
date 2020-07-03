@@ -1,18 +1,24 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
-{% block manage_post %}
-    <h4>Gestion des articles <a href="/admin/ajouter">
-            <button>Ajouter un article</button>
-        </a></h4>
-    <ul>
+{% block manage_posts %}
+    <div class="row my-3">
+
+        <h4 class="col-4">Gestion des articles </h4>
+        <a type="button" class="btn btn-success" href="/admin/ajouter">
+            Ajouter un article
+        </a>
+    </div>
+    <ul class="list-group">
         {% for post in list_posts %}
-            <li>{{ post.title }}
-                <a href="/admin/edit/{{ post.id }}-{{ post.Slug() }}">
-                    <button>Modifier</button>
-                </a>
-                <a class="delete-button" href="/admin/delete/{{ post.id }}">
-                    <button>supprimer</button>
-                </a>
+            <li class="list-group-item">{{ post.title }}
+                <span class="badge">
+                    <a type="button" class="btn btn-primary btn-sm" href="/admin/edit/{{ post.id }}-{{ post.Slug() }}">
+                        Modifier
+                    </a>
+                    <a type="button" class="btn btn-danger delete-button btn-sm" href="/admin/delete/{{ post.id }}">
+                        supprimer
+                    </a>
+                </span>
             </li>
         {% endfor %}
     </ul>

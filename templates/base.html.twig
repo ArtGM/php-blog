@@ -5,23 +5,19 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
-<a href="/"><h1>HEADER</h1></a>
-{% block navigation %}
-    <ul>
-        <li><a href="/blog">Blog</a></li>
-    </ul>
-    <ul>
-        <li><a href="/admin">Admin</a></li>
-    </ul>
+{% include 'partials/_header.html.twig' %}
+{% block content %}
+    <main class="container">
+        <h1>Bienvenue sur mon Blog</h1>
+    </main>
 {% endblock %}
-{% block dashboard %}{% endblock %}
-{% block manage_post %}{% endblock %}
-{% block post_form %}{% endblock %}
-{% block content %}{% endblock %}
-<h1>footer</h1>
-<script type="module" src="http://php-blog.local.art/public/assets/js/main.js"></script>
+{{ include('partials/_footer.html.twig') }}
+<script src="http://php-blog.local.art/public/dist/main.js"></script>
 </body>
 </html>

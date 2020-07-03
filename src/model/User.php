@@ -5,43 +5,36 @@ namespace Blog\src\model;
 
 class User extends Model
 {
-    private $firstName;
-    private $lastName;
+    private $username;
     private $email;
     private $password;
     private $roleId;
     private $imageId;
 
-    /**
-     * @return mixed
-     */
-    public function getFirstName()
+    protected function hydrate($data)
     {
-        return $this->firstName;
-    }
-
-    /**
-     * @param mixed $firstName
-     */
-    public function setFirst_name($firstName): void
-    {
-        $this->firstName = $firstName;
+        parent::hydrate($data);
+        $this->setUsername($data['username']);
+        $this->setEmail($data['email']);
+        $this->setPassword($data['password']);
+        $this->setRoles_id($data['roles_id']);
+        //$this->setImage_id($data['imageId']);
     }
 
     /**
      * @return mixed
      */
-    public function getLastName()
+    public function getUsername()
     {
-        return $this->lastName;
+        return $this->username;
     }
 
     /**
-     * @param mixed $lastName
+     * @param mixed $username
      */
-    public function setLast_name($lastName): void
+    public function setUsername($username): void
     {
-        $this->lastName = $lastName;
+        $this->username = $username;
     }
 
     /**

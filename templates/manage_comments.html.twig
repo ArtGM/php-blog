@@ -1,32 +1,33 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
-{% block manage_post %}
+{% block manage_comments %}
     <h4>Gestion des commentaires</h4>
-    <table>
+    <table class="table">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Commentaire</th>
-        <th>Auteur</th>
-        <th>Date</th>
-        <th>Article</th>
-        <th>Statut</th>
-        <th>Actions</th>
+        <th scope="col">ID</th>
+        <th scope="col">Commentaire</th>
+        <th scope="col">Auteur</th>
+        <th scope="col">Date</th>
+        <th scope="col">Article</th>
+        <th scope="col">Statut</th>
+        <th scope="col">Actions</th>
     </tr>
     </thead>
     <tbody>
     {% for comment in list_comments %}
-        {{ dump(comment) }}
         <tr>
-            <td>{{ comment.id }}</td>
+            <td scope="row">{{ comment.id }}</td>
             <td>{{ comment.content }}</td>
-            <td>{{ comment.first_name }} {{ comment.last_name }}</td>
-            <td>{{ comment.create_time }}</td>
-            <td>{{ comment.title }}</td>
-            <td>{% if comment.comment_status_id == 1 %}En Attente {% else %} Publié {% endif %}</td>
+            <td>{{ comment.userName }}</td>
+            <td>{{ comment.createTime }}</td>
+            <td>{{ comment.postTitleComment }}</td>
+            <td>{% if comment.commentStatusId == 0 %}En Attente {% else %} Publié {% endif %}</td>
             <td>
-                <button class="btn-confirm" data-id="{{ comment.id }}">Approuver</button>
-                <button class="btn-delete" data-id="{{ comment.id }}">Supprimer</button>
+                <a class="btn btn-success approve-comment {% if comment.commentStatusId == 1 %}disabled{% endif %}"
+                   href="/admin/approvecomment/{{ comment.id }}"
+                >Approuver</a>
+                <a class="btn btn-danger delete-comment" href="/admin/deletecomment/{{ comment.id }}">Supprimer</a>
             </td>
         </tr>
     {% endfor %}

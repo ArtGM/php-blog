@@ -1,5 +1,6 @@
 vendor/
 .idea/
+.vscode/
 .php_cs.cache
 src/view/
 public/node_modules/

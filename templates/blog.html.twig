@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>Liste des articles</h1>
-    <ul>
+    <main class="container">
+        <h1>Liste des articles</h1>
+        <div class="row">
+            {% for post in posts %}
 
-        {% for post in posts %}
-            <li><a href="/{{ post.id }}-{{ post.Slug() }}"><h2>{{ post.title }}</h2></a></li>
-        {% endfor %}
-    </ul>
+                <div class="col-4 mb-2">
+                    <div class="card">
+                        <img src="https://picsum.photos/200" class="card-img-top" alt="dummy">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <a href="/{{ post.id }}-{{ post.Slug() }}" class="btn btn-primary">Lire l'article</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
 {% endblock %}

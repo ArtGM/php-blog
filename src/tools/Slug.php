@@ -14,7 +14,7 @@ class Slug
         $string = preg_replace('#[ðòóôõö]#', 'o', $string);
         $string = preg_replace('#[ùúûü]#', 'u', $string);
         $string = preg_replace('#[ýÿ]#', 'y', $string);
-        $string = preg_replace('#|_|:|\.|,|\'|"#', '', $string);
+        $string = preg_replace('#|\(|\)|_|:|\.|,|\'|"#', '', $string);
         $string = preg_replace('#\d$#', '', $string);// remove number at the end
         $string = preg_replace('#\W$#', '', $string);// remove character at the end
         return $string;

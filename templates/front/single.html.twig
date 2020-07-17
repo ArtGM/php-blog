@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <main class="container">
         <article>
             <h1>{{ post.title }}</h1>
             <p>{{ post.content }}</p>
@@ -44,5 +43,4 @@
                 <p class="alert alert-info">Vous devez être connecté pour poster un commentaire</p>
             {% endif %}
         </div>
-    </main>
 {% endblock %}

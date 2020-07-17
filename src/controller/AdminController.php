@@ -22,7 +22,7 @@ class AdminController extends Controller
     public function runDashboard()
     {
         if ($this->checkAdmin()) {
-            $this->render('dashboard.html.twig');
+            $this->render('/admin/dashboard.html.twig');
         }
     }
 
@@ -30,14 +30,14 @@ class AdminController extends Controller
     {
         if ($this->checkAdmin()) {
             $list_posts = $this->post->getPosts(null, true);
-            $this->render('manage_posts.html.twig', ['list_posts' => $list_posts]);
+            $this->render('/admin/manage_posts.html.twig', ['list_posts' => $list_posts]);
         }
     }
 
     public function displayPostForm()
     {
         if ($this->checkAdmin()) {
-            $this->render('post_form.html.twig');
+            $this->render('/admin/post_form.html.twig');
         }
     }
 
@@ -45,7 +45,7 @@ class AdminController extends Controller
     {
         if ($this->checkAdmin()) {
             $post_data = $this->post->getPosts($post_id, true);
-            $this->render('post_form.html.twig', ['post' => $post_data]);
+            $this->render('/admin/post_form.html.twig', ['post' => $post_data]);
         }
     }
 
@@ -53,7 +53,7 @@ class AdminController extends Controller
     {
         if ($this->checkAdmin()) {
             $list_comments = $this->comment->getAllComments();
-            $this->render('manage_comments.html.twig', ['list_comments' => $list_comments]);
+            $this->render('/admin/manage_comments.html.twig', ['list_comments' => $list_comments]);
         }
     }
 
@@ -64,9 +64,10 @@ class AdminController extends Controller
             if (!$errors) {
                 $this->post->insertNewPost($newPost);
                 $this->session->setSession('confirm', 'Le nouvel article a bien été ajouté');
-                $this->render('confirm.html.twig',);
+                $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
+                $this->render('/admin/confirm.html.twig');
             } else {
-                $this->render('post_form.html.twig', ['post' => $newPost, 'errors' => $errors]);
+                $this->render('/admin/post_form.html.twig', ['post' => $newPost, 'errors' => $errors]);
             }
         }
     }
@@ -78,9 +79,10 @@ class AdminController extends Controller
             if (!$errors) {
                 $this->post->updatePost($update);
                 $this->session->setSession('confirm', 'l\'article à été mis à jour.');
-                $this->render('confirm.html.twig');
+                $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
+                $this->render('/admin/confirm.html.twig');
             } else {
-                $this->render('post_form.html.twig', ['post' => $update, 'errors' => $errors]);
+                $this->render('/admin/post_form.html.twig', ['post' => $update, 'errors' => $errors]);
             }
         }
     }
@@ -113,7 +115,7 @@ class AdminController extends Controller
     {
         if ($this->checkAdmin()) {
             $userList = $this->user->getAllUsers();
-            $this->render('userlist.html.twig', ['users' => $userList]);
+            $this->render('/admin/userlist.html.twig', ['users' => $userList]);
         }
     }
 
@@ -122,10 +124,11 @@ class AdminController extends Controller
         if ($this->checkLoggedIn()) {
             if ($this->checkAdmin()) {
                 $user_data = $this->user->getUserById($user_id);
+                var_dump($user_data);
             } else {
                 $user_data = $this->session->getSession('id');
             }
-            $this->render('profile.html.twig', ['user' => $user_data]);
+            $this->render('/admin/profile.html.twig', ['user' => $user_data]);
         }
     }
 }

@@ -1,10 +1,10 @@
-{% extends 'dashboard.html.twig' %}
+{% extends 'admin/dashboard.html.twig' %}
 
-{% block confirm %}
+{% block admin_content %}
     <div class="my-3">
-        <div class="alert alert-success">
-            {{ session.session('confirm') }}
-        </div>
+        {{ session.session('role_id') }}
+        {{ session.session('history') }}
+
         <a href="/admin/gestion-articles" class="btn btn-primary">Retour à la liste des Articles</a>
     </div>
 {% endblock %}

@@ -1,35 +1,40 @@
-<header class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/"><h1>HEADER</h1></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu"
-                aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainMenu">
-            <ul class="navbar-nav w-100 align-items-center">
-                {% if session.getSession('connected') %}
-                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
-                    <li class="nav-item ml-auto">
-                        <p>Bonjour, {{ session.getSession('username') }}</p>
-                        <a class="btn btn-sm btn-danger" href="/logout">Deconnexion</a>
-                        {% if session.getSession('role') == 1 %}
-                            <a class="btn btn-sm btn-primary" href="/admin">Admin</a>
-                        {% endif %}
-                    </li>
+<header id="header">
+    <div class="inner">
+        <a href="/" class="logo">
+            <span class="symbol"><img src="../public/assets/images/logo.svg" alt=""/></span><span class="title">Bienvenue</span>
+        </a>
 
-                {% else %}
-                    <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
-                    <li class="nav-item">
-                        <a class="btn btn-sm btn-success" href="/connexion">Connexion
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-sm btn-primary" href="/creer-compte">
-                            S'inscrire
-                        </a>
-                    </li>
-                {% endif %}
+        <nav>
+            <ul>
+                <li><a href="#menu">Menu</a></li>
             </ul>
-        </div>
-    </nav>
+        </nav>
+
+    </div>
 </header>
+
+<nav id="menu">
+    <ul>
+        {% if session.getSession('connected') %}
+            <li>
+                <p>Bonjour, {{ session.getSession('username') }}</p>
+                <a href="/logout">Deconnexion</a>
+                {% if session.getSession('role') == 1 %}
+                    <a href="/admin">Admin</a>
+                {% endif %}
+            </li>
+
+        {% else %}
+            <li>
+                <a href="/connexion">Connexion
+                </a>
+            </li>
+            <li>
+                <a href="/creer-compte">
+                    S'inscrire
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+

@@ -1,0 +1,36 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block admin_content %}
+    <h4>Gestion des commentaires</h4>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Commentaire</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Date</th>
+            <th scope="col">Article</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in list_comments %}
+            <tr>
+                <td scope="row">{{ comment.id }}</td>
+                <td>{{ comment.content }}</td>
+                <td>{{ comment.userName }}</td>
+                <td>{{ comment.createTime }}</td>
+                <td>{{ comment.postTitleComment }}</td>
+                <td>{% if comment.commentStatusId == 0 %}En Attente {% else %} Publié {% endif %}</td>
+                <td>
+                    <a class="btn btn-success approve-comment {% if comment.commentStatusId == 1 %}disabled{% endif %}"
+                       href="/admin/approvecomment/{{ comment.id }}"
+                    >Approuver</a>
+                    <a class="btn btn-danger delete-comment" href="/admin/deletecomment/{{ comment.id }}">Supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

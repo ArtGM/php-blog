@@ -10,17 +10,10 @@ class FrontController extends Controller
 {
     public function homePage()
     {
-        $this->render('base.html.twig');
+        $posts = $this->post->getPosts();
+        $this->render('/front/index.html.twig', ['posts' => $posts]);
     }
 
-    /**
-     * Display all posts
-     */
-    public function displayPosts()
-    {
-        $posts = $this->post->getPosts();
-        $this->render('blog.html.twig', ['posts' => $posts]);
-    }
 
     /**
      * Display a single post by id
@@ -45,7 +38,7 @@ class FrontController extends Controller
             header("HTTP/1.0 404 Not Found");
             echo $this->twig->render('404.html.twig');
         }
-        $this->render('single.html.twig', ['post' => $single[0], 'comments' => $comments, 'user' => $userConnected, 'errors' => $errors]);
+        $this->render('/front/single.html.twig', ['post' => $single[0], 'comments' => $comments, 'user' => $userConnected, 'errors' => $errors]);
     }
 
     /**
@@ -60,7 +53,8 @@ class FrontController extends Controller
         if (!$errors) {
             $this->comment->insertNewComment($newComment);
             $this->session->setSession('confirm', 'Commentaire enregistré, en attente de validation!');
-            $this->render('confirm.html.twig');
+            $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
+            $this->render('/front/confirm.html.twig');
         } else {
             $post_id = $newComment['post_id'];
             $this->displaySinglePost($post_id, $errors);
@@ -76,20 +70,21 @@ class FrontController extends Controller
         if (!$errors) {
             if (!$this->emailIsUniq($newUser['user_email'])) {
                 $email = ['exist' => 'cet email est déjà pris.'];
-                $this->render('register.html.twig', ['email' => $email]);
+                $this->render('/front/register.html.twig', ['email' => $email]);
             } elseif (!$this->userNameIsUniq($newUser['username'])) {
                 $pseudo = ['exist' => 'ce pseudo est déjà pris.'];
-                $this->render('register.html.twig', ['pseudo' => $pseudo]);
+                $this->render('/front/register.html.twig', ['pseudo' => $pseudo]);
             } else {
                 $password = $newUser['password'];
                 $hashPass = password_hash($password, PASSWORD_DEFAULT);
                 $newUser['password'] = $hashPass;
                 $this->user->createNewUser($newUser);
                 $this->session->setSession('confirm', 'Compte Créé !');
-                $this->render('confirm.html.twig');
+                $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
+                $this->render('/front/confirm.html.twig');
             }
         } else {
-            $this->render('register.html.twig', ['user' => $newUser, 'errors' => $errors]);
+            $this->render('/front/register.html.twig', ['user' => $newUser, 'errors' => $errors]);
         }
     }
 
@@ -128,12 +123,13 @@ class FrontController extends Controller
                 $this->session->setSession('role', $user->getRoleId());
                 $this->session->setSession('connected', true);
                 $this->session->setSession('confirm', 'Bonjour ' . $this->session->getSession('username'));
-                $this->render('confirm.html.twig');
+                header('Location:../');
+                //$this->render('confirm.html.twig');
             } else {
                 echo "<div class=\"alert alert-danger\"> Erreur de connexion !</div>";
             }
         } else {
-            $this->render('login.html.twig', ['user' => $loginInfo, 'errors' => $errors]);
+            $this->render('/front/login.html.twig', ['user' => $loginInfo, 'errors' => $errors]);
         }
     }
 
@@ -142,7 +138,7 @@ class FrontController extends Controller
      */
     public function displayRegisterForm()
     {
-        $this->render('register.html.twig');
+        $this->render('/front/register.html.twig');
     }
 
     /**
@@ -150,6 +146,6 @@ class FrontController extends Controller
      */
     public function displayLoginForm()
     {
-        $this->render('login.html.twig');
+        $this->render('/front/login.html.twig');
     }
 }

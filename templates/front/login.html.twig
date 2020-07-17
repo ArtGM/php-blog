@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <form id="login" action="/login" method="post">
+
+        <div class="fields">
+            <div class="field half">
+                <label for="username" class="col-form-label">Nom d'utilisateur</label>
+                <input class="form-control" type="text" name="username" id="username" value="{{ user.username }}">
+                    {% if errors.username %}
+                        <div class="alert alert-danger">
+                            {{ errors.username }}
+                        </div>
+                    {% endif %}
+            </div>
+            <div class="field half">
+                <label for="password" class="col-form-label">Mot de passe</label>
+                <input class="form-control" type="password" name="password" id="password">
+                {% if errors.password %}
+                        <div class="alert alert-danger">
+                            {{ errors.password }}
+                        </div>
+                    {% endif %}
+            </div>
+        </div>
+        <ul class="actions">
+            <li><input class="primary" type="submit" value="Connexion"></li>
+        </ul>
+    </form>
+{% endblock %}

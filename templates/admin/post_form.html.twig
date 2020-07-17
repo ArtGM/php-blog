@@ -1,5 +1,5 @@
 {% extends 'dashboard.html.twig' %}
-{% block post_form %}
+{% block admin_content %}
     <form id="{% if post.id is empty %}create{% else %}update{% endif %}-post-form"
           action="{% if post.id is empty %}/newpost{% else %}/updatepost{% endif %}" method="post">
         <div class="form-group">

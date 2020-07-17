@@ -6,7 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 module.exports = {
     mode: 'development',
     entry: {
-        main: './assets/js/main.js'
+        main: './assets/js/main.js',
     },
     devtool: 'inline-source-map',
     module: {
@@ -18,8 +18,8 @@ module.exports = {
                 enforce: 'pre'
             },
             {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                test: /\.(scss)$/i,
+                loader: ['sass-loader', 'css-loader'],
             }
         ]
     },

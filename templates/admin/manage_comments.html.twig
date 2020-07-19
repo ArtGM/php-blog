@@ -1,4 +1,4 @@
-{% extends 'dashboard.html.twig' %}
+{% extends 'admin/dashboard.html.twig' %}
 
 {% block admin_content %}
     <h4>Gestion des commentaires</h4>
@@ -20,14 +20,14 @@
                 <td scope="row">{{ comment.id }}</td>
                 <td>{{ comment.content }}</td>
                 <td>{{ comment.userName }}</td>
-                <td>{{ comment.createTime }}</td>
+                <td>{{ comment.createTime | date("m F Y") }}</td>
                 <td>{{ comment.postTitleComment }}</td>
                 <td>{% if comment.commentStatusId == 0 %}En Attente {% else %} Publié {% endif %}</td>
                 <td>
-                    <a class="btn btn-success approve-comment {% if comment.commentStatusId == 1 %}disabled{% endif %}"
+                    <a class="button primary small {% if comment.commentStatusId == 1 %}disabled{% endif %}"
                        href="/admin/approvecomment/{{ comment.id }}"
                     >Approuver</a>
-                    <a class="btn btn-danger delete-comment" href="/admin/deletecomment/{{ comment.id }}">Supprimer</a>
+                    <a class="button small delete-comment" href="/admin/deletecomment/{{ comment.id }}">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}

@@ -10,7 +10,6 @@ use Twig\Error\SyntaxError;
 
 class Router
 {
-
     private $admin;
     private $front;
     private $session;
@@ -38,9 +37,6 @@ class Router
         switch ($route) {
             case $route->match('/'):
                 $this->front->homePage();
-                break;
-            case $route->match('/blog'):
-                $this->front->displayPosts();
                 break;
             case $route->match('/creer-compte'):
                 $this->front->displayRegisterForm();

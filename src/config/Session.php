@@ -80,4 +80,19 @@ class Session
 
         return false;
     }
+
+    public function show($name)
+    {
+        if (isset($_SESSION[$name])) {
+            $key = $this->getSession($name);
+            $this->remove($name);
+            return $key;
+        }
+        return null;
+    }
+
+    public function remove($name)
+    {
+        unset($_SESSION[$name]);
+    }
 }

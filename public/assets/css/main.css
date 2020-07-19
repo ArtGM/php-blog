@@ -3308,3 +3308,25 @@ body.is-menu-visible #menu .close {
     }
 
 }
+
+/**
+* Custom
+ */
+
+.alert {
+    padding: 15px;
+    border-radius: 4px;
+    color: #ffffff;
+}
+
+.alert-danger {
+    background: #f2849e;
+}
+
+.alert-info {
+    background: darkorange;
+}
+
+.alert-success {
+    background: #7bd0c1;
+}

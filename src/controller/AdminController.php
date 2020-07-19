@@ -21,8 +21,9 @@ class AdminController extends Controller
 
     public function runDashboard()
     {
+
         if ($this->checkAdmin()) {
-            $this->render('/admin/dashboard.html.twig');
+            $this->render('admin/dashboard.html.twig');
         }
     }
 
@@ -124,7 +125,6 @@ class AdminController extends Controller
         if ($this->checkLoggedIn()) {
             if ($this->checkAdmin()) {
                 $user_data = $this->user->getUserById($user_id);
-                var_dump($user_data);
             } else {
                 $user_data = $this->session->getSession('id');
             }

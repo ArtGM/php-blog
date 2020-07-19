@@ -1,25 +1,44 @@
-{% extends 'dashboard.html.twig' %}
+{% extends 'admin/dashboard.html.twig' %}
 
 {% block admin_content %}
-    <div class="row my-3">
-
-        <h4 class="col-4">Gestion des articles </h4>
-        <a type="button" class="btn btn-success" href="/admin/ajouter">
-            Ajouter un article
-        </a>
+    <div class="row">
+        <div class="col-4">
+            <h4>Gestion des articles </h4>
+        </div>
+        <div class="col-4">
+            <a type="button" class="button primary small" href="/admin/ajouter">
+                Ajouter un article
+            </a>
+        </div>
     </div>
-    <ul class="list-group">
-        {% for post in list_posts %}
-            <li class="list-group-item">{{ post.title }}
-                <span class="badge">
-                    <a type="button" class="btn btn-primary btn-sm" href="/admin/edit/{{ post.id }}-{{ post.Slug() }}">
-                        Modifier
-                    </a>
-                    <a type="button" class="btn btn-danger delete-button btn-sm" href="/admin/delete/{{ post.id }}">
-                        supprimer
-                    </a>
-                </span>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Date de Publication</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in list_posts %}
+                <tr>
+                    <td>{{ post.id }}</td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.createdAt | date("m F Y") }}</td>
+                    <td>
+                        <a href="/admin/edit/{{ post.id }}-{{ post.Slug() }}">
+                            <strong>Modifier</strong>
+                        </a>
+                        <br>
+                        <a href="/admin/delete/{{ post.id }}">
+                            supprimer
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

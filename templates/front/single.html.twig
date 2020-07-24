@@ -1,26 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-        <article>
-            <h1>{{ post.title }}</h1>
-            <p>{{ post.content }}</p>
-        </article>
-        <div>
-            <h2>Commentaires :</h2>
-            <ul class="list-group">
-                {% for comment in comments %}
-                    <li class="list-group-item">
+    <article>
+
+        <time>{{ post.createdAt | date('m F Y') }}</time>
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content | nl2br }}</p>
+        <aside>{{ post.username }}</aside>
+    </article>
+    <div>
+        <h2>Commentaires :</h2>
+        <ul class="alt">
+            {% for comment in comments %}
+                <li>
+                    <blockquote>{{ comment.content | nl2br }}</blockquote>
+                    <p>par <strong>{{ comment.userName }}</strong>
                         <time>le {{ comment.createTime }}</time>
-                        <p>{{ comment.content }}</p>
-                        <p>Pseudo: <strong>{{ comment.userName }}</strong></p>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div>
-            {% if user.connected %}
-                <p>Ajouter un commentaire:</p>
-                <p class="alert alert-info">Vous postez en tant que {{ user.username }}</p>
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        {% if user.connected %}
+            <p>Ajouter un commentaire:</p>
+            <p class="alert alert-info">Vous postez en tant que {{ user.username }}</p>
 
                 <form id="comment-form" method="post" action="/newcomment">
                     <div class="field">

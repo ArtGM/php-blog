@@ -54,6 +54,16 @@ class Route
     }
 
     /**
+     * return the id parameters
+     * @return false|string
+     */
+    public function getRouteIdParam()
+    {
+        preg_match_all('!\d+!', $this->path, $route_id);
+        return implode('', $route_id[0]);
+    }
+
+    /**
      * Return the good regex to test
      * @param $match
      * @return mixed|string
@@ -64,15 +74,5 @@ class Route
             return $this->params[$match[1]];
         }
         return '([^/]+)';
-    }
-
-    /**
-     * return the id parameters
-     * @return false|string
-     */
-    public function getRouteIdParam()
-    {
-        preg_match_all('!\d+!', $this->path, $route_id);
-        return implode('', $route_id[0]);
     }
 }

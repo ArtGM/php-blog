@@ -14,6 +14,25 @@ class FrontController extends Controller
         $this->render('/front/index.html.twig', ['posts' => $posts]);
     }
 
+    /**
+     * @param array $newComment
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function addComment($newComment)
+    {
+        $errors = $this->validation->validate($newComment, 'comment');
+        if (!$errors) {
+            $this->comment->insertNewComment($newComment);
+            $this->session->setSession('confirm', 'Commentaire enregistré, en attente de validation!');
+            $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
+            header('Location:../');
+        } else {
+            $post_id = $newComment['post_id'];
+            $this->displaySinglePost($post_id, $errors);
+        }
+    }
 
     /**
      * Display a single post by id
@@ -42,26 +61,6 @@ class FrontController extends Controller
     }
 
     /**
-     * @param array $newComment
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
-     */
-    public function addComment($newComment)
-    {
-        $errors = $this->validation->validate($newComment, 'comment');
-        if (!$errors) {
-            $this->comment->insertNewComment($newComment);
-            $this->session->setSession('confirm', 'Commentaire enregistré, en attente de validation!');
-            $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
-            $this->render('/front/confirm.html.twig');
-        } else {
-            $post_id = $newComment['post_id'];
-            $this->displaySinglePost($post_id, $errors);
-        }
-    }
-
-    /**
      * @param $newUser
      */
     public function registerNewUser($newUser)
@@ -81,21 +80,11 @@ class FrontController extends Controller
                 $this->user->createNewUser($newUser);
                 $this->session->setSession('confirm', 'Compte Créé !');
                 $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
-                $this->render('/front/confirm.html.twig');
+                header('Location:../');
             }
         } else {
             $this->render('/front/register.html.twig', ['user' => $newUser, 'errors' => $errors]);
         }
-    }
-
-
-    /**
-     * @param $username
-     * @return bool
-     */
-    public function userNameIsUniq($username)
-    {
-        return !$this->user->checkUserName($username);
     }
 
     /**
@@ -105,6 +94,15 @@ class FrontController extends Controller
     public function emailIsUniq($email)
     {
         return $this->user->checkEmail($email);
+    }
+
+    /**
+     * @param $username
+     * @return bool
+     */
+    public function userNameIsUniq($username)
+    {
+        return !$this->user->checkUserName($username);
     }
 
     /**
@@ -124,7 +122,6 @@ class FrontController extends Controller
                 $this->session->setSession('connected', true);
                 $this->session->setSession('confirm', 'Bonjour ' . $this->session->getSession('username'));
                 header('Location:../');
-                //$this->render('confirm.html.twig');
             } else {
                 echo "<div class=\"alert alert-danger\"> Erreur de connexion !</div>";
             }

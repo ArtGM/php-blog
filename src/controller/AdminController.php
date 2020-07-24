@@ -31,14 +31,14 @@ class AdminController extends Controller
     {
         if ($this->checkAdmin()) {
             $list_posts = $this->post->getPosts(null, true);
-            $this->render('/admin/manage_posts.html.twig', ['list_posts' => $list_posts]);
+            $this->render('admin/manage_posts.html.twig', ['list_posts' => $list_posts]);
         }
     }
 
     public function displayPostForm()
     {
         if ($this->checkAdmin()) {
-            $this->render('/admin/post_form.html.twig');
+            $this->render('admin/post_form.html.twig');
         }
     }
 
@@ -46,7 +46,7 @@ class AdminController extends Controller
     {
         if ($this->checkAdmin()) {
             $post_data = $this->post->getPosts($post_id, true);
-            $this->render('/admin/post_form.html.twig', ['post' => $post_data]);
+            $this->render('admin/post_form.html.twig', ['post' => $post_data]);
         }
     }
 
@@ -54,7 +54,7 @@ class AdminController extends Controller
     {
         if ($this->checkAdmin()) {
             $list_comments = $this->comment->getAllComments();
-            $this->render('/admin/manage_comments.html.twig', ['list_comments' => $list_comments]);
+            $this->render('admin/manage_comments.html.twig', ['list_comments' => $list_comments]);
         }
     }
 
@@ -66,7 +66,7 @@ class AdminController extends Controller
                 $this->post->insertNewPost($newPost);
                 $this->session->setSession('confirm', 'Le nouvel article a bien été ajouté');
                 $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
-                $this->render('/admin/confirm.html.twig');
+                header('Location:../');
             } else {
                 $this->render('/admin/post_form.html.twig', ['post' => $newPost, 'errors' => $errors]);
             }
@@ -81,7 +81,7 @@ class AdminController extends Controller
                 $this->post->updatePost($update);
                 $this->session->setSession('confirm', 'l\'article à été mis à jour.');
                 $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
-                $this->render('/admin/confirm.html.twig');
+                header('Location:../');
             } else {
                 $this->render('/admin/post_form.html.twig', ['post' => $update, 'errors' => $errors]);
             }

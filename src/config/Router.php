@@ -59,27 +59,27 @@ class Router
             case $route->with('admin', 'admin')->match('/admin/ajouter'):
                 $this->admin->displayPostForm();
                 break;
-            case $route->with('admin', 'admin')->with('delete', 'delete')->with('id', '[0-9]+')->match('/admin/delete/:id'):
+            case $route->with('admin', 'admin')->with('delete', 'delete')->with('id', '^[0-9]+')->match('/admin/delete/:id'):
                 $post_id = $route->getRouteIdParam();
                 $this->admin->deletePost($post_id);
                 break;
-            case $route->with('admin', 'admin')->with('approvecomment', 'approvecomment')->with('id', '[0-9]+')->match('/admin/approvecomment/:id'):
+            case $route->with('admin', 'admin')->with('approvecomment', 'approvecomment')->with('id', '^[0-9]+')->match('/admin/approvecomment/:id'):
                 $comment_id = $route->getRouteIdParam();
                 $this->admin->approveComment($comment_id);
                 break;
-            case $route->with('admin', 'admin')->with('deletecomment', 'deletecomment')->with('id', '[0-9]+')->match('/admin/deletecomment/:id'):
+            case $route->with('admin', 'admin')->with('deletecomment', 'deletecomment')->with('id', '^[0-9]+')->match('/admin/deletecomment/:id'):
                 $comment_id = $route->getRouteIdParam();
                 $this->admin->deleteComment($comment_id);
                 break;
-            case $route->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/:id-:slug'):
+            case $route->with('id', '^[0-9]+')->with('slug', '[a-z0-9-]+')->match('/:id-:slug'):
                 $post_id = $route->getRouteIdParam();
                 $this->front->displaySinglePost($post_id);
                 break;
-            case $route->with('admin', 'admin')->with('edit', 'edit')->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+')->match('/admin/edit/:id-:slug'):
+            case $route->with('admin', 'admin')->with('edit', 'edit')->with('id', '^[0-9]+')->with('slug', '[a-z0-9-]+')->match('/admin/edit/:id-:slug'):
                 $post_id = $route->getRouteIdParam();
                 $this->admin->modifyPost($post_id);
                 break;
-            case $route->with('admin', 'admin')->with('profile', 'profile')->with('id', '[0-9]+')->with('name', '[a-z0-9-]+')->match('/admin/profile/:id-:name'):
+            case $route->with('admin', 'admin')->with('profile', 'profile')->with('id', '^[0-9]+')->with('name', '[a-z0-9-]+')->match('/admin/profile/:id-:name'):
                 $user_id = $route->getRouteIdParam();
                 $this->admin->editUserProfile($user_id);
                 break;

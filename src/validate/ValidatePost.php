@@ -6,7 +6,6 @@ use Blog\src\config\Parameter;
 
 class ValidatePost extends Validation
 {
-
     protected function checkField($name, $value)
     {
         if ($name === 'title') {
@@ -26,7 +25,7 @@ class ValidatePost extends Validation
         if ($this->constraint->minLength($name, $value, 2)) {
             return $this->constraint->minLength('titre', $value, 2);
         }
-        if ($this->constraint->maxLength($name, $value, 255)) {
+        if ($this->constraint->maxLength($name, $value, 45)) {
             return $this->constraint->maxLength('titre', $value, 255);
         }
     }
@@ -40,5 +39,4 @@ class ValidatePost extends Validation
             return $this->constraint->minLength('message', $value, 2);
         }
     }
-
 }

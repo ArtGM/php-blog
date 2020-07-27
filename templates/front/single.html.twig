@@ -2,11 +2,9 @@
 
 {% block content %}
     <article>
-
-        <time>{{ post.createdAt | date('m F Y') }}</time>
+        <time>{{ post.createdAt | format_datetime('medium', 'none', locale='fr') }}</time>
         <h1>{{ post.title }}</h1>
         <p>{{ post.content | nl2br }}</p>
-        <aside>{{ post.username }}</aside>
     </article>
     <div>
         <h2>Commentaires :</h2>
@@ -15,7 +13,7 @@
                 <li>
                     <blockquote>{{ comment.content | nl2br }}</blockquote>
                     <p>par <strong>{{ comment.userName }}</strong>
-                        <time>le {{ comment.createTime }}</time>
+                        <time>le {{ comment.createTime | format_datetime('medium', 'none', locale='fr') }}</time>
                     </p>
                 </li>
             {% endfor %}

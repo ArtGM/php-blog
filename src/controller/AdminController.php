@@ -120,7 +120,7 @@ class AdminController extends Controller
         }
     }
 
-    public function editUserProfile($user_id)
+    public function showUserProfile($user_id)
     {
         if ($this->checkLoggedIn()) {
             if ($this->checkAdmin()) {
@@ -129,6 +129,18 @@ class AdminController extends Controller
                 $user_data = $this->session->getSession('id');
             }
             $this->render('/admin/profile.html.twig', ['user' => $user_data]);
+        }
+    }
+
+    public function editUserProfile($user_id)
+    {
+        if ($this->checkLoggedIn()) {
+            if ($this->checkAdmin()) {
+                $user_data = $this->user->getUserById($user_id);
+            } else {
+                $user_data = $this->session->getSession('id');
+            }
+            $this->render('/admin/edit_profile.html.twig', ['user' => $user_data]);
         }
     }
 }

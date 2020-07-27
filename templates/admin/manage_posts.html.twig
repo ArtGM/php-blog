@@ -26,7 +26,7 @@
                 <tr>
                     <td>{{ post.id }}</td>
                     <td>{{ post.title }}</td>
-                    <td>{{ post.createdAt | date("m F Y") }}</td>
+                    <td>{{ post.createdAt | format_datetime('medium', 'none', locale='fr') }}</td>
                     <td>
                         <a href="/admin/edit/{{ post.id }}-{{ post.Slug() }}">
                             <strong>Modifier</strong>

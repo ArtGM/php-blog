@@ -1,7 +1,7 @@
 <header id="header">
     <div class="inner">
         <a href="/" class="logo">
-            <span class="symbol"><img src="../public/assets/images/code-solid.svg" alt=""/></span><span class="title">Bienvenue</span>
+            <span class="symbol"><img src="/public/assets/images/home-solid.svg" alt=""/></span><span class="title">Accueil</span>
         </a>
 
         <nav>
@@ -21,6 +21,8 @@
                 <a href="/logout">Deconnexion</a>
                 {% if session.getSession('role') == 1 %}
                     <a href="/admin">Admin</a>
+                {% else %}
+                    <a href="/admin/"></a>
                 {% endif %}
             </li>
 

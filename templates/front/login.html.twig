@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+    {% if session.getSession('error') %}
+        <div class="alert alert-danger">
+            <strong>{{ session.show('error') }}</strong>
+        </div>
+    {% endif %}
 
     <form id="login" action="/login" method="post">
 
@@ -8,9 +13,9 @@
             <div class="field half">
                 <label for="username" class="col-form-label">Nom d'utilisateur</label>
                 <input class="form-control" type="text" name="username" id="username" value="{{ user.username }}">
-                    {% if errors.username %}
-                        <div class="alert alert-danger">
-                            {{ errors.username }}
+                {% if errors.username %}
+                    <div class="alert alert-danger">
+                        {{ errors.username }}
                         </div>
                     {% endif %}
             </div>

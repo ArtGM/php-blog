@@ -12,6 +12,7 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Extension\DebugExtension;
+use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\FilesystemLoader;
 
 abstract class Controller
@@ -31,6 +32,7 @@ abstract class Controller
         $this->user = new UserManager();
         $this->twig = $this->twig();
         $this->twig->addExtension(new DebugExtension());
+        $this->twig->addExtension(new IntlExtension());
         $this->session = Session::getInstance();
         $this->twig->addGlobal('session', $this->session);
         $this->validation = new Validation();
@@ -54,4 +56,5 @@ abstract class Controller
         } catch (SyntaxError $e) {
         }
     }
+
 }

@@ -1,0 +1,27 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block admin_content %}
+    <form action="/admin/profile/update" method="post">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input type="text" value="{{ user.username }}"></td>
+                    <td><input type="email" value="{{ user.email }}"></td>
+                    <td><input type="password" value=""></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <input class="button" type="submit" value="Mettre à jour">
+        <a href="{{ app.request.headers.get('referer') }}">Retour au profil</a>
+    </form>
+{% endblock %}

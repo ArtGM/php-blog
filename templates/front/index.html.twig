@@ -7,12 +7,12 @@
         </div>
     {% endif %}
     <header>
-        <h1>Mon super BLog !</h1>
+        <h1>Mon super Blog !</h1>
     </header>
     <section class="tiles">
         {% for post in posts %}
             {% set styles = ['1', '2', '3', '4', '5', '6'] %}
-            <article class="style{{ loop.index }}">
+            <article class="style{{ cycle(styles, loop.index) }}">
                 <span class="image">
                     <img src="../../public/assets/images/pic01.jpg">
                 </span>

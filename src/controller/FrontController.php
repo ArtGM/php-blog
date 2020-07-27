@@ -121,9 +121,10 @@ class FrontController extends Controller
                 $this->session->setSession('role', $user->getRoleId());
                 $this->session->setSession('connected', true);
                 $this->session->setSession('confirm', 'Bonjour ' . $this->session->getSession('username'));
-                header('Location:../');
+                header('Location:/');
             } else {
-                echo "<div class=\"alert alert-danger\"> Erreur de connexion !</div>";
+                $this->session->setSession('error', 'Erreur de connexion');
+                header('Location:/connexion');
             }
         } else {
             $this->render('/front/login.html.twig', ['user' => $loginInfo, 'errors' => $errors]);

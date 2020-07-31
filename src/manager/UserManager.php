@@ -72,4 +72,10 @@ class UserManager extends Manager
             "isPasswordValid" => $isPasswordValid
         ];
     }
+
+    public function updateUser($update)
+    {
+        $insert = $this->db->prepare("UPDATE post SET title = ?, content = ?, status = ?, updated_at = NOW() WHERE id = ?");
+        $insert->execute(array_values($update));
+    }
 }

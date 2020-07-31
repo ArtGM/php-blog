@@ -1,7 +1,7 @@
 {% extends 'admin/dashboard.html.twig' %}
 
 {% block admin_content %}
-    <form action="/admin/profile/update" method="post">
+    <form action="/admin/profile/update" method="post" id="update_profile">
         <div class="fields">
             <div class="field">
                 <label for="username">Pseudo</label><input name="username" type="text" value="{{ user.username }}">

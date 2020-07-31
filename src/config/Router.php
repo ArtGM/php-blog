@@ -96,6 +96,9 @@ class Router
             case $route->match('/updatepost'):
                 $this->admin->updatePost(filter_input_array(INPUT_POST));
                 break;
+            case $route->with('admin', 'admin')->with('profile', 'profile')->match('update', 'update')->match('/admin/profile/update'):
+                $this->admin->updateUser(filter_input_array(INPUT_POST));
+                break;
             case $route->match('/register'):
                 $this->front->registerNewUser(filter_input_array(INPUT_POST));
                 break;

@@ -144,4 +144,36 @@ class AdminController extends Controller
             $this->render('/admin/edit_profile.html.twig', ['user' => $user_data]);
         }
     }
+
+    public function updateUser($update)
+    {
+        if ($this->session->getSession('connected')) {
+            $errors = $this->validation->validate($update, 'register');
+            if (!$errors) {
+                if (!$this->emailIsUniq($update['user_email'])) {
+                    $email = ['exist' => 'cet email est déjà pris.'];
+                    $this->render('/front/register.html.twig', ['email' => $email]);
+                } elseif (!$this->userNameIsUniq($newUser['username'])) {
+                    $pseudo = ['exist' => 'ce pseudo est déjà pris.'];
+                    $this->render('/front/register.html.twig', ['pseudo' => $pseudo]);
+                } else {
+                    $password = $update['password'];
+                    if (!empty($password)) {
+                        $hashPass = password_hash($password, PASSWORD_DEFAULT);
+                        $update['password'] = $hashPass;
+                    } else {
+                        unset($update['password']);
+                    }
+
+                    $this->user->updateUser($update);
+                    $this->session->setSession('confirm', 'Vos informations ont été mis à jour.');
+                    $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
+                    header('Location:../');
+                }
+            } else {
+                $this->render('/admin/profile/edit/edit_profile.html.twig', ['user' => $update, 'errors' => $errors]);
+            }
+        }
+    }
+
 }

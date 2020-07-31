@@ -2,6 +2,8 @@
 
 
 {% block content %}
-    {% include 'admin/_admin/_nav.html.twig' %}
+    {% if session.session('role') == 1 %}
+        {% include 'admin/_admin/_nav.html.twig' %}
+    {% endif %}
         {% block admin_content %}{% endblock %}
 {% endblock %}

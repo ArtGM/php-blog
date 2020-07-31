@@ -2,26 +2,25 @@
 
 {% block admin_content %}
     <form action="/admin/profile/update" method="post">
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                <tr>
-                    <th>Pseudo</th>
-                    <th>Email</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><input type="text" value="{{ user.username }}"></td>
-                    <td><input type="email" value="{{ user.email }}"></td>
-                    <td><input type="password" value=""></td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="fields">
+            <div class="field">
+                <label for="username">Pseudo</label><input name="username" type="text" value="{{ user.username }}">
+            </div>
+
+            <div class="field">
+                <label for="user_email">Email</label><input name="user_email" type="email" value="{{ user.email }}">
+            </div>
+            <div class="field">
+                <label for="password">Mot de passe</label><input name="password" type="password" value=""
+                                                                 placeholder="Nouveau mot de passe"><input
+                        name="confirm_password" type="password" value="" placeholder="confirmation"><span
+                        id="icon-macthing"></span>
+            </div>
         </div>
 
-
-        <input class="button" type="submit" value="Mettre à jour">
-        <a href="{{ app.request.headers.get('referer') }}">Retour au profil</a>
+        <ul class="actions">
+            <li><input class="button" type="submit" value="Mettre à jour"></li>
+            <li><a href="/admin/profile/{{ user.id }}-{{ user.username |lower }}">Retour au profil</a></li>
+        </ul>
     </form>
 {% endblock %}

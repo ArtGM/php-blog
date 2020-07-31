@@ -1,6 +1,7 @@
 <?php
 namespace Blog\src\controller;
 
+
 class AdminController extends Controller
 {
     private function checkAdmin()
@@ -122,11 +123,11 @@ class AdminController extends Controller
 
     public function showUserProfile($user_id)
     {
-        if ($this->checkLoggedIn()) {
-            if ($this->checkAdmin()) {
+        if ($this->session->getSession('connected')) {
+            if ($this->session->getSession('role') === '1') {
                 $user_data = $this->user->getUserById($user_id);
             } else {
-                $user_data = $this->session->getSession('id');
+                $user_data = $this->user->getUserById($this->session->getSession('id'));
             }
             $this->render('/admin/profile.html.twig', ['user' => $user_data]);
         }
@@ -134,11 +135,11 @@ class AdminController extends Controller
 
     public function editUserProfile($user_id)
     {
-        if ($this->checkLoggedIn()) {
-            if ($this->checkAdmin()) {
+        if ($this->session->getSession('connected')) {
+            if ($this->session->getSession('role') === '1') {
                 $user_data = $this->user->getUserById($user_id);
             } else {
-                $user_data = $this->session->getSession('id');
+                $user_data = $this->user->getUserById($this->session->getSession('id'));
             }
             $this->render('/admin/edit_profile.html.twig', ['user' => $user_data]);
         }

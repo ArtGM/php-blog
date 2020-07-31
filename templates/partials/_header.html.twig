@@ -22,7 +22,8 @@
                 {% if session.getSession('role') == 1 %}
                     <a href="/admin">Admin</a>
                 {% else %}
-                    <a href="/admin/"></a>
+                    <a href="/admin/profile/{{ session.getSession('id') }}-{{ session.getSession('username') | lower }}">Mon
+                        Compte</a>
                 {% endif %}
             </li>
 

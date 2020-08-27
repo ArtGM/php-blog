@@ -15,6 +15,9 @@
 
 <nav id="menu">
     <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <hr>
         {% if session.getSession('connected') %}
             <li>
                 <p>Bonjour, {{ session.getSession('username') }}</p>

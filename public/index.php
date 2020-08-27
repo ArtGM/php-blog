@@ -1,5 +1,6 @@
 <?php
 require '../src/config/config.php';
+require '../src/config/mail-cfg.php';
 require '../vendor/autoload.php';
 
 use Blog\src\config\Router;

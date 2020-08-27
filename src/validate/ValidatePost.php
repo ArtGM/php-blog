@@ -2,7 +2,6 @@
 
 namespace Blog\src\validate;
 
-use Blog\src\config\Parameter;
 
 class ValidatePost extends Validation
 {

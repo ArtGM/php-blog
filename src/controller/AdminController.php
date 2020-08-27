@@ -12,6 +12,7 @@ class AdminController extends Controller
         }
         return true;
     }
+
     private function checkLoggedIn()
     {
         if ($this->session->getSession('connected')) {
@@ -145,35 +146,51 @@ class AdminController extends Controller
         }
     }
 
+    public function editUserPassword($user_id)
+    {
+        if ($this->session->getSession('connected')) {
+            if ($this->session->getSession('role') === '1') {
+                $user_data = $this->user->getUserById($user_id);
+            } else {
+                $user_data = $this->user->getUserById($this->session->getSession('id'));
+            }
+            $this->render('/admin/password.html.twig', ['user' => $user_data]);
+        }
+    }
+
     public function updateUser($update)
     {
         if ($this->session->getSession('connected')) {
-            $errors = $this->validation->validate($update, 'register');
+            $errors = $this->validation->validate($update, 'update');
             if (!$errors) {
-                if (!$this->emailIsUniq($update['user_email'])) {
-                    $email = ['exist' => 'cet email est déjà pris.'];
-                    $this->render('/front/register.html.twig', ['email' => $email]);
-                } elseif (!$this->userNameIsUniq($newUser['username'])) {
-                    $pseudo = ['exist' => 'ce pseudo est déjà pris.'];
-                    $this->render('/front/register.html.twig', ['pseudo' => $pseudo]);
-                } else {
-                    $password = $update['password'];
-                    if (!empty($password)) {
-                        $hashPass = password_hash($password, PASSWORD_DEFAULT);
-                        $update['password'] = $hashPass;
-                    } else {
-                        unset($update['password']);
-                    }
-
-                    $this->user->updateUser($update);
-                    $this->session->setSession('confirm', 'Vos informations ont été mis à jour.');
-                    $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
-                    header('Location:../');
-                }
+                $this->user->updateUser($update);
+                $this->session->setSession('username', $update['username']);
+                $this->session->setSession('confirm', 'Vos informations ont été mis à jour.');
+                $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
+                header('Location:../');
             } else {
-                $this->render('/admin/profile/edit/edit_profile.html.twig', ['user' => $update, 'errors' => $errors]);
+                var_dump($update);
+                $this->render('/admin/edit_profile.html.twig', ['user' => $update, 'errors' => $errors]);
             }
         }
     }
 
+    public function updatePassword($update)
+    {
+        if ($this->session->getSession('connected')) {
+            $errors = $this->validation->validate($update, 'password');
+            if (!$errors) {
+                $password = $update['password'];
+                $hashPass = password_hash($password, PASSWORD_DEFAULT);
+                $update['password'] = $hashPass;
+                $this->user->updatePassword($update);
+                $this->session->setSession('confirm', 'Votre mot de passe a été mis à jour.');
+                $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
+                header('Location:../');
+            } else {
+
+                $this->render('/admin/password.html.twig', ['errors' => $errors]);
+            }
+        }
+    }
 }

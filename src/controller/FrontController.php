@@ -6,12 +6,18 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
+
 class FrontController extends Controller
 {
     public function homePage()
     {
+        $this->render('/front/index.html.twig');
+    }
+
+    public function blogPage()
+    {
         $posts = $this->post->getPosts();
-        $this->render('/front/index.html.twig', ['posts' => $posts]);
+        $this->render('/front/blog.html.twig', ['posts' => $posts]);
     }
 
     /**
@@ -87,23 +93,7 @@ class FrontController extends Controller
         }
     }
 
-    /**
-     * @param $email
-     * @return bool
-     */
-    public function emailIsUniq($email)
-    {
-        return $this->user->checkEmail($email);
-    }
 
-    /**
-     * @param $username
-     * @return bool
-     */
-    public function userNameIsUniq($username)
-    {
-        return !$this->user->checkUserName($username);
-    }
 
     /**
      * @param $loginInfo array
@@ -145,5 +135,37 @@ class FrontController extends Controller
     public function displayLoginForm()
     {
         $this->render('/front/login.html.twig');
+    }
+
+    public function contactForm($contactInfo)
+    {
+
+        $errors = $this->validation->validate($contactInfo, 'contact');
+        if (!$errors) {
+            $admin_info = $this->user->getAdmin();
+
+            $transport = new \Swift_SmtpTransport(MAIL_HOST, SMTP_PORT, 'ssl');
+            $transport->setUsername(AUTH);
+            $transport->setPassword(PASS);
+
+            $mailer = new \Swift_Mailer($transport);
+
+            $message = new \Swift_Message('Contact via Blog');
+            $message->setFrom([
+                $contactInfo['email'] => $contactInfo['name'],
+            ])->setTo([
+                $admin_info->getEmail() => $admin_info->getUsername()
+            ])->setBody($contactInfo['message'], 'text/html');
+
+            $success = $mailer->send($message);
+
+            if ($success) {
+                $this->session->setSession('confirm', 'Message envoyé');
+                header('Location:/');
+            } else {
+                $this->session->setSession('error', 'erreur lors de l\'envoi du message');
+            }
+        }
+
     }
 }

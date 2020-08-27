@@ -44,6 +44,15 @@ class Validation
         } elseif ($name === 'comment') {
             $loginValidation = new ValidateComment();
             return $loginValidation->check($data);
+        } elseif ($name === 'update') {
+            $loginValidation = new ValidateUser();
+            return $loginValidation->check($data);
+        } elseif ($name === 'password') {
+            $passValidation = new ValidatePass();
+            return $passValidation->check($data);
+        } elseif ($name === 'contact') {
+            $contactValidation = new ValidateContact();
+            return $contactValidation->check($data);
         }
     }
 }

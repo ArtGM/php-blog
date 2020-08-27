@@ -2,10 +2,8 @@
 
 namespace Blog\src\validate;
 
-
 class ValidateRegister extends Validation
 {
-
     protected function checkField($name, $value)
     {
         if ($name === 'username') {
@@ -33,7 +31,6 @@ class ValidateRegister extends Validation
         }
     }
 
-
     private function checkEmail($name, $value)
     {
         if ($this->constraint->notBlank($name, $value)) {
@@ -56,5 +53,4 @@ class ValidateRegister extends Validation
             return $this->constraint->minLength('Mot de Passe', $value, 16);
         }
     }
-
 }

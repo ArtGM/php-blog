@@ -57,4 +57,22 @@ abstract class Controller
         }
     }
 
+    /**
+     * @param $email
+     * @return bool
+     */
+    public function emailIsUniq($email)
+    {
+        return $this->user->checkEmail($email);
+    }
+
+    /**
+     * @param $username
+     * @return bool
+     */
+    public function userNameIsUniq($username)
+    {
+        return !$this->user->checkUserName($username);
+    }
+
 }

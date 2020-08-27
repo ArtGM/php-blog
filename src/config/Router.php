@@ -38,6 +38,12 @@ class Router
             case $route->match('/'):
                 $this->front->homePage();
                 break;
+            case $route->match('/blog'):
+                $this->front->blogPage();
+                break;
+            case $route->match('/mail'):
+                $this->front->contactForm(filter_input_array(INPUT_POST));
+                break;
             case $route->match('/creer-compte'):
                 $this->front->displayRegisterForm();
                 break;
@@ -87,6 +93,10 @@ class Router
                 $user_id = $route->getRouteIdParam();
                 $this->admin->editUserProfile($user_id);
                 break;
+            case $route->with('admin', 'admin')->with('profile', 'profile')->with('password', 'password')->with('id', '[0-9]+')->with('name', '[a-z0-9-]+')->match('/admin/profile/password/:id-:name'):
+                $user_id = $route->getRouteIdParam();
+                $this->admin->editUserPassword($user_id);
+                break;
             case $route->match('/newcomment'):
                 $this->front->addComment(filter_input_array(INPUT_POST));
                 break;
@@ -96,8 +106,11 @@ class Router
             case $route->match('/updatepost'):
                 $this->admin->updatePost(filter_input_array(INPUT_POST));
                 break;
-            case $route->with('admin', 'admin')->with('profile', 'profile')->match('update', 'update')->match('/admin/profile/update'):
+            case $route->with('admin', 'admin')->with('profile', 'profile')->with('update', 'update')->match('/admin/profile/update'):
                 $this->admin->updateUser(filter_input_array(INPUT_POST));
+                break;
+            case $route->with('admin', 'admin')->with('password', 'password')->with('update', 'update')->match('/admin/password/update'):
+                $this->admin->updatePassword(filter_input_array(INPUT_POST));
                 break;
             case $route->match('/register'):
                 $this->front->registerNewUser(filter_input_array(INPUT_POST));

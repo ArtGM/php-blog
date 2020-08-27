@@ -14,6 +14,13 @@ class UserManager extends Manager
         return new User($fetch_user->fetch($this->fetch_style));
     }
 
+    public function getAdmin()
+    {
+        $fetch_admin = $this->db->prepare("SELECT * FROM user WHERE roles_id = 1");
+        $fetch_admin->execute();
+        return new User($fetch_admin->fetch($this->fetch_style));
+    }
+
     public function getUserByName($username)
     {
         $fetch_user = $this->db->prepare("SELECT * FROM user WHERE username = ?");
@@ -75,7 +82,13 @@ class UserManager extends Manager
 
     public function updateUser($update)
     {
-        $insert = $this->db->prepare("UPDATE post SET title = ?, content = ?, status = ?, updated_at = NOW() WHERE id = ?");
+        $insert = $this->db->prepare("UPDATE user SET username = ?, email = ? WHERE id = ?");
+        $insert->execute(array_values($update));
+    }
+
+    public function updatePassword($update)
+    {
+        $insert = $this->db->prepare("UPDATE user SET password = ? WHERE id = ?");
         $insert->execute(array_values($update));
     }
 }

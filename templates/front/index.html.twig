@@ -7,24 +7,17 @@
         </div>
     {% endif %}
     <header>
-        <h1>Mon super Blog !</h1>
+        <img src="/public/assets/images/face.png" alt="" style="background: black; float:right; padding: 20px">
+        <h1>Arthur Morisson</h1>
     </header>
-    <section class="tiles">
-        {% for post in posts %}
-            {% set styles = ['1', '2', '3', '4', '5', '6'] %}
-            <article class="style{{ cycle(styles, loop.index) }}">
-                <span class="image">
-                    <img src="../../public/assets/images/pic01.jpg">
-                </span>
-
-                <a href="/{{ post.id }}-{{ post.Slug() }}">
-                    <h2>{{ post.title }}</h2>
-                    <div class="content">
-                        <p>Lire la suite</p>
-                    </div>
-                </a>
-            </article>
-        {% endfor %}
+    <section>
+        <p>
+            Bonjour, je suis Arthur Morisson, Développeur web.
+        </p>
+        <br>
+        <p>
+            N'hésitez pas à <a href="">consulter mon CV</a> et/ou me suivre sur les réseaux sociaux.
+        </p>
     </section>
 
 {% endblock %}

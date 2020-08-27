@@ -2,7 +2,7 @@
 
 namespace Blog\src\validate;
 
-class ValidateRegister extends Validation
+class ValidateUser extends Validation
 {
     protected function checkField($name, $value)
     {
@@ -11,9 +11,6 @@ class ValidateRegister extends Validation
             $this->addError($name, $error);
         } elseif ($name === 'user_email') {
             $error = $this->checkEmail($name, $value);
-            $this->addError($name, $error);
-        } elseif ($name === 'password') {
-            $error = $this->checkPass($name, $value);
             $this->addError($name, $error);
         }
     }
@@ -42,17 +39,5 @@ class ValidateRegister extends Validation
         }
     }
 
-    private function checkPass(string $name, $value)
-    {
-        if ($this->constraint->notBlank($name, $value)) {
-            return $this->constraint->notBlank('Mot de Passe', $value);
-        }
-        if ($this->constraint->minLength($name, $value, 8)) {
-            return $this->constraint->minLength('Mot de Passe', $value, 8);
-        }
-        if ($this->constraint->maxLength($name, $value, 16)) {
-            return $this->constraint->minLength('Mot de Passe', $value, 16);
-        }
-    }
 }
 

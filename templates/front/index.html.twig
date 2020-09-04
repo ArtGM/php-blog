@@ -6,18 +6,26 @@
             <strong>{{ session.show('confirm') }}</strong>
         </div>
     {% endif %}
-    <header>
-        <img src="/public/assets/images/face.png" alt="" style="background: black; float:right; padding: 20px">
-        <h1>Arthur Morisson</h1>
-    </header>
-    <section>
-        <p>
-            Bonjour, je suis Arthur Morisson, Développeur web.
-        </p>
-        <br>
-        <p>
-            N'hésitez pas à <a href="">consulter mon CV</a> et/ou me suivre sur les réseaux sociaux.
-        </p>
+    {% if session.getSession('error') %}
+        <div class="alert alert-danger">
+            <strong>{{ session.show('error') }}</strong>
+        </div>
+    {% endif %}
+    <section class="home row">
+        <div class="col-12-xsmall col-8">
+            <h1>Arthur Morisson</h1>
+            <p>
+                Bonjour, je suis Arthur Morisson, Développeur web.
+            </p>
+            <br>
+            <p>
+                N'hésitez pas à <a href="/public/assets/images/CV_Morisson_Arthur_201909.pdf">consulter mon CV</a> et/ou
+                me suivre sur les réseaux sociaux.
+            </p>
+        </div>
+        <div class="col-12-xsmall col-4">
+            <img src="/public/assets/images/face.png" alt="" class="hero">
+        </div>
     </section>
 
 {% endblock %}

@@ -3331,3 +3331,14 @@ body.is-menu-visible #menu .close {
 .alert-success {
     background: #7bd0c1;
 }
+
+.home {
+    margin-top: 30px;
+}
+
+.hero {
+    background-color: #000;
+    padding: 30px;
+    max-width: 100%;
+    display: block;
+}

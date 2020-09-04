@@ -6,7 +6,6 @@ use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
-
 class FrontController extends Controller
 {
     public function homePage()
@@ -139,6 +138,7 @@ class FrontController extends Controller
 
     public function contactForm($contactInfo)
     {
+        var_dump($contactInfo);
 
         $errors = $this->validation->validate($contactInfo, 'contact');
         if (!$errors) {
@@ -155,7 +155,9 @@ class FrontController extends Controller
                 $contactInfo['email'] => $contactInfo['name'],
             ])->setTo([
                 $admin_info->getEmail() => $admin_info->getUsername()
-            ])->setBody($contactInfo['message'], 'text/html');
+            ])->setBody($this->twig->render('/front/email.html.twig', ['message' => $contactInfo]),
+                'text/html'
+            );
 
             $success = $mailer->send($message);
 
@@ -165,7 +167,9 @@ class FrontController extends Controller
             } else {
                 $this->session->setSession('error', 'erreur lors de l\'envoi du message');
             }
+        } else {
+            $this->session->setSession('error', 'veuillez remplir tout les champs');
+            header('Location:/');
         }
-
     }
 }

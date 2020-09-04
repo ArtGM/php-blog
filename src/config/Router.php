@@ -100,11 +100,9 @@ class Router
             case $route->match('/newcomment'):
                 $this->front->addComment(filter_input_array(INPUT_POST));
                 break;
-            case $route->match('/newpost'):
-                $this->admin->addNewPost(filter_input_array(INPUT_POST));
-                break;
             case $route->match('/updatepost'):
-                $this->admin->updatePost(filter_input_array(INPUT_POST));
+            case $route->match('/newpost'):
+                $this->admin->addOrUpdatePost(filter_input_array(INPUT_POST));
                 break;
             case $route->with('admin', 'admin')->with('profile', 'profile')->with('update', 'update')->match('/admin/profile/update'):
                 $this->admin->updateUser(filter_input_array(INPUT_POST));

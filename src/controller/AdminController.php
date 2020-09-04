@@ -1,7 +1,6 @@
 <?php
 namespace Blog\src\controller;
 
-
 class AdminController extends Controller
 {
     private function checkAdmin()
@@ -23,7 +22,6 @@ class AdminController extends Controller
 
     public function runDashboard()
     {
-
         if ($this->checkAdmin()) {
             $this->render('admin/dashboard.html.twig');
         }
@@ -60,32 +58,23 @@ class AdminController extends Controller
         }
     }
 
-    public function addNewPost($newPost)
-    {
-        if ($this->checkAdmin()) {
-            $errors = $this->validation->validate($newPost, 'post');
-            if (!$errors) {
-                $this->post->insertNewPost($newPost);
-                $this->session->setSession('confirm', 'Le nouvel article a bien été ajouté');
-                $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
-                header('Location:../');
-            } else {
-                $this->render('/admin/post_form.html.twig', ['post' => $newPost, 'errors' => $errors]);
-            }
-        }
-    }
 
-    public function updatePost($update)
+    public function addOrUpdatePost($post)
     {
         if ($this->checkAdmin()) {
-            $errors = $this->validation->validate($update, 'post');
+            $errors = $this->validation->validate($post, 'post');
             if (!$errors) {
-                $this->post->updatePost($update);
-                $this->session->setSession('confirm', 'l\'article à été mis à jour.');
+                if (empty($post['id'])) {
+                    $this->post->insertNewPost($post);
+                    $this->session->setSession('confirm', 'Le nouvel article a bien été ajouté');
+                } else {
+                    $this->post->updatePost($post);
+                    $this->session->setSession('confirm', 'l\'article à été mis à jour.');
+                }
                 $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
-                header('Location:../');
+                header('Location:/');
             } else {
-                $this->render('/admin/post_form.html.twig', ['post' => $update, 'errors' => $errors]);
+                $this->render('/admin/post_form.html.twig', ['post' => $post, 'errors' => $errors]);
             }
         }
     }
@@ -188,7 +177,6 @@ class AdminController extends Controller
                 $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
                 header('Location:../');
             } else {
-
                 $this->render('/admin/password.html.twig', ['errors' => $errors]);
             }
         }

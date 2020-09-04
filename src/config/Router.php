@@ -85,17 +85,12 @@ class Router
                 $post_id = $route->getRouteIdParam();
                 $this->admin->modifyPost($post_id);
                 break;
+            case $route->with('admin', 'admin')->with('profile', 'profile')->with('edit', 'edit')->with('id', '[0-9]+')->with('name', '[a-z0-9-]+')->match('/admin/profile/edit/:id-:name'):
+            case $route->with('admin', 'admin')->with('profile', 'profile')->with('password', 'password')->with('id', '[0-9]+')->with('name', '[a-z0-9-]+')->match('/admin/profile/password/:id-:name'):
             case $route->with('admin', 'admin')->with('profile', 'profile')->with('id', '[0-9]+')->with('name', '[a-z0-9-]+')->match('/admin/profile/:id-:name'):
                 $user_id = $route->getRouteIdParam();
-                $this->admin->showUserProfile($user_id);
-                break;
-            case $route->with('admin', 'admin')->with('profile', 'profile')->with('edit', 'edit')->with('id', '[0-9]+')->with('name', '[a-z0-9-]+')->match('/admin/profile/edit/:id-:name'):
-                $user_id = $route->getRouteIdParam();
-                $this->admin->editUserProfile($user_id);
-                break;
-            case $route->with('admin', 'admin')->with('profile', 'profile')->with('password', 'password')->with('id', '[0-9]+')->with('name', '[a-z0-9-]+')->match('/admin/profile/password/:id-:name'):
-                $user_id = $route->getRouteIdParam();
-                $this->admin->editUserPassword($user_id);
+                $request = filter_input_array(INPUT_SERVER);
+                $this->admin->showAndEditUserProfile($user_id, $request['PATH_INFO']);
                 break;
             case $route->match('/newcomment'):
                 $this->front->addComment(filter_input_array(INPUT_POST));

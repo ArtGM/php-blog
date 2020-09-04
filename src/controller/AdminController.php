@@ -111,7 +111,7 @@ class AdminController extends Controller
         }
     }
 
-    public function showUserProfile($user_id)
+    public function showAndEditUserProfile($user_id, string $path_info)
     {
         if ($this->session->getSession('connected')) {
             if ($this->session->getSession('role') === '1') {
@@ -119,31 +119,13 @@ class AdminController extends Controller
             } else {
                 $user_data = $this->user->getUserById($this->session->getSession('id'));
             }
-            $this->render('/admin/profile.html.twig', ['user' => $user_data]);
-        }
-    }
-
-    public function editUserProfile($user_id)
-    {
-        if ($this->session->getSession('connected')) {
-            if ($this->session->getSession('role') === '1') {
-                $user_data = $this->user->getUserById($user_id);
+            if (strstr($path_info, 'edit')) {
+                $this->render('/admin/edit_profile.html.twig', ['user' => $user_data]);
+            } elseif (strstr($path_info, 'password')) {
+                $this->render('/admin/password.html.twig', ['user' => $user_data]);
             } else {
-                $user_data = $this->user->getUserById($this->session->getSession('id'));
+                $this->render('/admin/profile.html.twig', ['user' => $user_data]);
             }
-            $this->render('/admin/edit_profile.html.twig', ['user' => $user_data]);
-        }
-    }
-
-    public function editUserPassword($user_id)
-    {
-        if ($this->session->getSession('connected')) {
-            if ($this->session->getSession('role') === '1') {
-                $user_data = $this->user->getUserById($user_id);
-            } else {
-                $user_data = $this->user->getUserById($this->session->getSession('id'));
-            }
-            $this->render('/admin/password.html.twig', ['user' => $user_data]);
         }
     }
 

@@ -3,9 +3,12 @@
 
 namespace Blog\src\model;
 
+/**
+ * Class Comment
+ * @package Blog\src\model
+ */
 class Comment extends Model
 {
-
     private $content;
     private $createTime;
     private $commentStatusId;
@@ -117,7 +120,10 @@ class Comment extends Model
         $this->postId = $postId;
     }
 
-    protected function hydrate($data)
+    /**
+     * @param array $data
+     */
+    protected function hydrate(array $data)
     {
         parent::hydrate($data);
         $this->setContent($data['content']);
@@ -138,5 +144,4 @@ class Comment extends Model
     {
         $this->userId = $userId;
     }
-
 }

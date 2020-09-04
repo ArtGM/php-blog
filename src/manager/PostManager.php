@@ -4,6 +4,10 @@ namespace Blog\src\manager;
 
 use Blog\src\model\Post;
 
+/**
+ * Class PostManager
+ * @package Blog\src\manager
+ */
 class PostManager extends Manager
 {
     /**
@@ -29,7 +33,8 @@ class PostManager extends Manager
         }
         $fetch_posts = $this->db->prepare("SELECT * FROM post WHERE id = ?");
         $fetch_posts->execute([$id]);
-        return new Post($fetch_posts->fetch($this->fetch_style));
+        $fetching = $fetch_posts->fetch($this->fetch_style);
+        return new Post($fetching);
     }
 
     /**

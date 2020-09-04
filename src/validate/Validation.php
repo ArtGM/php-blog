@@ -3,6 +3,10 @@
 
 namespace Blog\src\validate;
 
+/**
+ * Class Validation
+ * @package Blog\src\validate
+ */
 class Validation
 {
     protected $constraint;
@@ -13,6 +17,10 @@ class Validation
         $this->constraint = new Constraint();
     }
 
+    /**
+     * @param $user
+     * @return array
+     */
     protected function check($user)
     {
         foreach ($user as $key => $value) {
@@ -21,6 +29,10 @@ class Validation
         return $this->errors;
     }
 
+    /**
+     * @param $name
+     * @param $error
+     */
     protected function addError($name, $error)
     {
         if ($error) {
@@ -30,29 +42,35 @@ class Validation
         }
     }
 
+    /**
+     * @param $data
+     * @param $name
+     * @return array
+     */
     public function validate($data, $name)
     {
         if ($name === 'post') {
             $articleValidation = new ValidatePost();
-            return $articleValidation->check($data);
+            $validate = $articleValidation->check($data);
         } elseif ($name === 'register') {
             $registerValidation = new ValidateRegister();
-            return $registerValidation->check($data);
+            $validate = $registerValidation->check($data);
         } elseif ($name === 'login') {
             $loginValidation = new ValidateLogin();
-            return $loginValidation->check($data);
+            $validate = $loginValidation->check($data);
         } elseif ($name === 'comment') {
             $loginValidation = new ValidateComment();
-            return $loginValidation->check($data);
+            $validate = $loginValidation->check($data);
         } elseif ($name === 'update') {
             $loginValidation = new ValidateUser();
-            return $loginValidation->check($data);
+            $validate = $loginValidation->check($data);
         } elseif ($name === 'password') {
             $passValidation = new ValidatePass();
-            return $passValidation->check($data);
+            $validate = $passValidation->check($data);
         } elseif ($name === 'contact') {
             $contactValidation = new ValidateContact();
-            return $contactValidation->check($data);
+            $validate = $contactValidation->check($data);
         }
+        return $validate;
     }
 }

@@ -2,9 +2,16 @@
 
 namespace Blog\src\validate;
 
-
+/**
+ * Class ValidatePost
+ * @package Blog\src\validate
+ */
 class ValidatePost extends Validation
 {
+    /**
+     * @param $name
+     * @param $value
+     */
     protected function checkField($name, $value)
     {
         if ($name === 'title') {
@@ -16,6 +23,11 @@ class ValidatePost extends Validation
         }
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @return string
+     */
     private function checkTitle($name, $value)
     {
         if ($this->constraint->notBlank($name, $value)) {
@@ -29,6 +41,11 @@ class ValidatePost extends Validation
         }
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @return string
+     */
     private function checkContent($name, $value)
     {
         if ($this->constraint->notBlank($name, $value)) {

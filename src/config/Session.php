@@ -3,6 +3,10 @@
 
 namespace Blog\src\config;
 
+/**
+ * Class Session
+ * @package Blog\src\config
+ */
 class Session
 {
     const SESSION_STARTED = true;
@@ -94,6 +98,9 @@ class Session
         $_SESSION[$name] = $value;
     }
 
+    /**
+     * @param $name
+     */
     public function remove($name)
     {
         unset($_SESSION[$name]);

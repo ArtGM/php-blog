@@ -3,9 +3,16 @@
 
 namespace Blog\src\validate;
 
+/**
+ * Class ValidateLogin
+ * @package Blog\src\validate
+ */
 class ValidateLogin extends Validation
 {
-
+    /**
+     * @param $name
+     * @param $value
+     */
     protected function checkField($name, $value)
     {
         if ($name === 'username') {
@@ -17,6 +24,11 @@ class ValidateLogin extends Validation
         }
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @return string
+     */
     private function checkUsername($name, $value)
     {
         if ($this->constraint->notBlank($name, $value)) {
@@ -31,6 +43,11 @@ class ValidateLogin extends Validation
     }
 
 
+    /**
+     * @param $name
+     * @param $value
+     * @return string
+     */
     private function checkPassword($name, $value)
     {
         if ($this->constraint->notBlank($name, $value)) {

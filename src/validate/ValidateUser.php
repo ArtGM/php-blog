@@ -2,8 +2,16 @@
 
 namespace Blog\src\validate;
 
+/**
+ * Class ValidateUser
+ * @package Blog\src\validate
+ */
 class ValidateUser extends Validation
 {
+    /**
+     * @param $name
+     * @param $value
+     */
     protected function checkField($name, $value)
     {
         if ($name === 'username') {
@@ -15,6 +23,11 @@ class ValidateUser extends Validation
         }
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @return string
+     */
     private function checkName($name, $value)
     {
         if ($this->constraint->notBlank($name, $value)) {
@@ -29,6 +42,11 @@ class ValidateUser extends Validation
     }
 
 
+    /**
+     * @param $name
+     * @param $value
+     * @return string
+     */
     private function checkEmail($name, $value)
     {
         if ($this->constraint->notBlank($name, $value)) {
@@ -38,6 +56,4 @@ class ValidateUser extends Validation
             return $this->constraint->isEmail('Email', $value);
         }
     }
-
 }
-

@@ -1,8 +1,15 @@
 <?php
 namespace Blog\src\controller;
 
+/**
+ * Class AdminController
+ * @package Blog\src\controller
+ */
 class AdminController extends Controller
 {
+    /**
+     * @return bool
+     */
     private function checkAdmin()
     {
         $this->checkLoggedIn();
@@ -12,6 +19,9 @@ class AdminController extends Controller
         return true;
     }
 
+    /**
+     * @return bool
+     */
     private function checkLoggedIn()
     {
         if ($this->session->getSession('connected')) {
@@ -42,6 +52,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @param $post_id
+     */
     public function modifyPost($post_id)
     {
         if ($this->checkAdmin()) {
@@ -59,6 +72,9 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * @param $post
+     */
     public function addOrUpdatePost($post)
     {
         if ($this->checkAdmin()) {
@@ -79,6 +95,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @param $post_id
+     */
     public function deletePost($post_id)
     {
         if ($this->checkAdmin()) {
@@ -87,6 +106,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @param string $comment_id
+     */
     public function deleteComment(string $comment_id)
     {
         if ($this->checkAdmin()) {
@@ -95,6 +117,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @param string $comment_id
+     */
     public function approveComment(string $comment_id)
     {
         if ($this->checkAdmin()) {
@@ -111,6 +136,10 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @param $user_id
+     * @param string $path_info
+     */
     public function showAndEditUserProfile($user_id, string $path_info)
     {
         if ($this->session->getSession('connected')) {
@@ -129,6 +158,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @param $update
+     */
     public function updateUser($update)
     {
         if ($this->session->getSession('connected')) {
@@ -146,6 +178,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @param $update
+     */
     public function updatePassword($update)
     {
         if ($this->session->getSession('connected')) {

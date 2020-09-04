@@ -3,6 +3,10 @@
 
 namespace Blog\src\config;
 
+/**
+ * Class Route
+ * @package Blog\src\config
+ */
 class Route
 {
     private $path;

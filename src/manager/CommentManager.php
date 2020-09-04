@@ -4,6 +4,10 @@ namespace Blog\src\manager;
 
 use Blog\src\model\Comment;
 
+/**
+ * Class CommentManager
+ * @package Blog\src\manager
+ */
 class CommentManager extends Manager
 {
     /**
@@ -28,12 +32,18 @@ class CommentManager extends Manager
         return $all_comments;
     }
 
+    /**
+     * @param $newComment
+     */
     public function insertNewComment($newComment)
     {
         $insert = $this->db->prepare("INSERT INTO post_comment (content, create_time, comment_status_id, user_id, post_id) VALUES (?, NOW(), 0, ?, ?)");
         $insert->execute(array_values($newComment));
     }
 
+    /**
+     * @return array
+     */
     public function getAllComments()
     {
         $all_comments = [];
@@ -47,17 +57,21 @@ class CommentManager extends Manager
         return $all_comments;
     }
 
+    /**
+     * @param string $comment_id
+     */
     public function deleteComment(string $comment_id)
     {
         $removeComment = $this->db->prepare('DELETE FROM post_comment WHERE id = ?');
         $removeComment->execute([$comment_id]);
     }
 
+    /**
+     * @param $comment_id
+     */
     public function changeCommentStatus($comment_id)
     {
         $status = $this->db->prepare('UPDATE post_comment SET comment_status_id = 1 WHERE id= ?');
         $status->execute([$comment_id]);
     }
-
-
 }

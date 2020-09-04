@@ -3,6 +3,10 @@
 
 namespace Blog\src\model;
 
+/**
+ * Class User
+ * @package Blog\src\model
+ */
 class User extends Model
 {
     private $username;
@@ -11,7 +15,10 @@ class User extends Model
     private $roleId;
     private $imageId;
 
-    protected function hydrate($data)
+    /**
+     * @param array $data
+     */
+    protected function hydrate(array $data)
     {
         parent::hydrate($data);
         $this->setUsername($data['username']);

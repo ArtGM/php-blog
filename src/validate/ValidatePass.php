@@ -2,8 +2,16 @@
 
 namespace Blog\src\validate;
 
+/**
+ * Class ValidatePass
+ * @package Blog\src\validate
+ */
 class ValidatePass extends Validation
 {
+    /**
+     * @param $name
+     * @param $value
+     */
     protected function checkField($name, $value)
     {
         if ($name === 'password') {
@@ -12,6 +20,11 @@ class ValidatePass extends Validation
         }
     }
 
+    /**
+     * @param string $name
+     * @param $value
+     * @return string
+     */
     private function checkPass(string $name, $value)
     {
         if ($this->constraint->notBlank($name, $value)) {
@@ -24,6 +37,4 @@ class ValidatePass extends Validation
             return $this->constraint->minLength('Mot de Passe', $value, 16);
         }
     }
-
 }
-

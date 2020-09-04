@@ -7,5 +7,3 @@ define('DB_PASS', '');
 
 define('MAIL_HOST', 'smtp.gmail.com');
 define('SMTP_PORT', 465);
-
-

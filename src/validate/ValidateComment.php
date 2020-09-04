@@ -3,8 +3,16 @@
 
 namespace Blog\src\validate;
 
+/**
+ * Class ValidateComment
+ * @package Blog\src\validate
+ */
 class ValidateComment extends Validation
 {
+    /**
+     * @param $name
+     * @param $value
+     */
     protected function checkField($name, $value)
     {
         if ($name === 'message') {
@@ -13,6 +21,11 @@ class ValidateComment extends Validation
         }
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @return string
+     */
     private function checkMessage($name, $value)
     {
         if ($this->constraint->notBlank($name, $value)) {

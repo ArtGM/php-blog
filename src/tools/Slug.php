@@ -2,6 +2,10 @@
 
 namespace Blog\src\tools;
 
+/**
+ * Class Slug
+ * @package Blog\src\tools
+ */
 class Slug
 {
     public function generate(string $string): string

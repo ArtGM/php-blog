@@ -15,6 +15,10 @@ use Twig\Extension\DebugExtension;
 use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\FilesystemLoader;
 
+/**
+ * Class Controller
+ * @package Blog\src\controller
+ */
 abstract class Controller
 {
     protected $loader;
@@ -38,6 +42,9 @@ abstract class Controller
         $this->validation = new Validation();
     }
 
+    /**
+     * @return Environment
+     */
     public function twig()
     {
         $loader = new FilesystemLoader('../templates/');
@@ -47,6 +54,10 @@ abstract class Controller
         ]);
     }
 
+    /**
+     * @param $template
+     * @param array $data
+     */
     public function render($template, array $data = [])
     {
         try {
@@ -74,5 +85,4 @@ abstract class Controller
     {
         return !$this->user->checkUserName($username);
     }
-
 }

@@ -4,6 +4,10 @@ namespace Blog\src\model;
 
 use Blog\src\tools\Slug;
 
+/**
+ * Class Post
+ * @package Blog\src\model
+ */
 class Post extends Model
 {
     private $title;
@@ -17,7 +21,10 @@ class Post extends Model
 
     public $slug;
 
-    protected function hydrate($data)
+    /**
+     * @param array $data
+     */
+    protected function hydrate(array $data)
     {
         parent::hydrate($data);
         $this->setTitle($data['title']);
@@ -29,6 +36,9 @@ class Post extends Model
         $this->setUser_roles_id($data['user_roles_id']);
     }
 
+    /**
+     * @return string
+     */
     public function getSlug()
     {
         $slugify = new Slug();

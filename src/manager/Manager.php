@@ -1,9 +1,14 @@
 <?php
 
 namespace Blog\src\manager;
+
 use Blog\src\config\DatabaseFactory;
 use PDO;
 
+/**
+ * Class Manager
+ * @package Blog\src\manager
+ */
 abstract class Manager
 {
     protected $db;

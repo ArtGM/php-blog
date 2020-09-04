@@ -2,10 +2,17 @@
 
 namespace Blog\src\controller;
 
+use Swift_Mailer;
+use Swift_Message;
+use Swift_SmtpTransport;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
+/**
+ * Class FrontController
+ * @package Blog\src\controller
+ */
 class FrontController extends Controller
 {
     public function homePage()
@@ -25,7 +32,7 @@ class FrontController extends Controller
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function addComment($newComment)
+    public function addComment(array $newComment)
     {
         $errors = $this->validation->validate($newComment, 'comment');
         if (!$errors) {
@@ -93,11 +100,10 @@ class FrontController extends Controller
     }
 
 
-
     /**
      * @param $loginInfo array
      */
-    public function login($loginInfo)
+    public function login(array $loginInfo)
     {
         $errors = $this->validation->validate($loginInfo, 'login');
         if (!$errors) {
@@ -136,26 +142,31 @@ class FrontController extends Controller
         $this->render('/front/login.html.twig');
     }
 
+    /**
+     * @param $contactInfo
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
     public function contactForm($contactInfo)
     {
-        var_dump($contactInfo);
-
         $errors = $this->validation->validate($contactInfo, 'contact');
         if (!$errors) {
             $admin_info = $this->user->getAdmin();
 
-            $transport = new \Swift_SmtpTransport(MAIL_HOST, SMTP_PORT, 'ssl');
+            $transport = new Swift_SmtpTransport(MAIL_HOST, SMTP_PORT, 'ssl');
             $transport->setUsername(AUTH);
             $transport->setPassword(PASS);
 
-            $mailer = new \Swift_Mailer($transport);
+            $mailer = new Swift_Mailer($transport);
 
-            $message = new \Swift_Message('Contact via Blog');
+            $message = new Swift_Message('Contact via Blog');
             $message->setFrom([
                 $contactInfo['email'] => $contactInfo['name'],
             ])->setTo([
                 $admin_info->getEmail() => $admin_info->getUsername()
-            ])->setBody($this->twig->render('/front/email.html.twig', ['message' => $contactInfo]),
+            ])->setBody(
+                $this->twig->render('/front/email.html.twig', ['message' => $contactInfo]),
                 'text/html'
             );
 

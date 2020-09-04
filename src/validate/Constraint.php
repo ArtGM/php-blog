@@ -2,8 +2,17 @@
 
 namespace Blog\src\validate;
 
+/**
+ * Class Constraint
+ * @package Blog\src\validate
+ */
 class Constraint
 {
+    /**
+     * @param $name
+     * @param $value
+     * @return string
+     */
     public function notBlank($name, $value)
     {
         if (empty($value)) {
@@ -11,6 +20,12 @@ class Constraint
         }
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @param $minSize
+     * @return string
+     */
     public function minLength($name, $value, $minSize)
     {
         if (strlen($value) < $minSize) {
@@ -18,6 +33,12 @@ class Constraint
         }
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @param $maxSize
+     * @return string
+     */
     public function maxLength($name, $value, $maxSize)
     {
         if (strlen($value) > $maxSize) {
@@ -25,6 +46,11 @@ class Constraint
         }
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @return string
+     */
     public function isEmail($name, $value)
     {
         $regex = '/[a-zA-Z0-9\_\-\.+]+@[a-zA-Z0-9-]+.[a-zA-Z]+/';
@@ -32,6 +58,4 @@ class Constraint
             return 'veuillez entrer un ' . $name . ' valide.';
         }
     }
-
-
 }

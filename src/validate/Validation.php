@@ -49,28 +49,39 @@ class Validation
      */
     public function validate($data, $name)
     {
-        if ($name === 'post') {
-            $articleValidation = new ValidatePost();
-            $validate = $articleValidation->check($data);
-        } elseif ($name === 'register') {
-            $registerValidation = new ValidateRegister();
-            $validate = $registerValidation->check($data);
-        } elseif ($name === 'login') {
-            $loginValidation = new ValidateLogin();
-            $validate = $loginValidation->check($data);
-        } elseif ($name === 'comment') {
-            $loginValidation = new ValidateComment();
-            $validate = $loginValidation->check($data);
-        } elseif ($name === 'update') {
-            $loginValidation = new ValidateUser();
-            $validate = $loginValidation->check($data);
-        } elseif ($name === 'password') {
-            $passValidation = new ValidatePass();
-            $validate = $passValidation->check($data);
-        } elseif ($name === 'contact') {
-            $contactValidation = new ValidateContact();
-            $validate = $contactValidation->check($data);
+        $validate = null;
+        switch ($name) {
+            case 'post':
+                $articleValidation = new ValidatePost();
+                $validate = $articleValidation->check($data);
+                break;
+            case 'register':
+                $registerValidation = new ValidateRegister();
+                $validate = $registerValidation->check($data);
+                break;
+            case 'login':
+                $loginValidation = new ValidateLogin();
+                $validate = $loginValidation->check($data);
+                break;
+            case 'comment':
+                $loginValidation = new ValidateComment();
+                $validate = $loginValidation->check($data);
+                break;
+            case 'update':
+                $loginValidation = new ValidateUser();
+                $validate = $loginValidation->check($data);
+                break;
+            case 'password':
+                $passValidation = new ValidatePass();
+                $validate = $passValidation->check($data);
+                break;
+            case 'contact':
+                $contactValidation = new ValidateContact();
+                $validate = $contactValidation->check($data);
+                break;
         }
+
         return $validate;
     }
+
 }

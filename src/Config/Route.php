@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Blog\src\config;
+namespace Blog\Config;
 
 /**
  * Class Route
- * @package Blog\src\config
+ * @package Blog\src\Config
  */
 class Route
 {

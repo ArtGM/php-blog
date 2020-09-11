@@ -1,12 +1,12 @@
 <?php
 
-namespace Blog\src\controller;
+namespace Blog\Controller;
 
-use Blog\src\config\Session;
-use Blog\src\manager\CommentManager;
-use Blog\src\manager\PostManager;
-use Blog\src\manager\UserManager;
-use Blog\src\validate\Validation;
+use Blog\Config\Session;
+use Blog\Manager\CommentManager;
+use Blog\Manager\PostManager;
+use Blog\Manager\UserManager;
+use Blog\Validate\Validation;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -17,11 +17,11 @@ use Twig\Loader\FilesystemLoader;
 
 /**
  * Class Controller
- * @package Blog\src\controller
+ * @package Blog\src\Controller
  */
 abstract class Controller
 {
-    protected $loader;
+
     protected $post;
     protected $twig;
     protected $comment;
@@ -85,4 +85,5 @@ abstract class Controller
     {
         return !$this->user->checkUserName($username);
     }
+
 }

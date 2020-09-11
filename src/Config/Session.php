@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Blog\src\config;
+namespace Blog\Config;
 
 /**
  * Class Session
- * @package Blog\src\config
+ * @package Blog\src\Config
  */
 class Session
 {

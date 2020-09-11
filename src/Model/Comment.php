@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Blog\src\model;
+namespace Blog\Model;
 
 /**
  * Class Comment
- * @package Blog\src\model
+ * @package Blog\src\Model
  */
 class Comment extends Model
 {
@@ -15,6 +15,10 @@ class Comment extends Model
     private $userName;
     private $postId;
     private $postTitleComment;
+    /**
+     * @var mixed
+     */
+    private $userId;
 
     /**
      * @return mixed
@@ -80,13 +84,16 @@ class Comment extends Model
         $this->createTime = $createTime;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCommentStatusId()
-    {
-        return $this->commentStatusId;
-    }
+// --Commented out by Inspection START (09/09/2020 21:37):
+//    /**
+//     * @return mixed
+//     */
+//    public function getCommentStatusId()
+//    {
+//        return $this->commentStatusId;
+//    }
+// --Commented out by Inspection STOP (09/09/2020 21:37)
+
 
     /**
      * @param mixed $commentStatusId
@@ -102,14 +109,6 @@ class Comment extends Model
     public function getUserId()
     {
         return $this->userId;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPostId()
-    {
-        return $this->postId;
     }
 
     /**

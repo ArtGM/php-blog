@@ -1,13 +1,13 @@
 <?php
 
-namespace Blog\src\manager;
+namespace Blog\Manager;
 
-use Blog\src\config\DatabaseFactory;
+use Blog\Config\DatabaseFactory;
 use PDO;
 
 /**
  * Class Manager
- * @package Blog\src\manager
+ * @package Blog\src\Manager
  */
 abstract class Manager
 {

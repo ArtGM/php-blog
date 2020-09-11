@@ -1,9 +1,9 @@
 <?php
-namespace Blog\src\controller;
+namespace Blog\Controller;
 
 /**
  * Class AdminController
- * @package Blog\src\controller
+ * @package Blog\src\Controller
  */
 class AdminController extends Controller
 {
@@ -33,6 +33,7 @@ class AdminController extends Controller
     public function runDashboard()
     {
         if ($this->checkAdmin()) {
+            var_dump($_SESSION);
             $this->render('admin/dashboard.html.twig');
         }
     }
@@ -186,9 +187,7 @@ class AdminController extends Controller
         if ($this->session->getSession('connected')) {
             $errors = $this->validation->validate($update, 'password');
             if (!$errors) {
-                $password = $update['password'];
-                $hashPass = password_hash($password, PASSWORD_DEFAULT);
-                $update['password'] = $hashPass;
+                $update['password'] = password_hash($update['password'], PASSWORD_DEFAULT);
                 $this->user->updatePassword($update);
                 $this->session->setSession('confirm', 'Votre mot de passe a été mis à jour.');
                 $this->session->setSession('history', $_SERVER['HTTP_REFERER']);

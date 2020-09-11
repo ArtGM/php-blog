@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\src\controller;
+namespace Blog\Controller;
 
 use Swift_Mailer;
 use Swift_Message;
@@ -11,7 +11,7 @@ use Twig\Error\SyntaxError;
 
 /**
  * Class FrontController
- * @package Blog\src\controller
+ * @package Blog\src\Controller
  */
 class FrontController extends Controller
 {
@@ -86,9 +86,7 @@ class FrontController extends Controller
                 $pseudo = ['exist' => 'ce pseudo est déjà pris.'];
                 $this->render('/front/register.html.twig', ['pseudo' => $pseudo]);
             } else {
-                $password = $newUser['password'];
-                $hashPass = password_hash($password, PASSWORD_DEFAULT);
-                $newUser['password'] = $hashPass;
+                $newUser['password'] = password_hash($newUser['password'], PASSWORD_DEFAULT);
                 $this->user->createNewUser($newUser);
                 $this->session->setSession('confirm', 'Compte Créé !');
                 $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
@@ -150,6 +148,8 @@ class FrontController extends Controller
      */
     public function contactForm($contactInfo)
     {
+
+        //TODO: Refactoring
         $errors = $this->validation->validate($contactInfo, 'contact');
         if (!$errors) {
             $admin_info = $this->user->getAdmin();

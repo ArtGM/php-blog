@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Blog\src\model;
+namespace Blog\Model;
 
 /**
  * Class User
- * @package Blog\src\model
+ * @package Blog\src\Model
  */
 class User extends Model
 {

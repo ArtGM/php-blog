@@ -1,10 +1,10 @@
 <?php
-require '../src/config/config.php';
-require '../src/config/mail-cfg.php';
+require '../src/Config/config.php';
+require '../src/Config/mail-cfg.php';
 require '../vendor/autoload.php';
 
-use Blog\src\config\Router;
-use Blog\src\config\Session;
+use Blog\Config\Router;
+use Blog\Config\Session;
 
 $session = new Session();
 $data = $session::getInstance();

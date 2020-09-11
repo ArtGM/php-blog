@@ -1,10 +1,10 @@
 <?php
 
-namespace Blog\src\validate;
+namespace Blog\Validate;
 
 /**
  * Class ValidatePass
- * @package Blog\src\validate
+ * @package Blog\src\Validate
  */
 class ValidatePass extends Validation
 {

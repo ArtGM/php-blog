@@ -1,10 +1,10 @@
 <?php
 
-namespace Blog\src\validate;
+namespace Blog\Validate;
 
 /**
  * Class Constraint
- * @package Blog\src\validate
+ * @package Blog\src\Validate
  */
 class Constraint
 {

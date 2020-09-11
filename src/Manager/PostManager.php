@@ -1,12 +1,12 @@
 <?php
 
-namespace Blog\src\manager;
+namespace Blog\Manager;
 
-use Blog\src\model\Post;
+use Blog\Model\Post;
 
 /**
  * Class PostManager
- * @package Blog\src\manager
+ * @package Blog\src\Manager
  */
 class PostManager extends Manager
 {

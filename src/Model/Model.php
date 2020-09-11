@@ -1,9 +1,9 @@
 <?php
-namespace Blog\src\model;
+namespace Blog\Model;
 
 /**
  * Class Model
- * @package Blog\src\model
+ * @package Blog\src\Model
  */
 abstract class Model
 {

@@ -3,4 +3,14 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
+  <component name="PhpEntryPointsManager">
+    <entry_point>
+      <entry_point TYPE="phpMethod" FQNAME="\Blog\Config\Session show" />
+      <entry_point TYPE="phpClass" FQNAME="\Blog\Config\Session" />
+      <entry_point TYPE="phpMethod" FQNAME="\Blog\Config\Session __construct" />
+    </entry_point>
+    <pattern value="\Blog\Config\Session" member="show" />
+    <pattern value="\Blog\Config\Session" />
+    <pattern value="\Blog\Config\Session" member="__construct" />
+  </component>
 </project>

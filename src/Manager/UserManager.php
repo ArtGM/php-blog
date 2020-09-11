@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Blog\src\manager;
+namespace Blog\Manager;
 
-use Blog\src\model\User;
+use Blog\Model\User;
 
 /**
  * Class UserManager
- * @package Blog\src\manager
+ * @package Blog\src\Manager
  */
 class UserManager extends Manager
 {

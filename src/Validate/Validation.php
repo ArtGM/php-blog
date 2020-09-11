@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Blog\src\validate;
+namespace Blog\Validate;
 
 /**
  * Class Validation
- * @package Blog\src\validate
+ * @package Blog\src\Validate
  */
 class Validation
 {
@@ -80,7 +80,6 @@ class Validation
                 $validate = $contactValidation->check($data);
                 break;
         }
-
         return $validate;
     }
 

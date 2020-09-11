@@ -1,12 +1,12 @@
 <?php
 
-namespace Blog\src\manager;
+namespace Blog\Manager;
 
-use Blog\src\model\Comment;
+use Blog\Model\Comment;
 
 /**
  * Class CommentManager
- * @package Blog\src\manager
+ * @package Blog\src\Manager
  */
 class CommentManager extends Manager
 {

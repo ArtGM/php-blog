@@ -1,16 +1,16 @@
 <?php
 
-namespace Blog\src\config;
+namespace Blog\Config;
 
-use Blog\src\controller\AdminController;
-use Blog\src\controller\FrontController;
+use Blog\Controller\AdminController;
+use Blog\Controller\FrontController;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 
 /**
  * Class Router
- * @package Blog\src\config
+ * @package Blog\src\Config
  */
 class Router
 {
@@ -73,7 +73,7 @@ class Router
                 $post_id = $route->getRouteIdParam();
                 $this->admin->deletePost($post_id);
                 break;
-            case $route->with('admin', 'admin')->with('approvecomment', 'approvecomment')->with('id', '^[0-9]+')->match('/admin/approvecomment/:id'):
+            case $route->with('admin', 'admin')->with('approvecomment', 'approvecomment')->with('id', '[0-9]+')->match('/admin/approvecomment/:id'):
                 $comment_id = $route->getRouteIdParam();
                 $this->admin->approveComment($comment_id);
                 break;

@@ -1,12 +1,12 @@
 <?php
 
-namespace Blog\src\model;
+namespace Blog\Model;
 
-use Blog\src\tools\Slug;
+use Blog\Tools\Slug;
 
 /**
  * Class Post
- * @package Blog\src\model
+ * @package Blog\src\Model
  */
 class Post extends Model
 {

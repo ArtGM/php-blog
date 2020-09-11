@@ -1,10 +1,10 @@
 <?php
 
-namespace Blog\src\tools;
+namespace Blog\Tools;
 
 /**
  * Class Slug
- * @package Blog\src\tools
+ * @package Blog\Tools
  */
 class Slug
 {

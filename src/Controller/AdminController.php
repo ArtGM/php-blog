@@ -168,10 +168,14 @@ class AdminController extends Controller
             $errors = $this->validation->validate($update, 'update');
             if (!$errors) {
                 $this->user->updateUser($update);
-                $this->session->setSession('username', $update['username']);
-                $this->session->setSession('confirm', 'Vos informations ont été mis à jour.');
-                $this->session->setSession('history', $_SERVER['HTTP_REFERER']);
-                header('Location:../');
+                if ($this->session->getSession('role') !== '1') {
+                    $this->session->setSession('username', $update['username']);
+                    $this->session->setSession('confirm', 'Vos informations ont été mis à jour.');
+                    header('Location:/');
+                } else {
+                    $this->session->setSession('confirm', 'les informations de l\'utilisateur ont été mis à jour');
+                    header('Location:/');
+                }
             } else {
                 var_dump($update);
                 $this->render('/admin/edit_profile.html.twig', ['user' => $update, 'errors' => $errors]);

@@ -79,10 +79,11 @@ class FrontController extends Controller
     {
         $errors = $this->validation->validate($newUser, 'register');
         if (!$errors) {
-            if (!$this->emailIsUniq($newUser['user_email'])) {
+            var_dump($newUser);
+            if ($this->emailIsUniq($newUser['user_email'])) {
                 $email = ['exist' => 'cet email est déjà pris.'];
                 $this->render('/front/register.html.twig', ['email' => $email]);
-            } elseif (!$this->userNameIsUniq($newUser['username'])) {
+            } elseif ($this->userNameIsUniq($newUser['username'])) {
                 $pseudo = ['exist' => 'ce pseudo est déjà pris.'];
                 $this->render('/front/register.html.twig', ['pseudo' => $pseudo]);
             } else {

@@ -11,9 +11,7 @@ class Comment extends Model
 {
     private $content;
     private $createTime;
-    private $commentStatusId;
     private $userName;
-    private $postId;
     private $postTitleComment;
     /**
      * @var mixed
@@ -84,23 +82,13 @@ class Comment extends Model
         $this->createTime = $createTime;
     }
 
-// --Commented out by Inspection START (09/09/2020 21:37):
-//    /**
-//     * @return mixed
-//     */
-//    public function getCommentStatusId()
-//    {
-//        return $this->commentStatusId;
-//    }
-// --Commented out by Inspection STOP (09/09/2020 21:37)
-
 
     /**
      * @param mixed $commentStatusId
      */
     public function setComment_status_id($commentStatusId): void
     {
-        $this->commentStatusId = $commentStatusId;
+        $commentStatusId1 = $commentStatusId;
     }
 
     /**
@@ -116,7 +104,7 @@ class Comment extends Model
      */
     public function setPost_id($postId): void
     {
-        $this->postId = $postId;
+        $postId1 = $postId;
     }
 
     /**

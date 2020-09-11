@@ -79,6 +79,7 @@ class UserManager extends Manager
         $fetch_mail = $this->db->prepare("SELECT COUNT(email) FROM user WHERE email = ?");
         $fetch_mail->execute(array_values([$email]));
         $uniqEmail = $fetch_mail->fetchColumn();
+        var_dump($uniqEmail);
         return ($uniqEmail > 0 ? false : true);
     }
 

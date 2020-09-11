@@ -1903,6 +1903,10 @@ dl dd {
 }
 
 /* Actions */
+div.actions {
+    margin: 15px auto;
+}
+
 
 ul.actions {
     display: -moz-flex;
@@ -1971,6 +1975,12 @@ ul.actions.fit li > * {
 
 ul.actions.fit.stacked {
     width: 100%;
+}
+
+@media screen and (max-width: 736px) {
+    div.actions > .button {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -2793,6 +2803,14 @@ body.is-touch .tiles article .content {
         transform: scale(1.0);
     }
 
+    table {
+        width: 800px;
+    }
+
+    table, th, td, tr {
+        word-break: normal;
+    }
+
 }
 
 @media screen and (max-width: 480px) {
@@ -3341,4 +3359,26 @@ body.is-menu-visible #menu .close {
     padding: 30px;
     max-width: 100%;
     display: block;
+}
+
+#menu > .inner > ul > .user-panel {
+    padding: 5px;
+    background-color: gray;
+    border-radius: 4px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user-panel p {
+    text-align: center;
+    margin-bottom: 0;
+    width: 100%;
+    flex: 0 0 100%;
+    font-weight: 600;
+}
+
+#menu > .inner > ul > .user-panel > a {
+    flex: 0 0 50%;
+    text-align: center;
+
 }

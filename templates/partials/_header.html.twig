@@ -15,10 +15,8 @@
 
 <nav id="menu">
     <ul>
-        <li><a href="/">Accueil</a></li>
-        <li><a href="/blog">Blog</a></li>
         {% if session.getSession('connected') %}
-            <li>
+            <li class="user-panel">
                 <p>Bonjour, {{ session.getSession('username') }}</p>
                 <a href="/logout">Deconnexion</a>
                 {% if session.getSession('role') == 1 %}
@@ -30,13 +28,13 @@
             </li>
 
         {% else %}
-            <li>
+            <li class="user-panel">
                 <a href="/connexion">Connexion</a>
-            </li>
-            <li>
                 <a href="/creer-compte">S'inscrire</a>
             </li>
         {% endif %}
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/blog">Blog</a></li>
     </ul>
 </nav>
 

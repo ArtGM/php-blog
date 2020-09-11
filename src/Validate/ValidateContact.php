@@ -26,38 +26,6 @@ class ValidateContact extends Validation
         }
     }
 
-    /**
-     * @param $name
-     * @param $value
-     * @return string
-     */
-    private function checkUsername($name, $value)
-    {
-        if ($this->constraint->notBlank($name, $value)) {
-            return $this->constraint->notBlank('nom d\'utilisateur', $value);
-        }
-        if ($this->constraint->minLength($name, $value, 2)) {
-            return $this->constraint->minLength('nom d\'utilisateur', $value, 2);
-        }
-        if ($this->constraint->maxLength($name, $value, 255)) {
-            return $this->constraint->maxLength('nom d\'utilisateur', $value, 255);
-        }
-    }
-
-    /**
-     * @param $name
-     * @param $value
-     * @return string
-     */
-    private function checkEmail($name, $value)
-    {
-        if ($this->constraint->notBlank($name, $value)) {
-            return $this->constraint->notBlank('Email', $value);
-        }
-        if ($this->constraint->isEmail($name, $value)) {
-            return $this->constraint->isEmail('Email', $value);
-        }
-    }
 
     /**
      * @param $name
@@ -72,5 +40,6 @@ class ValidateContact extends Validation
         if ($this->constraint->minLength($name, $value, 2)) {
             return $this->constraint->minLength('message', $value, 2);
         }
+        return null;
     }
 }

@@ -39,6 +39,7 @@ class ValidatePost extends Validation
         if ($this->constraint->maxLength($name, $value, 45)) {
             return $this->constraint->maxLength('titre', $value, 255);
         }
+        return null;
     }
 
     /**
@@ -54,5 +55,6 @@ class ValidatePost extends Validation
         if ($this->constraint->minLength($name, $value, 2)) {
             return $this->constraint->minLength('message', $value, 2);
         }
+        return null;
     }
 }

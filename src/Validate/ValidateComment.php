@@ -34,5 +34,6 @@ class ValidateComment extends Validation
         if ($this->constraint->minLength($name, $value, 2)) {
             return $this->constraint->minLength('Message', $value, 2);
         }
+        return null;
     }
 }

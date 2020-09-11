@@ -6,6 +6,7 @@ use Blog\Config\Session;
 use Blog\Manager\CommentManager;
 use Blog\Manager\PostManager;
 use Blog\Manager\UserManager;
+use Blog\Tools\HashPassword;
 use Blog\Validate\Validation;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -28,6 +29,7 @@ abstract class Controller
     protected $user;
     protected $session;
     protected $validation;
+    protected $hash;
 
     public function __construct()
     {
@@ -40,6 +42,7 @@ abstract class Controller
         $this->session = Session::getInstance();
         $this->twig->addGlobal('session', $this->session);
         $this->validation = new Validation();
+        $this->hash = new HashPassword();
     }
 
     /**
@@ -84,6 +87,11 @@ abstract class Controller
     public function userNameIsUniq($username)
     {
         return !$this->user->checkUserName($username);
+    }
+
+    protected function hashPassword($password)
+    {
+        return $this->hash->hash($password);
     }
 
 }

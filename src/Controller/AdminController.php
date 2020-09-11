@@ -187,7 +187,7 @@ class AdminController extends Controller
         if ($this->session->getSession('connected')) {
             $errors = $this->validation->validate($update, 'password');
             if (!$errors) {
-                $update['password'] = password_hash($update['password'], PASSWORD_DEFAULT);
+                $update['password'] = $this->hashPassword($update['password']);
                 $this->user->updatePassword($update);
                 $this->session->setSession('confirm', 'Votre mot de passe a été mis à jour.');
                 $this->session->setSession('history', $_SERVER['HTTP_REFERER']);

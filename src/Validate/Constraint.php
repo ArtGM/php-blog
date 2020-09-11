@@ -18,6 +18,7 @@ class Constraint
         if (empty($value)) {
             return 'Le champ ' . $name . ' saisi est vide';
         }
+        return null;
     }
 
     /**
@@ -31,6 +32,7 @@ class Constraint
         if (strlen($value) < $minSize) {
             return 'Le champ ' . $name . ' doit contenir au moins ' . $minSize . ' caractères';
         }
+        return null;
     }
 
     /**
@@ -44,6 +46,7 @@ class Constraint
         if (strlen($value) > $maxSize) {
             return 'Le champ ' . $name . ' doit contenir au maximum ' . $maxSize . ' caractères';
         }
+        return null;
     }
 
     /**
@@ -57,5 +60,6 @@ class Constraint
         if (!preg_match($regex, $value)) {
             return 'veuillez entrer un ' . $name . ' valide.';
         }
+        return null;
     }
 }

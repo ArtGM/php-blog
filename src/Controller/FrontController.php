@@ -86,7 +86,7 @@ class FrontController extends Controller
                 $pseudo = ['exist' => 'ce pseudo est déjà pris.'];
                 $this->render('/front/register.html.twig', ['pseudo' => $pseudo]);
             } else {
-                $newUser['password'] = password_hash($newUser['password'], PASSWORD_DEFAULT);
+                $newUser['password'] = $this->hashPassword($newUser['password']);
                 $this->user->createNewUser($newUser);
                 $this->session->setSession('confirm', 'Compte Créé !');
                 $this->session->setSession('history', $_SERVER['HTTP_REFERER']);

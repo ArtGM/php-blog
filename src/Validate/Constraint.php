@@ -4,7 +4,7 @@ namespace Blog\Validate;
 
 /**
  * Class Constraint
- * @package Blog\src\Validate
+ * @package Blog\Validate
  */
 class Constraint
 {

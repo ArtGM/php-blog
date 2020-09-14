@@ -4,7 +4,7 @@ namespace Blog\Validate;
 
 /**
  * Class ValidateUser
- * @package Blog\src\Validate
+ * @package Blog\Validate
  */
 class ValidateUser extends Validation
 {

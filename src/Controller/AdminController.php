@@ -33,7 +33,6 @@ class AdminController extends Controller
     public function runDashboard()
     {
         if ($this->checkAdmin()) {
-            var_dump($_SESSION);
             $this->render('admin/dashboard.html.twig');
         }
     }
@@ -177,7 +176,6 @@ class AdminController extends Controller
                     header('Location:/');
                 }
             } else {
-                var_dump($update);
                 $this->render('/admin/edit_profile.html.twig', ['user' => $update, 'errors' => $errors]);
             }
         }

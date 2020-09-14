@@ -136,5 +136,4 @@ class Validation
         }
         return $validate;
     }
-
 }

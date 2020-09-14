@@ -149,29 +149,12 @@ class FrontController extends Controller
      */
     public function contactForm($contactInfo)
     {
-
-        //TODO: Refactoring
         $errors = $this->validation->validate($contactInfo, 'contact');
         if (!$errors) {
+
             $admin_info = $this->user->getAdmin();
-
-            $transport = new Swift_SmtpTransport(MAIL_HOST, SMTP_PORT, 'ssl');
-            $transport->setUsername(AUTH);
-            $transport->setPassword(PASS);
-
-            $mailer = new Swift_Mailer($transport);
-
-            $message = new Swift_Message('Contact via Blog');
-            $message->setFrom([
-                $contactInfo['email'] => $contactInfo['name'],
-            ])->setTo([
-                $admin_info->getEmail() => $admin_info->getUsername()
-            ])->setBody(
-                $this->twig->render('/front/email.html.twig', ['message' => $contactInfo]),
-                'text/html'
-            );
-
-            $success = $mailer->send($message);
+            $message = $this->createEmailMessage($contactInfo, $admin_info);
+            $success = $this->setMailConfig()->send($message);
 
             if ($success) {
                 $this->session->setSession('confirm', 'Message envoyé');
@@ -183,5 +166,42 @@ class FrontController extends Controller
             $this->session->setSession('error', 'veuillez remplir tout les champs');
             header('Location:/');
         }
+    }
+
+    /**
+     * @param $from
+     * @param $to
+     * @return Swift_Message
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    private function createEmailMessage($from, $to)
+    {
+        $message = new Swift_Message('Contact via Blog');
+
+        $toMail = $to->getEmail();
+        $toName = $to->getUsername();
+
+        return $message->setFrom([
+            $from['email'] => $from['name'],
+        ])->setTo([
+            $toMail => $toName
+        ])->setBody(
+            $this->twig->render('/front/email.html.twig', ['message' => $from]),
+            'text/html'
+        );
+    }
+
+    /**
+     * @return Swift_Mailer
+     */
+    private function setMailConfig()
+    {
+        $transport = new Swift_SmtpTransport(MAIL_HOST, SMTP_PORT, 'ssl');
+        $transport->setUsername(AUTH);
+        $transport->setPassword(PASS);
+
+        return new Swift_Mailer($transport);
     }
 }

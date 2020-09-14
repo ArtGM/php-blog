@@ -11,24 +11,10 @@ class Validation
 {
     protected $constraint;
     protected $errors = [];
-    protected $comment;
-    protected $contact;
-    protected $login;
-    protected $pass;
-    protected $post;
-    protected $register;
-    protected $user;
 
     public function __construct()
     {
         $this->constraint = new Constraint();
-        $this->contact = new ValidateContact();
-        $this->login = new ValidateLogin();
-        $this->comment = new ValidateComment();
-        $this->pass = new ValidatePass();
-        $this->post = new ValidatePost();
-        $this->register = new ValidateRegister();
-        $this->user = new ValidateUser();
     }
 
     /**
@@ -120,25 +106,32 @@ class Validation
         $validate = null;
         switch ($name) {
             case 'post':
-                $validate = $this->post->check($data);
+                $articleValidation = new ValidatePost();
+                $validate = $articleValidation->check($data);
                 break;
             case 'register':
-                $validate = $this->register->check($data);
+                $registerValidation = new ValidateRegister();
+                $validate = $registerValidation->check($data);
                 break;
             case 'login':
-                $validate = $this->login->check($data);
+                $loginValidation = new ValidateLogin();
+                $validate = $loginValidation->check($data);
                 break;
             case 'comment':
-                $validate = $this->comment->check($data);
+                $loginValidation = new ValidateComment();
+                $validate = $loginValidation->check($data);
                 break;
             case 'update':
-                $validate = $this->user->check($data);
+                $loginValidation = new ValidateUser();
+                $validate = $loginValidation->check($data);
                 break;
             case 'password':
-                $validate = $this->pass->check($data);
+                $passValidation = new ValidatePass();
+                $validate = $passValidation->check($data);
                 break;
             case 'contact':
-                $validate = $this->contact->check($data);
+                $contactValidation = new ValidateContact();
+                $validate = $contactValidation->check($data);
                 break;
         }
         return $validate;

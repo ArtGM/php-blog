@@ -64,7 +64,7 @@ class ComposerStaticInitbc6bfe8ecdb438b0cecfdd9826dfd876
         ),
         'B' => 
         array (
-            'Blog\\src\\' => 9,
+            'Blog\\' => 5,
         ),
     );
 
@@ -147,7 +147,7 @@ class ComposerStaticInitbc6bfe8ecdb438b0cecfdd9826dfd876
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
-        'Blog\\src\\' => 
+        'Blog\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

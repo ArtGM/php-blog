@@ -4,4 +4,4 @@ vendor/
 .php_cs.cache
 src/view/
 public/node_modules/
-/src/config/mail-cfg.php
+/src/Config/mail-cfg.php

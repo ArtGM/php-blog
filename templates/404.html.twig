@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <section>
-        <h1>Page Non trouvée</h1>
-        <a href="/">Retour à l'accueil</a>
+    <section class="notfound">
+        <div class="content-console">
+            <div class="browser-bar-console">
+                <span class="close-console button-console"></span>
+                <span class="min-console button-console"></span>
+                <span class="max-console button-console"></span>
+            </div>
+            <div class="text-console"></div>
+        </div>
     </section>
-    </main>
 {% endblock %}

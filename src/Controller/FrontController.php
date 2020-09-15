@@ -204,4 +204,9 @@ class FrontController extends Controller
 
         return new Swift_Mailer($transport);
     }
+
+    public function notFound()
+    {
+        $this->render('404.html.twig');
+    }
 }

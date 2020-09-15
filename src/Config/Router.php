@@ -123,7 +123,7 @@ class Router
                 header("Location:" . $_SERVER['HTTP_REFERER']);
                 break;
             default:
-                header("HTTP/1.0 404 Not Found");
+                $this->front->notFound();
         }
     }
 }

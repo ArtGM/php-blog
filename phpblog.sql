@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `post`
 
 INSERT INTO `post` (`id`, `title`, `content`, `status`, `created_at`, `updated_at`, `post_type`, `user_id`,
                     `user_roles_id`)
-VALUES (1, 'Bonjour tout le monde_', 'Ceci est un nouveau post créé à l\'installation', 1, '',
+VALUES (1, 'Bonjour tout le monde !', 'Ceci est un nouveau post créé à l\'installation', 1, '',
         '', '1', 1, 1);
 
 -- --------------------------------------------------------
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password`, `roles_id`)
-VALUES (1, 'Admin', 'admin@email.com', '1234', 1);
+VALUES (1, 'Admin', 'admin@email.com', '$2y$10$/HpSuWQztTUUB.HL7zccferIZHAmKpzGNEGCG.o/LNqpD/uh6X/MO', 1);
 
 --
 -- Contraintes pour les tables déchargées

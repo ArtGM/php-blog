@@ -115,12 +115,6 @@ VALUES (1, 'Admin', 'admin@email.com', '1234', 1);
 --
 
 --
--- Contraintes pour la table `post`
---
-ALTER TABLE `post`
-    ADD CONSTRAINT `fk_post_users1` FOREIGN KEY (`user_id`, `user_roles_id`) REFERENCES `user` (`id`, `roles_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Contraintes pour la table `post_comment`
 --
 ALTER TABLE `post_comment`

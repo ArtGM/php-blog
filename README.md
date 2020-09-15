@@ -1,4 +1,4 @@
-# Blog 
+# Simple PHP Blog [![Maintainability](https://api.codeclimate.com/v1/badges/237966c2d47dd50e997b/maintainability)](https://codeclimate.com/github/ArtGM/php-blog/maintainability)
 
 a little MVC Blog:
 
@@ -6,6 +6,10 @@ a little MVC Blog:
 - Comment
 - User
 
-Template language with Twig, frontend probably with Scss, Bootstrap and webpack
+##Installation
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/237966c2d47dd50e997b/maintainability)](https://codeclimate.com/github/ArtGM/php-blog/maintainability)
+- Step 1: Clone this repo
+- Step 2: Create a MySql Database
+- Step 3: Import the phpblog.sql file into the database 
+
+

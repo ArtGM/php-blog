@@ -24,15 +24,15 @@
             <tbody>
             {% for post in list_posts %}
                 <tr>
-                    <td>{{ post.id }}</td>
-                    <td>{{ post.title }}</td>
-                    <td>{{ post.createdAt | format_datetime('medium', 'none', locale='fr') }}</td>
+                    <td>{{ post[0].id }}</td>
+                    <td>{{ post[0].title }}</td>
+                    <td>{{ post[0].createdAt | format_datetime('medium', 'none', locale='fr') }}</td>
                     <td>
-                        <a href="/admin/edit/{{ post.id }}-{{ post.Slug() }}">
+                        <a href="/admin/edit/{{ post[0].id }}-{{ post[0].Slug() }}">
                             <strong>Modifier</strong>
                         </a>
                         <br>
-                        <a href="/admin/delete/{{ post.id }}">
+                        <a href="/admin/delete/{{ post[0].id }}">
                             supprimer
                         </a>
                     </td>

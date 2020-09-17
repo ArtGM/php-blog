@@ -63,7 +63,7 @@ class FrontController extends Controller
             echo $this->twig->render('404.html.twig');
         }
 
-        $user = $this->user->getUserById($get_the_id);
+        $user = $this->user->getUserById($single[0]->getUserId());
         $author[] = $user->getUsername();
         $comments = $this->comment->getComment($post_id);
         $userConnected = [

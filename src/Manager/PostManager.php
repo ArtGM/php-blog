@@ -18,16 +18,19 @@ class PostManager extends Manager
      */
     public function getPosts($id = null, $is_admin = false)
     {
-        $query = $is_admin ? 'SELECT * FROM post' : 'SELECT * FROM post INNER JOIN user WHERE user.id = post.user_id AND status = 1';
+        $query = $is_admin ? 'SELECT * FROM post' : 'SELECT * FROM post WHERE status = 1';
 
         if (is_null($id)) {
             $fetch_posts = $this->db->query($query);
             $array_all_posts = $fetch_posts->fetchAll($this->fetch_style);
             foreach ($array_all_posts as $post) {
-
                 $new_post = new Post($post);
+                $user_query = 'SELECT username FROM user WHERE id = ?';
+                $fetch_author = $this->db->prepare($user_query);
+                $fetch_author->execute([$new_post->getUserId()]);
+                $author = $fetch_author->fetch($this->fetch_style);
                 $excerpt = substr($new_post->getContent(), 0, 30);
-                $author = new User($post);
+
                 $all_posts[] = [$new_post, $author, $excerpt];
             }
             if (!empty($all_posts)) {

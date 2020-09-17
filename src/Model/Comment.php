@@ -13,6 +13,8 @@ class Comment extends Model
     private $createTime;
     private $userName;
     private $postTitleComment;
+    private $commentStatusId;
+
     /**
      * @var mixed
      */
@@ -88,7 +90,15 @@ class Comment extends Model
      */
     public function setComment_status_id($commentStatusId): void
     {
-        $commentStatusId1 = $commentStatusId;
+        $this->commentStatusId = $commentStatusId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCommentStatusId()
+    {
+        return $this->commentStatusId;
     }
 
     /**

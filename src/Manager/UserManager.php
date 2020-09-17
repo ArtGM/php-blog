@@ -65,9 +65,9 @@ class UserManager extends Manager
         $fetch_user->execute(array_values([$username]));
         $isExist = $fetch_user->fetchColumn();
         if ($isExist > 0) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**

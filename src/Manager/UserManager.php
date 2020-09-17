@@ -64,10 +64,7 @@ class UserManager extends Manager
         $fetch_user = $this->db->prepare("SELECT COUNT(username) FROM user WHERE username = ?");
         $fetch_user->execute(array_values([$username]));
         $isExist = $fetch_user->fetchColumn();
-        if ($isExist > 0) {
-            return true;
-        }
-        return false;
+        return $isExist > 0;
     }
 
     /**
@@ -79,10 +76,7 @@ class UserManager extends Manager
         $fetch_mail = $this->db->prepare("SELECT COUNT(email) FROM user WHERE email = ?");
         $fetch_mail->execute(array_values([$email]));
         $uniqEmail = $fetch_mail->fetchColumn();
-        if ($uniqEmail > 0) {
-            return true;
-        }
-        return false;
+        return $uniqEmail > 0;
     }
 
     /**

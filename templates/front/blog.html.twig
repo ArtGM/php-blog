@@ -17,9 +17,11 @@
                     <img src="../../public/assets/images/pic01.jpg">
                 </span>
 
-                <a href="/{{ post.id }}-{{ post.Slug() }}">
-                    <h2>{{ post.title }}</h2>
+                <a href="/{{ post[0].id }}-{{ post[0].Slug() }}">
+                    <h2>{{ post[0].title }}</h2>
+                    <p>le <strong><time>{{ post[0].updatedAt | format_datetime('medium', 'none', locale='fr') }}</time></strong><br>par   <strong>{{ post[1].username }}</strong></p></p>
                     <div class="content">
+                        <p>{{ post[2] }}...</p>
                         <p>Lire la suite</p>
                     </div>
                 </a>

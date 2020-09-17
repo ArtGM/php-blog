@@ -57,6 +57,14 @@ class FrontController extends Controller
     public function displaySinglePost($post_id, $errors = [])
     {
         $single[] = $this->post->getPosts($post_id);
+        $get_the_id = $single[0]->getId();
+        if (is_null($get_the_id)) { // return error 404 if post don't exist
+            header("HTTP/1.0 404 Not Found");
+            echo $this->twig->render('404.html.twig');
+        }
+
+        $user = $this->user->getUserById($get_the_id);
+        $author[] = $user->getUsername();
         $comments = $this->comment->getComment($post_id);
         $userConnected = [
             'id' => $this->session->getSession('id'),
@@ -64,12 +72,7 @@ class FrontController extends Controller
             'role' => $this->session->getSession('role'),
             'connected' => $this->session->getSession('connected')
         ];
-
-        if (is_null($single[0]->getId())) { // return error 404 if post don't exist
-            header("HTTP/1.0 404 Not Found");
-            echo $this->twig->render('404.html.twig');
-        }
-        $this->render('/front/single.html.twig', ['post' => $single[0], 'comments' => $comments, 'user' => $userConnected, 'errors' => $errors]);
+        $this->render('/front/single.html.twig', ['post' => $single[0], 'author' => $author, 'comments' => $comments, 'user' => $userConnected, 'errors' => $errors]);
     }
 
     /**
@@ -151,7 +154,6 @@ class FrontController extends Controller
     {
         $errors = $this->validation->validate($contactInfo, 'contact');
         if (!$errors) {
-
             $admin_info = $this->user->getAdmin();
             $message = $this->createEmailMessage($contactInfo, $admin_info);
             $success = $this->setMailConfig()->send($message);

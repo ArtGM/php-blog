@@ -41,7 +41,7 @@
                 <input class="button small" type="submit" id="submit-post" value="Enregistrer">
             </div>
             {% if post.id is empty %}
-                <input id="user-id" type="hidden" name="user_id" value="3"> <!-- TODO: set the logged-in user id  -->
+                <input id="user-id" type="hidden" name="user_id" value="1">
                 <input id="user-role" type="hidden" name="user_role" value="1">
             {% else %}
                 <input id="post-id" type="hidden" name="id" value="{{ post.id }}">

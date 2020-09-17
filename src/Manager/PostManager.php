@@ -3,6 +3,7 @@
 namespace Blog\Manager;
 
 use Blog\Model\Post;
+use Blog\Model\User;
 
 /**
  * Class PostManager
@@ -17,14 +18,17 @@ class PostManager extends Manager
      */
     public function getPosts($id = null, $is_admin = false)
     {
-        $query = $is_admin ? 'SELECT * FROM post' : 'SELECT * FROM post WHERE status = 1';
+        $query = $is_admin ? 'SELECT * FROM post' : 'SELECT * FROM post INNER JOIN user WHERE user.id = post.user_id AND status = 1';
 
         if (is_null($id)) {
             $fetch_posts = $this->db->query($query);
             $array_all_posts = $fetch_posts->fetchAll($this->fetch_style);
             foreach ($array_all_posts as $post) {
+
                 $new_post = new Post($post);
-                $all_posts[] = $new_post;
+                $excerpt = substr($new_post->getContent(), 0, 30);
+                $author = new User($post);
+                $all_posts[] = [$new_post, $author, $excerpt];
             }
             if (!empty($all_posts)) {
                 return $all_posts;

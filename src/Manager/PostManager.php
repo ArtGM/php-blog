@@ -3,6 +3,7 @@
 namespace Blog\Manager;
 
 use Blog\Model\Post;
+use Blog\Model\User;
 
 /**
  * Class PostManager
@@ -24,7 +25,13 @@ class PostManager extends Manager
             $array_all_posts = $fetch_posts->fetchAll($this->fetch_style);
             foreach ($array_all_posts as $post) {
                 $new_post = new Post($post);
-                $all_posts[] = $new_post;
+                $user_query = 'SELECT username FROM user WHERE id = ?';
+                $fetch_author = $this->db->prepare($user_query);
+                $fetch_author->execute([$new_post->getUserId()]);
+                $author = $fetch_author->fetch($this->fetch_style);
+                $excerpt = substr($new_post->getContent(), 0, 30);
+
+                $all_posts[] = [$new_post, $author, $excerpt];
             }
             if (!empty($all_posts)) {
                 return $all_posts;

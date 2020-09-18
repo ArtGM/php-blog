@@ -24,9 +24,9 @@
                 <td>{{ comment.userName }}</td>
                 <td>{{ comment.createTime | date("m F Y") }}</td>
                 <td>{{ comment.postTitleComment }}</td>
-                <td>{% if comment.commentStatusId == '0' %}En Attente {% else %}<strong>Publié</strong>{% endif %}</td>
+                <td>{% if comment.commentStatusId == 0 %}En Attente {% else %}<strong>Publié</strong>{% endif %}</td>
                 <td>
-                    {% if comment.commentStatusId == '1' %}
+                    {% if comment.commentStatusId == 0%}
                         <a href="/admin/approvecomment/{{ comment.id }}"><strong>Approuver</strong></a><br>{% endif %}
                     <a class="delete-comment" href="/admin/deletecomment/{{ comment.id }}">Supprimer</a>
                 </td>

@@ -2,10 +2,11 @@
 
 {% block content %}
     <article>
-        <time>{{ post.createdAt | format_datetime('medium', 'none', locale='fr') }}</time>
+        Dernière modification le <strong><time>{{ post.updatedAt | format_datetime('medium', 'none', locale='fr') }}</time></strong> par   <strong>{{ author[0] }}</strong></p>
         <h1>{{ post.title }}</h1>
         <p>{{ post.content | nl2br }}</p>
     </article>
+    <hr>
     <div>
         <h2>Commentaires :</h2>
         <ul class="alt">

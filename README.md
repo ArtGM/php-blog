@@ -9,7 +9,7 @@ a little MVC Blog:
 ##Installation
 
 - Step 1: Clone this repo
-- Step 2: open on the project root folder and type `` composer install ``
+- Step 2: open a terminal on the project root folder and type `` composer install ``
 - Step 2: Create a MySql Database
 - Step 3: Import the phpblog.sql file into the database
 - Step 4: Set Database credentials in src/Config/config.php
